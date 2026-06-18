@@ -15,7 +15,10 @@ import {
   RefreshCw,
   BookOpen,
   ArrowUpRight,
-  Search
+  Search,
+  CookingPot,
+  ChefHat,
+  Leaf
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { RECIPES_DB } from '@/data/recipes';
@@ -23,26 +26,23 @@ import { BLOG_POSTS_DB } from '@/data/blogs';
 import { useFavorites } from '@/hooks/useFavorites';
 import { toast } from 'react-hot-toast';
 
-// Custom lightweight SVG illustrations for a warm, premium aesthetic
+// Custom lightweight SVG illustrations wrapped in circular badges for visual balance
 const CookingIllustration = () => (
-  <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-16 h-16 text-sage/30 dark:text-sage/20">
-    <path d="M30 40h40v15c0 11-9 20-20 20S30 66 30 55V40z" fill="currentColor" fillOpacity="0.05" />
-    <path d="M50 20v20M40 25v15M60 25v15M30 40H20" />
-    <circle cx="50" cy="75" r="2" fill="currentColor" />
-  </svg>
+  <div className="w-12 h-12 rounded-full bg-sage/10 dark:bg-sage/20 flex items-center justify-center text-sage dark:text-sage-light border border-sage/20 shadow-2xs shrink-0">
+    <CookingPot className="w-5 h-5" />
+  </div>
 );
 
 const BakerIllustration = () => (
-  <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-16 h-16 text-terracotta/20 dark:text-terracotta/10">
-    <path d="M35 60h30v10H35zM32 60c-2-8-2-18 6-22 4-2 6-5 6-9 0-5 5-9 10-9s10 4 10 9c0 4 2 7 6 9 8 4 8 14 6 22H32z" fill="currentColor" fillOpacity="0.05" />
-    <path d="M50 20v10M40 22a8 8 0 0110-3" />
-  </svg>
+  <div className="w-12 h-12 rounded-full bg-terracotta/10 dark:bg-terracotta/20 flex items-center justify-center text-terracotta dark:text-terracotta-light border border-terracotta/20 shadow-2xs shrink-0">
+    <ChefHat className="w-5 h-5" />
+  </div>
 );
 
 const LeafyIllustration = () => (
-  <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-16 h-16 text-sage/35 dark:text-sage/25">
-    <path d="M50 85V25M50 45c8-10 15-8 18-3-5 5-13 3-18 3M50 60c-8-10-15-8-18-3 5 5 13 3 18 3M50 35c10-8 12-18 5-20-8 3-5 15-5 20" fill="currentColor" fillOpacity="0.05" />
-  </svg>
+  <div className="w-12 h-12 rounded-full bg-sage/10 dark:bg-sage/20 flex items-center justify-center text-sage dark:text-sage-light border border-sage/20 shadow-2xs shrink-0">
+    <Leaf className="w-5 h-5" />
+  </div>
 );
 
 export default function HomePage() {
@@ -126,7 +126,7 @@ export default function HomePage() {
   };
 
   return (
-    <main className="w-full flex flex-col pt-0 bg-[#FBF9F4] dark:bg-[#121212] overflow-x-hidden" id="savory-kitchen-blueprint-root">
+    <main className="w-full flex flex-col pt-0 bg-[#FBF9F4] dark:bg-[#121212] overflow-x-hidden" id="savory-kitchen-root">
 
       {/* SECTION 1: EDITORIAL SPLIT HERO (Matches first uploaded layout image) */}
       <section className="relative w-full border-b border-cream-dark/50 dark:border-stone-850 grid grid-cols-1 md:grid-cols-2" id="editorial-hero">
@@ -193,7 +193,7 @@ export default function HomePage() {
                 <button
                   key={keyword}
                   onClick={() => handleSuggestionClick(actualSearchQuery)}
-                  className="px-4 py-1.5 rounded-full border border-cream-dark/80 dark:border-stone-750 text-stone-606 bg-white/60 dark:bg-stone-850/50 hover:bg-white dark:hover:bg-stone-800 text-[10px] sm:text-xs font-sans transition-all cursor-pointer font-medium"
+                  className="px-4 py-2.5 rounded-full border border-cream-dark/80 dark:border-stone-750 text-stone-606 bg-white/60 dark:bg-stone-850/50 hover:bg-white dark:hover:bg-stone-800 text-[10px] sm:text-xs font-sans transition-all cursor-pointer font-medium"
                 >
                   {displayLabel}
                 </button>
@@ -218,12 +218,10 @@ export default function HomePage() {
               </h2>
             </div>
             <CookingIllustration />
-          </div>
-
-          {/* Premium Bento Grid Structure (12 Columns, mathematically synchronized) */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-5 auto-rows-[220px] md:auto-rows-[190px] lg:auto-rows-[215px]">
+                 {/* Premium Bento Grid Structure (12 Columns, responsive and fluid) */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:auto-rows-[190px] lg:auto-rows-[215px]">
             
-            <div className="md:col-span-6 md:row-span-2 bg-[#21352A] rounded-[2rem] p-8 sm:p-12 flex flex-col justify-between text-left text-[#FAF7F2] relative overflow-hidden group shadow-md" id="bento-menu-anchor">
+            <div className="col-span-1 md:col-span-6 md:row-span-2 bg-[#21352A] rounded-[2rem] p-8 sm:p-12 flex flex-col justify-between text-left text-[#FAF7F2] relative overflow-hidden group shadow-md min-h-[220px] md:min-h-0" id="bento-menu-anchor">
               <div className="space-y-4 relative z-10">
                 <span className="font-mono text-[10px] tracking-[0.25em] text-[#A2BCA0] font-bold uppercase block">
                   TODAY'S FEATURE
@@ -248,7 +246,7 @@ export default function HomePage() {
             {/* Bento Item 2: Salad Bowl (Horizontal row 1) */}
             <Link
               href="/recipes/roasted-butternut-sage-buddha"
-              className="md:col-span-3 md:row-span-1 relative rounded-[2rem] overflow-hidden group cursor-pointer shadow-xs border border-cream-dark/40 dark:border-stone-850"
+              className="col-span-1 md:col-span-3 md:row-span-1 relative rounded-[2rem] overflow-hidden group cursor-pointer shadow-xs border border-cream-dark/40 dark:border-stone-850 aspect-[4/3] md:aspect-auto min-h-[160px] md:min-h-0"
             >
               <Image
                 src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800"
@@ -260,7 +258,7 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
               <div className="absolute bottom-4 left-5 text-white text-left">
-                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2]/80 block">Vegetarian</span>
+                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2] font-semibold block">Vegetarian</span>
                 <span className="font-serif font-bold text-sm tracking-tight line-clamp-1">Butternut Buddha Bowl</span>
               </div>
             </Link>
@@ -268,7 +266,7 @@ export default function HomePage() {
             {/* Bento Item 3: Tall Vertical Ramen Bowl (covers height of 2 rows on the right) */}
             <Link
               href="/recipes?q=ramen"
-              className="md:col-span-3 md:row-span-2 relative rounded-[2rem] overflow-hidden group cursor-pointer shadow-md border border-cream-dark/40 dark:border-stone-850"
+              className="col-span-1 md:col-span-3 md:row-span-2 relative rounded-[2rem] overflow-hidden group cursor-pointer shadow-md border border-cream-dark/40 dark:border-stone-850 aspect-[3/4] md:aspect-auto min-h-[280px] md:min-h-0"
             >
               <Image
                 src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&q=80&w=800"
@@ -280,9 +278,9 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
               <div className="absolute bottom-6 left-5 right-5 text-white text-left">
-                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2]/80 block mb-1">Dinner Classic</span>
+                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2] font-semibold block mb-1">Dinner Classic</span>
                 <h4 className="font-serif font-bold text-lg leading-tight tracking-tight mb-2">Comfort Shoyu Ramen Bowl</h4>
-                <span className="font-sans text-[10px] text-white/80 flex items-center gap-1.5">
+                <span className="font-sans text-[10px] text-white flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5 text-sage" /> 30 mins
                 </span>
               </div>
@@ -291,7 +289,7 @@ export default function HomePage() {
             {/* Bento Item 4: Strawberry Whipped Creams (Horizontal row 2) */}
             <Link
               href="/recipes/pistachio-matcha-mille-crepe"
-              className="md:col-span-3 md:row-span-1 relative rounded-[2rem] overflow-hidden group cursor-pointer shadow-xs border border-cream-dark/40 dark:border-stone-850"
+              className="col-span-1 md:col-span-3 md:row-span-1 relative rounded-[2rem] overflow-hidden group cursor-pointer shadow-xs border border-cream-dark/40 dark:border-stone-850 aspect-[4/3] md:aspect-auto min-h-[160px] md:min-h-0"
             >
               <Image
                 src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&q=80&w=800"
@@ -303,7 +301,7 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
               <div className="absolute bottom-4 left-5 text-white text-left">
-                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2]/80 block">Desserts</span>
+                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2] font-semibold block">Desserts</span>
                 <span className="font-serif font-bold text-sm tracking-tight line-clamp-1">Mille-Crêpe Strawberry Parfait</span>
               </div>
             </Link>
@@ -311,7 +309,7 @@ export default function HomePage() {
             {/* Bento Item 5: Cocktails List (Row 3, Left side wide card) */}
             <Link
               href="/recipes/smoked-rosemary-grapefruit-paloma"
-              className="md:col-span-6 md:row-span-1 relative rounded-[2rem] overflow-hidden group cursor-pointer shadow-xs border border-cream-dark/40 dark:border-stone-850"
+              className="col-span-1 md:col-span-6 md:row-span-1 relative rounded-[2rem] overflow-hidden group cursor-pointer shadow-xs border border-cream-dark/40 dark:border-stone-850 aspect-[16/9] md:aspect-auto min-h-[160px] md:min-h-0"
             >
               <Image
                 src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=1200"
@@ -323,7 +321,7 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/15 to-transparent" />
               <div className="absolute bottom-5 left-6 text-white text-left">
-                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2]/80 block mb-0.5">Drinks</span>
+                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2] font-semibold block mb-0.5">Drinks</span>
                 <h4 className="font-serif font-bold text-md sm:text-lg tracking-tight leading-none">Smoked Rosemary Grapefruit Paloma</h4>
               </div>
             </Link>
@@ -331,7 +329,7 @@ export default function HomePage() {
             {/* Bento Item 6: Wood Fired Pizza (Row 3, Right side horizontal card) */}
             <Link
               href="/recipes/heirloom-tomato-burrata-galette"
-              className="md:col-span-6 md:row-span-1 relative rounded-[2rem] overflow-hidden group cursor-pointer shadow-xs border border-cream-dark/40 dark:border-stone-850"
+              className="col-span-1 md:col-span-6 md:row-span-1 relative rounded-[2rem] overflow-hidden group cursor-pointer shadow-xs border border-cream-dark/40 dark:border-stone-850 aspect-[16/9] md:aspect-auto min-h-[160px] md:min-h-0"
             >
               <Image
                 src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&q=80&w=1200"
@@ -343,12 +341,12 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/15 to-transparent" />
               <div className="absolute bottom-5 left-6 text-white text-left">
-                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2]/80 block mb-0.5">Baking</span>
+                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2] font-semibold block mb-0.5">Baking</span>
                 <h4 className="font-serif font-bold text-md sm:text-lg tracking-tight leading-none">Heirloom Tomato & Burrata Galette</h4>
               </div>
             </Link>
 
-          </div>
+          </div>       </div>
 
         </div>
       </section>
@@ -388,7 +386,7 @@ export default function HomePage() {
             {/* Description context body (span 5) */}
             <div className="lg:col-span-5 p-8 sm:p-12 flex flex-col justify-between space-y-6 text-left">
               <div className="space-y-5">
-                <span className="inline-block text-[9px] font-mono font-bold tracking-widest text-white uppercase bg-sage dark:bg-sage/40 px-3 py-1.5 rounded-full">
+                <span className="inline-block text-[9px] font-mono font-bold tracking-widest text-sage-dark dark:text-sage-light uppercase bg-sage/10 dark:bg-sage/20 border border-sage/20 dark:border-sage/10 px-3 py-1.5 rounded-full">
                   #{mainFeature.category} Recipe
                 </span>
                 
@@ -431,7 +429,7 @@ export default function HomePage() {
 
                 <Link
                   href={`/recipes/${mainFeature.slug}`}
-                  className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase text-terracotta dark:text-terracotta-light group-hover:translate-x-1.5 transition-transform duration-300 cursor-pointer"
+                  className="inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-xl border border-terracotta hover:bg-terracotta text-terracotta hover:text-white dark:border-terracotta-light dark:hover:bg-terracotta-light dark:text-terracotta-light dark:hover:text-espresso text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xs cursor-pointer shadow-3xs"
                 >
                   <span>Get the Recipe</span>
                   <ArrowRight className="w-4 h-4" />
@@ -447,7 +445,7 @@ export default function HomePage() {
             {/* Text description (span 5) */}
             <div className="lg:col-span-5 p-8 sm:p-12 order-2 lg:order-1 flex flex-col justify-between space-y-6 text-left">
               <div className="space-y-5">
-                <span className="inline-block text-[9px] font-mono font-bold tracking-widest text-[#FFF] uppercase bg-terracotta px-3 py-1.5 rounded-full">
+                <span className="inline-block text-[9px] font-mono font-bold tracking-widest text-terracotta-dark dark:text-terracotta-light uppercase bg-terracotta/10 dark:bg-terracotta/20 border border-terracotta/20 dark:border-terracotta/10 px-3 py-1.5 rounded-full">
                   #{secondaryFeature.category} Recipe
                 </span>
                 
@@ -490,7 +488,7 @@ export default function HomePage() {
 
                 <Link
                   href={`/recipes/${secondaryFeature.slug}`}
-                  className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase text-terracotta dark:text-terracotta-light group-hover:translate-x-1.5 transition-transform duration-300 cursor-pointer"
+                  className="inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-xl border border-terracotta hover:bg-terracotta text-terracotta hover:text-white dark:border-terracotta-light dark:hover:bg-terracotta-light dark:text-terracotta-light dark:hover:text-espresso text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xs cursor-pointer shadow-3xs"
                 >
                   <span>Get the Recipe</span>
                   <ArrowRight className="w-4 h-4" />

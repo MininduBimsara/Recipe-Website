@@ -34,7 +34,7 @@ export default function FavoritesPage() {
       <div className="w-full min-h-screen py-16 flex items-center justify-center bg-cream-light/25 dark:bg-[#1A1A1A]">
         <div className="flex flex-col items-center gap-3">
           <div className="w-6 h-6 border-2 border-t-terracotta border-cream-dark rounded-full animate-spin" />
-          <span className="font-mono text-xs text-stone-400">Loading collection archives...</span>
+          <span className="font-mono text-xs text-stone-400">Loading your saved recipes...</span>
         </div>
       </div>
     );
@@ -52,7 +52,7 @@ export default function FavoritesPage() {
               className="group inline-flex items-center gap-2 text-xs font-mono font-extrabold uppercase text-stone-505 dark:text-stone-300 hover:text-terracotta dark:hover:text-terracotta-light transition-colors"
             >
               <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              <span>Back to Pantry Board</span>
+              <span>Back to Home</span>
             </Link>
             
             <span className="font-mono text-[10px] text-stone-400 dark:text-stone-550 font-bold uppercase tracking-widest">
@@ -69,7 +69,7 @@ export default function FavoritesPage() {
               My Recipe Book
             </h1>
             <p className="text-stone-550 dark:text-stone-300 text-sm leading-relaxed max-w-xl font-sans">
-              Your handpicked list of bakes, gourmet formulas, and sourdough experiments. Kept private in your browser for instant retrieval in the kitchen.
+              Your handpicked list of favorite recipes. Saved in your browser for quick access in the kitchen.
             </p>
           </div>
         </div>
@@ -86,15 +86,15 @@ export default function FavoritesPage() {
                 Nothing saved yet &mdash; start exploring!
               </h3>
               <p className="text-xs text-stone-500 dark:text-stone-405 leading-relaxed font-sans max-w-md mx-auto">
-                Pin your favorite master formulas, metrics, and case studies while browsing to build your personalized digital bread journal.
+                Pin your favorite recipes while browsing to save them to your personal digital recipe book.
               </p>
             </div>
 
             <Link
-              href="/#recipes-section"
+              href="/recipes"
               className="inline-flex items-center gap-2 px-6 py-3.5 bg-espresso dark:bg-cream hover:bg-terracotta dark:hover:bg-terracotta text-cream dark:text-espresso hover:text-white dark:hover:text-white rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-colors shadow-sm cursor-pointer"
             >
-              <span>Explore Master Recipes</span>
+              <span>Explore Recipes</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

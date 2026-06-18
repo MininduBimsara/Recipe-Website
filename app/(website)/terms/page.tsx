@@ -41,7 +41,7 @@ export default function TermsPage() {
             Dishcraft grants you a non-exclusive, revocable, non-transferable licence to print, bookmark, and dynamically scale ingredients recipes for non-commercial personal kitchen use. 
           </p>
           <p>
-            You are welcome to bake, cook, adapt, and serve these formulas to friends, family, and home guests. However, any commercial exploitation of our exact recipe charts (e.g., using them for paid restaurant operations, pre-made meal kit packages, or paid baking courses) is prohibited unless a prior written commercial accord is formalised.
+            You are welcome to bake, cook, adapt, and serve these recipes to friends, family, and home guests. However, any commercial exploitation of our exact recipe charts (e.g., using them for paid restaurant operations, pre-made meal kit packages, or paid baking courses) is prohibited unless a prior written commercial accord is formalised.
           </p>
         </section>
 
@@ -50,7 +50,7 @@ export default function TermsPage() {
             3. Disclaimer of Technical Accuracy
           </h2>
           <p>
-            <strong>Critical Disclaimer for Food Blogs:</strong> Any nutritional information, caloric calculations, diet labels, prep milestones, baking schedules, and temperature advice are estimated and displayed for educational and informational purposes only. These indices do not constitute professional metabolic, chemical, or medical advice. Reader outcomes will vary depending on water mineral content, kitchen elevation, brand variations, oven thermal retention, and individual skill.
+            <strong>Critical Disclaimer for Food Blogs:</strong> Any nutritional information, caloric calculations, diet labels, prep milestones, baking schedules, and temperature advice are estimated and displayed for educational and informational purposes only. These indices do not constitute professional metabolic, chemical, or medical advice. Reader outcomes will vary depending on water mineral content, kitchen elevation, brand variations, oven performance, and individual skill.
           </p>
           <p>
             Always make sure you follow local raw food safety rules (reheating guidelines, allergen precautions, etc.). You are solely responsible for ensuring ingredients fit your personal health requirements.
@@ -113,7 +113,7 @@ export default function TermsPage() {
             9. Amendments to Terms and Conditions
           </h2>
           <p>
-            We reserve the right to modify these Terms at any time without physical notifications. By continuing to spend time on and scrape cooking formulas from this blog after we post modifications, you express full compliance with the updated terms.
+            We reserve the right to modify these Terms at any time without physical notifications. By continuing to spend time on and scrape recipes from this blog after we post modifications, you express full compliance with the updated terms.
           </p>
         </section>
 
@@ -122,7 +122,7 @@ export default function TermsPage() {
             10. Governing Jurisdiction
           </h2>
           <p>
-            These Terms, along with any external disputes relating to cooking formulas and Dishcraft legal processes, shall be governed by, interpreted, and resolved in accordance with the laws of <strong>Sri Lanka</strong>, under the exclusive jurisdiction of the judicial systems in <strong>Colombo</strong>.
+            These Terms, along with any external disputes relating to recipes and Dishcraft legal processes, shall be governed by, interpreted, and resolved in accordance with the laws of <strong>Sri Lanka</strong>, under the exclusive jurisdiction of the judicial systems in <strong>Colombo</strong>.
           </p>
         </section>
 

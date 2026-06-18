@@ -22,7 +22,7 @@ export default function ContactPage() {
             Let&apos;s talk food
           </h1>
           <p className="font-sans text-sm sm:text-base text-stone-605 dark:text-stone-300">
-            I read every message personally and aim to reply within 48 hours. Let&apos;s collaborate or perfect a recipe formula!
+            I read every message personally and aim to reply within 48 hours. Let&apos;s collaborate or perfect a recipe together!
           </p>
         </div>
 
@@ -50,7 +50,7 @@ export default function ContactPage() {
                 </a>
               </div>
               <p className="text-xs text-stone-500 dark:text-stone-400 pl-13 leading-relaxed">
-                For rapid recipe questions, baking ratios, collaborations, or high-fidelity media publications.
+                For recipe questions, collaborations, or media inquiries.
               </p>
             </div>
 
@@ -70,7 +70,7 @@ export default function ContactPage() {
                 </span>
               </div>
               <p className="text-xs text-stone-500 dark:text-stone-400 pl-13 leading-relaxed">
-                I test recipes and shoot bento-layout galleries during the week, but checking the digital postbox is part of my morning routine.
+                I test recipes and take photos during the week, but checking my email is part of my morning routine.
               </p>
             </div>
 
@@ -92,7 +92,7 @@ export default function ContactPage() {
                 </li>
                 <li className="flex items-center gap-2.5">
                   <ShieldCheck className="w-4 h-4 text-sage shrink-0" />
-                  <span>Digital cooking course and editorial press enquiries</span>
+                  <span>Press and editorial inquiries</span>
                 </li>
                 <li className="flex items-center gap-2.5">
                   <Heart className="w-4 h-4 text-terracotta shrink-0" />

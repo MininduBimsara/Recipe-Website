@@ -123,13 +123,13 @@ function SearchPageContent() {
       const data = await response.json();
       if (data.suggestions) {
         setAiSuggestions(data.suggestions);
-        toast.success(`Gemini synthesized 3 inspirations for "${debouncedQuery}"! ✨`);
+        toast.success(`Found 3 recipe suggestions for "${debouncedQuery}"! ✨`);
       } else {
-        toast.error('Could not construct suggestions payload.');
+        toast.error('Could not construct suggestions.');
       }
     } catch (error: any) {
       console.error(error);
-      toast.error('Failure coordinating with Gemini endpoint node.');
+      toast.error('Could not connect to the recipe server.');
     } finally {
       setLoadingAi(false);
     }
@@ -241,7 +241,7 @@ function SearchPageContent() {
 
                           {/* Content summary */}
                           <div className="flex-1 space-y-1">
-                            <span className="text-[8px] font-mono font-bold tracking-widest text-[#D4704A] bg-terracotta/10 px-1.5 py-0.5 rounded">
+                            <span className="text-[8px] font-mono font-bold tracking-widest text-terracotta-dark dark:text-terracotta-light bg-terracotta/10 dark:bg-terracotta/20 border border-terracotta/20 dark:border-terracotta/10 px-1.5 py-0.5 rounded">
                               {recipe.category}
                             </span>
                             <h3 className="font-serif font-bold text-sm sm:text-base text-espresso dark:text-cream group-hover:text-terracotta transition-colors pt-0.5 leading-snug">
@@ -304,7 +304,7 @@ function SearchPageContent() {
 
                           {/* Details details */}
                           <div className="flex-1 space-y-1">
-                            <span className="text-[8px] font-mono font-bold tracking-widest text-[#7C9A7E] bg-sage/10 px-1.5 py-0.5 rounded">
+                            <span className="text-[8px] font-mono font-bold tracking-widest text-sage-dark dark:text-sage-light bg-sage/10 dark:bg-sage/20 border border-sage/20 dark:border-sage/10 px-1.5 py-0.5 rounded">
                               {post.category}
                             </span>
                             <h3 className="font-serif font-bold text-sm sm:text-base text-espresso dark:text-cream group-hover:text-terracotta transition-colors pt-0.5 leading-snug">
@@ -455,7 +455,7 @@ function SearchPageFallback() {
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-center p-12 space-y-4">
       <div className="w-10 h-10 border-4 border-terracotta border-t-transparent rounded-full animate-spin" />
-      <span className="font-mono text-xs text-stone-405">Loading Catalog Engine...</span>
+      <span className="font-mono text-xs text-stone-405">Loading search...</span>
     </div>
   );
 }

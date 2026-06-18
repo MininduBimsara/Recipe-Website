@@ -76,8 +76,8 @@ export default function RecipeCard({ recipe, onSelect }: RecipeCardProps) {
           blurDataURL={getBlurDataURL(recipe.image)}
         />
 
-        {/* Dynamic Glassmorphism Category Badge (top-left) */}
-        <span className="absolute top-4 left-4 text-[10px] font-mono font-bold tracking-widest uppercase px-3 py-1.5 rounded-full bg-white/20 dark:bg-[#1A1A1A]/30 backdrop-blur-md text-espresso-dark dark:text-white border border-white/10 dark:border-white/5 shadow-xs">
+        {/* Solid Category Badge for accessibility contrast (top-left) */}
+        <span className="absolute top-4 left-4 text-[9px] font-mono font-bold tracking-widest uppercase px-3 py-1.5 rounded-full bg-white/90 dark:bg-stone-900/95 text-espresso dark:text-cream border border-cream-dark dark:border-stone-800 shadow-sm">
           {recipe.category}
         </span>
 

@@ -41,7 +41,7 @@ export default function PrivacyPolicyPage() {
             Dishcraft follows a standard procedure of using log files. These files log visitors when they navigate websites. All hosting providers perform this as a part of standard analytics tracking and modern security audits. 
           </p>
           <p>
-            The information collected by log files includes Internet Protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamps, referring/exit pages, and optionally the number of clicks. These metrics are completely decoupled from any personally identifiable information and are strictly analysed to diagnose server thermal spikes, layout performance issues, and general site administration.
+            The information collected by log files includes Internet Protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamps, referring/exit pages, and optionally the number of clicks. These metrics are completely decoupled from any personally identifiable information and are strictly analysed to monitor website performance, troubleshoot server errors, and manage general site administration.
           </p>
         </section>
 
@@ -62,7 +62,7 @@ export default function PrivacyPolicyPage() {
             4. Google AdSense & Monetisation
           </h2>
           <p>
-            We use Google AdSense as an advertising provider to display relevant programmatic commercials to our readers. AdSense serves as a core financing factor enabling us to test premium flours, spices, and develop high-resolution visual recipe charts free of charge.
+            We use Google AdSense as an advertising provider to display relevant programmatic commercials to our readers. AdSense helps support the site so we can continue creating new recipes and guides free of charge.
           </p>
           <p>
             Google AdSense may deploy DART cookies to index page coordinates and serve appropriate ad placements based on your internet footprint. AdSense operates as an autonomous data collection agent in this capacity. To learn more about how Google safeguards and utilizes web parameters when you browse Dishcraft, you can read their official partner site policy guidelines at: <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer" className="hover:text-terracotta underline">https://policies.google.com/technologies/partner-sites</a>.
@@ -74,7 +74,7 @@ export default function PrivacyPolicyPage() {
             5. Google Analytics Services
           </h2>
           <p>
-            We leverage Google Analytics as an underlying service framework to monitor and measure performance traffic. Google Analytics deposits cookies on your browser to measure key engagement structures, such as total time spent scaling recipe formulas, specific seasonal boards explored, and country footprints. This helps us ensure that our technical rendering resources are optimised for real demand.
+            We leverage Google Analytics as an underlying service framework to monitor and measure performance traffic. Google Analytics deposits cookies on your browser to measure how visitors interact with our site, such as pages visited and time spent on recipes. This helps us improve our content and layout.
           </p>
           <p>
             All gathered metrics exist purely as aggregated, anonymized trends. You may opt out of this system by installing the official Google Analytics Opt-out Browser Add-on in your active browser client.

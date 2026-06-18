@@ -68,13 +68,13 @@ export default function AboutPage() {
               My journey in the kitchen didn&apos;t start in a pristine culinary institute. It began right at home, surrounded by the warm, earthy aromas of cardamoms, cinnamon spice blends, and the daily rhythm of pan-searing. Moving into my own kitchen, I realized that cooking at home should feel like an enriching act of craft, rather than a frantic exercise. 
             </p>
             <p>
-              I started <strong>Dishcraft</strong> in 2025 because I got tired of recipe websites cluttered with auto-generated content and unreliable guides. Out of that frustration, this digital catalog was born—a pristine archive where heirloom baking ratios, flour hydration scales, and artisanal thermal techniques are meticulously documented and made accessible to everyone.
+              I started <strong>Dishcraft</strong> in 2025 because I got tired of recipe websites cluttered with auto-generated content and unreliable guides. Out of that frustration, this digital catalog was born—a reliable place where simple ingredients, clear cooking guides, and time-tested methods are carefully explained and made accessible to everyone.
             </p>
             <p>
-              Whether you are an aspiring baker aiming for that perfect bubbly crumb structure or a busy professional preparing comforting table-side meals, I write with you in mind. No restaurant secrets are locked away in gatekeeping courses. Everything is laid out transparently and structured clearly for dynamic scaling.
+              Whether you are an aspiring baker aiming for that perfect bubbly bread structure or a busy professional preparing comforting weeknight meals, I write with you in mind. No secrets are locked away in gatekeeping courses. Everything is laid out transparently and structured clearly for easy scaling.
             </p>
             <p>
-              And to share a quick kitchen disaster story that keeps me humble: I once accidentally baked a premium artisanal levain loaf with three tablespoons of active citric acid instead of salt. Let&apos;s just say, wild yeast does not enjoy a sour environment that intense!
+              And to share a quick kitchen disaster story that keeps me humble: I once accidentally baked a loaf of bread with three tablespoons of sugar instead of salt. Let&apos;s just say, it didn&apos;t taste very savory!
             </p>
           </div>
 

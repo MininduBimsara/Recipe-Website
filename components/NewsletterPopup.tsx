@@ -18,11 +18,11 @@ export default function NewsletterPopup() {
     const alreadyShown = sessionStorage.getItem('rf_newsletter_shown');
     if (alreadyShown === 'true') return;
 
-    // Trigger popup after exactly 30 seconds
+    // Trigger popup after exactly 45 seconds
     const timer = setTimeout(() => {
       setIsOpen(true);
       sessionStorage.setItem('rf_newsletter_shown', 'true');
-    }, 30000); // 30000ms = 30 seconds
+    }, 45000); // 45000ms = 45 seconds
 
     return () => clearTimeout(timer);
   }, []);
@@ -46,7 +46,7 @@ export default function NewsletterPopup() {
 
       if (data.success) {
         setSubscribed(true);
-        toast.success('Gourmet formula subscription complete! 📬', {
+        toast.success('Welcome to our newsletter! 📬', {
           id: 'newsletter-toast',
         });
         // Auto-close after 3 seconds on success
@@ -107,7 +107,7 @@ export default function NewsletterPopup() {
                     You Are Signed Up!
                   </h3>
                   <p className="text-xs text-stone-500 dark:text-stone-400 font-sans leading-relaxed">
-                    Check your inbox soon for your initial volume of formula cards, sourdough metrics, and seasonal features.
+                    Check your inbox soon for fresh recipes, cooking tips, and seasonal ideas.
                   </p>
                 </div>
               </div>
@@ -116,7 +116,7 @@ export default function NewsletterPopup() {
                 <div className="space-y-2">
                   <div className="inline-flex items-center gap-1 bg-terracotta/15 px-2.5 py-1 rounded-full text-[10px] font-mono text-terracotta dark:text-terracotta-light font-bold uppercase tracking-widest">
                     <Mail className="w-3.5 h-3.5" />
-                    <span>Savory Gazette</span>
+                    <span>Kitchen Newsletter</span>
                   </div>
                   <h3 className="font-serif font-bold text-2xl text-espresso dark:text-cream leading-tight">
                     Get weekly recipes in your inbox
@@ -124,7 +124,7 @@ export default function NewsletterPopup() {
                 </div>
 
                 <p className="text-xs text-stone-700 dark:text-stone-300 font-sans leading-relaxed">
-                  Join our list of amateur and professional bakers. Receive weekly recipes, heritage sourdough tips, and culinary chronicles direct from Alexandre's editorial kitchen. No advertising, ever.
+                  Join our list of home cooks. Receive weekly recipes, quick weeknight dinner ideas, and helpful kitchen tips direct to your inbox.
                 </p>
 
                 <form onSubmit={handleSubmit} className="space-y-3">
@@ -133,7 +133,7 @@ export default function NewsletterPopup() {
                       type="email"
                       required
                       disabled={isLoading}
-                      placeholder="Enter your baking email address..."
+                      placeholder="Enter your email address..."
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="w-full bg-white dark:bg-[#150A05] border border-cream-dark dark:border-stone-800 text-stone-800 dark:text-cream text-xs rounded-xl pl-4 pr-12 py-3.5 focus:outline-none focus:border-terracotta transition-colors"

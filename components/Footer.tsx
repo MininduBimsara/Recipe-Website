@@ -63,14 +63,14 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-[#1A1613] text-[#F3ECE4] border-t border-[#D4704A]/25 pt-16 pb-12 px-6 print:hidden font-sans overflow-hidden" id="global-footer">
+    <footer className="relative bg-gradient-to-br from-[#FCFAF7] to-[#F5EFE6] dark:from-stone-900 dark:to-stone-950 text-stone-600 dark:text-[#FAF7F2]/90 border-t border-cream-dark dark:border-stone-850 pt-16 pb-12 px-6 print:hidden font-sans overflow-hidden" id="global-footer">
       {/* Ambient background glow */}
-      <div className="absolute top-0 left-1/4 w-[400px] h-[200px] bg-[#D4704A]/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-[400px] h-[200px] bg-terracotta/5 dark:bg-terracotta/5 rounded-full blur-[100px] pointer-events-none" />
       
       <div className="max-w-6xl mx-auto space-y-12 relative z-10">
         
         {/* Top: Brand info and Newsletter side by side */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start pb-10 border-b border-stone-850">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start pb-10 border-b border-cream-dark dark:border-stone-800">
           
           {/* Brand Info */}
           <div className="space-y-4 text-left">
@@ -78,11 +78,11 @@ export default function Footer() {
               <span className="w-8 h-8 rounded-full bg-terracotta text-white flex items-center justify-center font-serif font-black text-sm">
                 S
               </span>
-              <span className="font-serif font-bold text-lg text-white tracking-tight">
+              <span className="font-serif font-bold text-lg text-espresso dark:text-cream tracking-tight">
                 Savory Kitchen
               </span>
             </div>
-            <p className="text-[#BEB4A8] text-xs leading-relaxed max-w-sm">
+            <p className="text-stone-500 dark:text-stone-400 text-xs leading-relaxed max-w-sm">
               We share simple, tested recipes and warm cooking guides to help home cooks create delicious meals with confidence. No complicated kitchen science, just good food.
             </p>
             
@@ -92,7 +92,7 @@ export default function Footer() {
                 href="https://pinterest.com/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-lg bg-[#221A15] border border-stone-800 flex items-center justify-center text-[#BEB4A8] hover:text-white hover:bg-[#E60023] hover:border-transparent transition-all cursor-pointer shadow-xs"
+                className="w-8 h-8 rounded-lg bg-white dark:bg-stone-850 border border-cream-dark dark:border-stone-800 flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-white hover:bg-[#E60023] hover:border-transparent transition-all cursor-pointer shadow-xs"
                 title="Pinterest"
               >
                 <PinterestIcon className="w-3.5 h-3.5 fill-current" />
@@ -101,7 +101,7 @@ export default function Footer() {
                 href="https://instagram.com/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-lg bg-[#221A15] border border-stone-800 flex items-center justify-center text-[#BEB4A8] hover:text-white hover:bg-gradient-to-tr hover:from-[#f9ce3f] hover:via-[#e1306c] hover:to-[#833ab4] hover:border-transparent transition-all cursor-pointer shadow-xs"
+                className="w-8 h-8 rounded-lg bg-white dark:bg-stone-850 border border-cream-dark dark:border-stone-800 flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-white hover:bg-gradient-to-tr hover:from-[#f9ce3f] hover:via-[#e1306c] hover:to-[#833ab4] hover:border-transparent transition-all cursor-pointer shadow-xs"
                 title="Instagram"
               >
                 <InstagramIcon className="w-3.5 h-3.5" />
@@ -110,18 +110,18 @@ export default function Footer() {
                 href="https://tiktok.com/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-lg bg-[#221A15] border border-stone-800 flex items-center justify-center text-[#BEB4A8] hover:text-white hover:bg-black hover:border-transparent transition-all cursor-pointer shadow-xs"
+                className="w-8 h-8 rounded-lg bg-white dark:bg-stone-850 border border-cream-dark dark:border-stone-800 flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-white hover:bg-black hover:border-transparent transition-all cursor-pointer shadow-xs"
                 title="TikTok"
               >
                 <TikTokIcon className="w-3.5 h-3.5 fill-current" />
               </a>
             </div>
           </div>
-
+ 
           {/* Newsletter Form */}
           <div className="space-y-4 text-left md:pl-6">
-            <h4 className="font-serif font-bold text-sm text-white">Join Our Kitchen Newsletter</h4>
-            <p className="text-[#BEB4A8] text-xs leading-relaxed max-w-sm">
+            <h4 className="font-serif font-bold text-sm text-espresso dark:text-cream">Join Our Kitchen Newsletter</h4>
+            <p className="text-stone-500 dark:text-stone-400 text-xs leading-relaxed max-w-sm">
               Subscribe to get fresh recipes, seasonal cooking ideas, and kitchen tips delivered straight to your inbox weekly.
             </p>
             <form onSubmit={handleSubscribe} className="max-w-sm">
@@ -133,12 +133,12 @@ export default function Footer() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your email address..."
                   disabled={subscribed}
-                  className="w-full bg-[#27211C] border border-[#3E342B] focus:border-[#D4704A] text-white placeholder-[#8B7C72] text-xs rounded-xl px-4 py-3 pr-12 focus:outline-none transition-colors"
+                  className="w-full bg-white dark:bg-stone-800 border border-cream-dark dark:border-stone-700 focus:border-terracotta dark:focus:border-terracotta text-espresso dark:text-cream placeholder-stone-400 dark:placeholder-stone-500 text-xs rounded-xl px-4 py-3 pr-12 focus:outline-none transition-colors shadow-2xs"
                 />
                 <button
                   type="submit"
                   disabled={isSubmitting || subscribed}
-                  className="absolute right-2 p-1.5 text-[#BEB4A8] hover:text-white disabled:opacity-40 transition-colors cursor-pointer"
+                  className="absolute right-2 p-1.5 text-stone-400 dark:text-stone-500 hover:text-terracotta dark:hover:text-terracotta disabled:opacity-40 transition-colors cursor-pointer"
                   title="Subscribe"
                 >
                   <Send className={`w-3.5 h-3.5 ${isSubmitting ? 'animate-pulse' : ''}`} />
@@ -151,23 +151,23 @@ export default function Footer() {
               )}
             </form>
           </div>
-
+ 
         </div>
-
+ 
         {/* Bottom links and copyright */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-4 text-xs text-[#BEB4A8]">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-4 text-xs text-stone-500 dark:text-stone-400">
           <p className="text-center sm:text-left">
             &copy; {currentYear} <strong>Savory Kitchen</strong>. Simple and delicious recipes for home cooks.
           </p>
           
           <nav aria-label="Footer navigation" className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <Link href="/recipes" className="hover:text-white transition-colors">Recipes</Link>
-            <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
-            <Link href="/about" className="hover:text-white transition-colors">About</Link>
-            <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
-            <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy</Link>
-            <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
+            <Link href="/" className="hover:text-terracotta dark:hover:text-white transition-colors">Home</Link>
+            <Link href="/recipes" className="hover:text-terracotta dark:hover:text-white transition-colors">Recipes</Link>
+            <Link href="/blog" className="hover:text-terracotta dark:hover:text-white transition-colors">Blog</Link>
+            <Link href="/about" className="hover:text-terracotta dark:hover:text-white transition-colors">About</Link>
+            <Link href="/contact" className="hover:text-terracotta dark:hover:text-white transition-colors">Contact</Link>
+            <Link href="/privacy-policy" className="hover:text-terracotta dark:hover:text-white transition-colors">Privacy</Link>
+            <Link href="/terms" className="hover:text-terracotta dark:hover:text-white transition-colors">Terms</Link>
           </nav>
         </div>
       </div>

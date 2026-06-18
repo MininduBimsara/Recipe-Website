@@ -77,13 +77,13 @@ export default function BlogIndexClient() {
       {/* Editorial Masthead Design (Hero) */}
       <header className="text-center py-12 md:py-16 border-b border-cream-dark/60 dark:border-stone-850 flex flex-col items-center justify-center space-y-4" id="masthead-hero">
         <span className="font-mono text-[10px] tracking-[0.25em] text-[#7C9A7E] dark:text-[#A0BCA2] font-extrabold uppercase flex items-center gap-1.5 animate-pulse">
-          <BookOpen className="w-3.5 h-3.5 text-honey" /> CULINARY CHRONICLES
+          <BookOpen className="w-3.5 h-3.5 text-honey" /> OUR BLOG
         </span>
         <h1 className="font-serif font-bold text-4xl sm:text-5xl md:text-6xl text-espresso dark:text-cream tracking-tight max-w-3xl leading-[1.05]">
-          The Savory <span className="text-terracotta italic font-sans font-extralight tracking-tight">Gazette</span>
+          The Savory <span className="text-terracotta italic font-sans font-extralight tracking-tight">Chronicle</span>
         </h1>
         <p className="font-sans text-xs sm:text-sm text-stone-700 dark:text-stone-300 max-w-xl leading-relaxed">
-          Detailed thermal investigations, agricultural grain ratings, and molecular emulsion techniques written by specialized artisan chefs.
+          Simple weeknight dinners, sweet treats, and helpful cooking tips for home cooks of all experience levels.
         </p>
       </header>
 
@@ -112,7 +112,7 @@ export default function BlogIndexClient() {
         {/* Info indicators */}
         <div className="hidden lg:flex items-center gap-2 text-[10px] font-mono text-stone-400 dark:text-stone-400 font-bold" id="grid-meta-indicator">
           <Layers className="w-3.5 h-3.5 text-sage" />
-          <span>DISPLAYING {filteredPosts.length} INTELLECTUAL READS</span>
+          <span>DISPLAYING {filteredPosts.length} ARTICLES</span>
         </div>
       </section>
 
@@ -200,7 +200,7 @@ export default function BlogIndexClient() {
                         id={`read-link-${post.slug}`}
                         className="inline-flex items-center gap-1.5 text-xs font-mono font-extrabold uppercase text-terracotta hover:text-espresso dark:text-terracotta-light dark:hover:text-cream transition-colors group/link cursor-pointer"
                       >
-                        <span>Read Case Study</span>
+                        <span>Read Article</span>
                         <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/link:translate-x-1" />
                       </Link>
                     </div>
