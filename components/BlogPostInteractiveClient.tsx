@@ -530,7 +530,7 @@ export default function BlogPostInteractiveClient({ post: initialPost, relatedRe
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8" id="related-recipes-grid">
+            <div className="columns-1 sm:columns-2 gap-8 [column-fill:_balance]" id="related-recipes-grid">
               {relatedRecipes.map((recipe) => (
                 <RecipeCard
                   key={recipe.id}

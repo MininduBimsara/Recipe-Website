@@ -38,9 +38,9 @@ export default function RecipeCard({ recipe, onSelect }: RecipeCardProps) {
 
   // Map arbitrary size into visual classes for Masonry
   const sizeClasses = {
-    short: 'h-64 sm:h-72',
-    medium: 'h-80 sm:h-96',
-    tall: 'h-[36rem] sm:h-[40rem]'
+    short: 'h-52 sm:h-60',
+    medium: 'h-68 sm:h-76',
+    tall: 'h-84 sm:h-[26rem]'
   };
 
   const getDifficultyColor = (diff: Recipe['difficulty']) => {

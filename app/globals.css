@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --color-cream: #FAF7F2;
   --color-cream-light: #FFFFFF;

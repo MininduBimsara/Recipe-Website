@@ -315,7 +315,7 @@ function RecipesIndexClient() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full" id="masonry-recipes-wrapper">
+          <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 [column-fill:_balance] w-full" id="masonry-recipes-wrapper">
             {currentBatch.map((recipe) => (
               <RecipeCard
                 key={recipe.id}
