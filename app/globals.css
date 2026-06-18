@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+:root {
+  --color-cream: #FAF7F2;
+  --color-cream-light: #FFFFFF;
+  --color-cream-dark: #F2EBE0;
+  
+  --color-espresso: #2C1810;
+  --color-espresso-light: #4A2E20;
+  --color-espresso-dark: #150A05;
+  
+  --color-sage: #7C9A7E;
+  --color-sage-light: #A0BCA2;
+  --color-sage-dark: #58745A;
+  
+  --color-terracotta: #D4704A;
+  --color-terracotta-light: #E59A7E;
+  --color-terracotta-dark: #A64B27;
+  
+  --color-honey: #F4A623;
+  --color-honey-light: #F8C362;
+  --color-honey-dark: #BE7C0E;
+
+  --color-bg: #fdfcf9;
+  --color-text: #1c1917;
+}
+
+.dark {
+  /* Charcoal backgrounds in multiple tints for layered depth */
+  --color-cream: #1e1e1e;
+  --color-cream-light: #252525;
+  --color-cream-dark: #161616;
+  
+  /* Warm cream/off-white text */
+  --color-espresso: #F0EBE3;
+  --color-espresso-light: #DDD7CD;
+  --color-espresso-dark: #FFFFFF;
+  
+  /* Maintain beautiful accents (optimized slightly for contrast) */
+  --color-sage: #8BA88D;
+  --color-sage-light: #A7C1A9;
+  --color-sage-dark: #6C8B6E;
+  
+  --color-terracotta: #D97B57;
+  --color-terracotta-light: #EAB29C;
+  --color-terracotta-dark: #BD5B32;
+  
+  --color-honey: #F5B03B;
+  --color-honey-light: #F9CC7D;
+  --color-honey-dark: #D4901B;
+
+  --color-bg: #1A1A1A;
+  --color-text: #F0EBE3;
+}
+
+@theme {
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-handwritten: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  
+  /* Core Culinary Palette & Tints/Shades */
+  --color-cream: var(--color-cream);
+  --color-cream-light: var(--color-cream-light);
+  --color-cream-dark: var(--color-cream-dark);
+  
+  --color-espresso: var(--color-espresso);
+  --color-espresso-light: var(--color-espresso-light);
+  --color-espresso-dark: var(--color-espresso-dark);
+  
+  --color-sage: var(--color-sage);
+  --color-sage-light: var(--color-sage-light);
+  --color-sage-dark: var(--color-sage-dark);
+  
+  --color-terracotta: var(--color-terracotta);
+  --color-terracotta-light: var(--color-terracotta-light);
+  --color-terracotta-dark: var(--color-terracotta-dark);
+  
+  --color-honey: var(--color-honey);
+  --color-honey-light: var(--color-honey-light);
+  --color-honey-dark: var(--color-honey-dark);
+
+  --color-brand-primary: var(--color-espresso);
+  --color-brand-secondary: var(--color-terracotta);
+  --color-canvas-white: var(--color-cream-light);
+
+  /* Performance custom keyframes and animation abstractions */
+  --animate-shimmer: shimmer 2.5s infinite linear;
+  --animate-fade-slide-up: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-tilt-in: tiltIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes tiltIn {
+    from { transform: rotate(-3deg) scale(0.95); opacity: 0; }
+    to { transform: rotate(0) scale(1); opacity: 1; }
+  }
+}
+
+/* Base body style for premium editorial background */
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* High-fidelity CSS Print Stylesheet for pristine physical recipe cards */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #1c1917 !important;
+    font-family: serif !important;
+  }
+
+  /* Hide interactive UI elements that do not belong on physical paper */
+  header,
+  footer,
+  button,
+  .no-print,
+  #back-to-home-link,
+  .print-hidden,
+  #mobile-drawer-root,
+  #newsletter-section {
+    display: none !important;
+  }
+
+  /* Re-flow content as pristine top-to-bottom single-column text blocks */
+  .grid, .grid-cols-1, .grid-cols-2, .grid-cols-3, .grid-cols-4, .md\:grid-cols-3 {
+    display: block !important;
+  }
+
+  /* Remove heavy shadows, borders, and rounded corners on image headers */
+  .rounded-3xl, .rounded-2xl, .rounded-xl {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* Set elegant wide spacing for recipe walk-through groups */
+  .md\:col-span-1, .md\:col-span-2 {
+    width: 100% !important;
+    margin-bottom: 2rem !important;
+  }
+
+  /* Prevent awkward halfway step breaks across page boundaries */
+  .break-inside-avoid, li, .p-4 {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Print anchor href destinations if essential, or completely streamline */
+  a:after {
+    content: "" !important;
+  }
+
+  /* Force standard margins with standard top/bottom space */
+  @page {
+    size: letter;
+    margin: 2cm 1.5cm;
+  }
+}
+
+/* Production-readiness visible focus rings (outline-offset-2, terracotta) */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid #D4704A !important;
+  outline-offset: 2px !important;
+}
+

@@ -1,0 +1,61 @@
+[
+  {
+    "id": "post-sourdough-baking-science",
+    "slug": "science-of-sourdough-fermentation",
+    "title": "The Golden Science of Artisanal Sourdough Fermentation",
+    "subtitle": "Discover how gas hydration, wild yeast cultivation, lactic acid bacteria, and structural hydration transform flour into glassy caramelized crusts with airy open crumbs.",
+    "coverImage": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1200&h=675&q=80",
+    "heroBlurHash": "L_H2K?~qM{of_4ofWBfQ%MfQWBof",
+    "body": "🔬 **Deconstructing Yeast Colonization**\n\nSourdough is much more than flour and water. It is a live, thriving microbiome. At its core is a symbiotic culture of *Saccharomyces exiguus* (wild yeast) and *Lactobacillus sanfranciscensis* (lactic acid bacteria) working in harmony to digest starches and release carbon dioxide.\n\n💧 **The Magic of Cold Retardation**\n\nWhen we retard dough overnight in the refrigerator (at 39°F / 4°C), the yeast activity drops significantly while the lactic acid bacteria continue their work, producing organic lactic and acetic acids. This cold drop creates the sought-after sour flavor and makes proteins highly digestible.\n\n🔥 **Why Glassy Crust Bubbles Happen**\n\nThe blistered crust with glossy glass-like pockets is caused by steam escaping the starch paste at 500°F inside a sealed Dutch Oven. Creating steam is critical!",
+    "category": "Science & Techniques",
+    "tags": ["baking", "sourdough", "food-science", "bread"],
+    "toc": [
+      { "id": "deconstructing-yeast", "title": "Deconstructing Yeast Colonization", "level": 2 },
+      { "id": "cold-retardation", "title": "The Magic of Cold Retardation", "level": 2 },
+      { "id": "glassy-bubbles", "title": "Why Glassy Crust Bubbles Happen", "level": 2 }
+    ],
+    "publishedAt": "2026-06-02T10:00:00Z",
+    "readingTimeMinutes": 5,
+    "relatedPosts": ["mastering-pastry-laminations"],
+    "author": {
+      "id": "chef-isabella",
+      "name": "Chef Isabella Laurent",
+      "bio": "Culinary arts graduate from Le Cordon Bleu Paris and author of rustic French bakery bestsellers. Specializes in traditional techniques adapted for home kitchens.",
+      "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&h=200&q=80",
+      "social": {
+        "pinterest": "https://pinterest.com/isabella_laurent",
+        "instagram": "https://instagram.com/isabella_cooks",
+        "tiktok": "https://tiktok.com/@isabellalaurent"
+      }
+    }
+  },
+  {
+    "id": "post-pastry-laminations",
+    "slug": "mastering-pastry-laminations",
+    "title": "Mastering the Art of Flaky French Pastry Laminations",
+    "subtitle": "An editorial deep-dive into temperature bounds, butter choices, rolling turns, and micro-layers required to obtain high-rise, buttery viennoiserie masterpieces.",
+    "coverImage": "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=1200&h=675&q=80",
+    "heroBlurHash": "L_H2K?~qM{of_4ofWBfQ%MfQWBof",
+    "body": "🧈 **The Butter Block Boundary (Beurrage)**\n\nTo lock in hundreds of individual flaky tissue layers, the mechanical butter block must match the extensible dough cold bounds exactly. We recommend European-style butter with 82%+ butterfat for flexibility.\n\n🔄 **Single Turn vs. Double Turn**\n\nA classic croissant alternates between standard 3-folds (single envelope) and booklet 4-folds (double book turns). Learn how folding schedules transform crumb rise and cellular honeycomb gaps.",
+    "category": "Science & Techniques",
+    "tags": ["baking", "pastry", "french-pastry", "butter"],
+    "toc": [
+      { "id": "butter-boundary", "title": "The Butter Block Boundary", "level": 2 },
+      { "id": "folding-mechanics", "title": "Single Turn vs. Double Turn Mechanics", "level": 2 }
+    ],
+    "publishedAt": "2026-06-10T11:30:00Z",
+    "readingTimeMinutes": 7,
+    "relatedPosts": ["science-of-sourdough-fermentation"],
+    "author": {
+      "id": "chef-isabella",
+      "name": "Chef Isabella Laurent",
+      "bio": "Culinary arts graduate from Le Cordon Bleu Paris and author of rustic French bakery bestsellers. Specializes in traditional techniques adapted for home kitchens.",
+      "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&h=200&q=80",
+      "social": {
+        "pinterest": "https://pinterest.com/isabella_laurent",
+        "instagram": "https://instagram.com/isabella_cooks",
+        "tiktok": "https://tiktok.com/@isabellalaurent"
+      }
+    }
+  }
+]

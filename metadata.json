@@ -1,0 +1,8 @@
+{
+  "name": "Savory Kitchen",
+  "description": "An interactive, high-performance recipe & culinary blog featuring automated AI customization, complete with an interactive full-stack architecture guidebook.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

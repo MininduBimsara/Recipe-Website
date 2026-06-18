@@ -1,0 +1,265 @@
+[
+  {
+    "id": "recipe-lemon-tart",
+    "slug": "classic-french-tarte-au-citron",
+    "title": "Classic French Tarte au Citron",
+    "description": "An exquisite, silky-smooth lemon tart featuring a perfectly crisp pâte sablée sweet pastry crust and a bright, buttery lemon curd that strikes the perfect note between sweet and tangy.",
+    "coverImage": "https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=1200&h=675&q=80",
+    "heroBlurHash": "L_H2K?~qM{of_4ofWBfQ%MfQWBof",
+    "category": "DESSERT",
+    "cuisine": "FRENCH",
+    "difficulty": "MEDIUM",
+    "prepTime": 45,
+    "cookTime": 25,
+    "totalTime": 70,
+    "servings": 8,
+    "calories": 320,
+    "tags": ["baking", "citrus", "french pastry", "tart", "desserts"],
+    "ingredients": [
+      { "quantity": 150, "unit": "g", "name": "All-purpose Flour", "notes": "Sifted" },
+      { "quantity": 90, "unit": "g", "name": "Unsalted Butter", "notes": "Cold, cubed for pastry" },
+      { "quantity": 50, "unit": "g", "name": "Powdered Sugar", "notes": "" },
+      { "quantity": 1, "unit": "pc", "name": "Egg yolk", "notes": "For the dough binder" },
+      { "quantity": 4, "unit": "pc", "name": "Large organic lemons", "notes": "Zested and juiced" },
+      { "quantity": 150, "unit": "g", "name": "Granulated sugar", "notes": "For lemon curd balance" },
+      { "quantity": 3, "unit": "pc", "name": "Whole organic eggs", "notes": "Room temp" },
+      { "quantity": 125, "unit": "g", "name": "Unsalted Butter", "notes": "Room temp, cubed for curd whisking" }
+    ],
+    "instructions": [
+      {
+        "stepNumber": 1,
+        "body": "Combine the flour, powdered sugar, and a pinch of salt in a food processor. Add the 90g of cold cubed butter and pulse until the mixture resembles wet sand.",
+        "tip": "Avoid over-processing to ensure the crust remains light and beautifully flaky.",
+        "imageSrc": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 2,
+        "body": "Add the egg yolk and 1-2 teaspoons of ice-cold water, pulsing until the pastry dough starts to cling together. Press the dough into a disk, wrap in wax paper, and chill in the refrigerator for at least 30 minutes.",
+        "tip": "Chilling prevents the butter from melting, ensuring a stable shortcrust structure.",
+        "imageSrc": "https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 3,
+        "body": "Roll the chilled pastry out on a floured surface to 3mm thickness, fit it into a 9-inch loose-bottomed tart tin, and blind-bake with pie weights at 375°F (190°C) for 15 minutes, then 10 minutes uncovered until golden brown.",
+        "tip": "Use dried beans or ceramic weights over parchment paper for the blind-bake.",
+        "imageSrc": "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 4,
+        "body": "Whisk lemon juice, lemon zest, whole eggs, and granulated sugar in a heatproof bowl. Cook over a water bath (double boiler) on low heat, stirring continuously until the custard thickens to coat the spoon.",
+        "tip": "Heat gently; cooking too fast will scramble the eggs instead of creating a smooth custard.",
+        "imageSrc": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 5,
+        "body": "Remove the custard from heat, sieve it into a clean bowl, and allow it to cool slightly. Whisk in the 125g room temp butter cubes one by one until silky and emulsified. Pour into the baked shell and chill for 4 hours.",
+        "tip": "For an elegant presentation, garnish with fresh raspberries or a dust of powdered sugar right before serving.",
+        "imageSrc": "https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=600&h=400&q=80"
+      }
+    ],
+    "chefSecrets": [
+      "For a perfectly flat crust that never bubbles up, prick the bottom of the rolled pastry thoroughly with a table fork before blind-baking.",
+      "Sieving the lemon curd before whisking in the room temperature butter removes any small white egg bits, creating a supreme editorial glaze texture."
+    ],
+    "nutritionFacts": {
+      "calories": 320,
+      "protein": "4g",
+      "carbs": "38g",
+      "fat": "18g",
+      "saturatedFat": "11g",
+      "sodium": "85mg",
+      "fiber": "1g"
+    },
+    "publishedAt": "2026-05-12T08:00:00Z",
+    "updatedAt": "2026-06-01T10:30:00Z",
+    "author": {
+      "id": "chef-isabella",
+      "name": "Chef Isabella Laurent",
+      "bio": "Culinary arts graduate from Le Cordon Bleu Paris and author of rustic French bakery bestsellers. Specializes in traditional techniques adapted for home kitchens.",
+      "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&h=200&q=80",
+      "social": {
+        "pinterest": "https://pinterest.com/isabella_laurent",
+        "instagram": "https://instagram.com/isabella_cooks",
+        "tiktok": "https://tiktok.com/@isabellalaurent"
+      }
+    },
+    "pinterestDescription": "Elevate your baking skills with our easy French Lemon Tart Recipe! A crisp buttery pâte sablée crust filled with a sublime silky-smooth, vibrant lemon curd. Perfect for weekend hosting or dessert cravings! 🍋✨",
+    "isFeatured": true,
+    "relatedRecipes": ["rustic-sourdough-boule", "mediterranean-shakshuka"]
+  },
+  {
+    "id": "recipe-sourdough",
+    "slug": "rustic-sourdough-boule",
+    "title": "Rustic Sourdough Boule",
+    "description": "A high-hydration, crusty artisanal sourdough bread displaying an airy open crumb structure, a chewy texture, and that signature wild yeast tangy flavor profile.",
+    "coverImage": "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=1200&h=675&q=80",
+    "heroBlurHash": "LGH..X~p-pV@9FD$-=bI%MM{M{RP",
+    "category": "BAKING",
+    "cuisine": "AMERICAN",
+    "difficulty": "HARD",
+    "prepTime": 120,
+    "cookTime": 45,
+    "totalTime": 1440,
+    "servings": 10,
+    "calories": 180,
+    "tags": ["baking", "bread", "sourdough", "fermentation", "wild yeast"],
+    "ingredients": [
+      { "quantity": 400, "unit": "g", "name": "Artisanal Bread Flour", "notes": "High protein count, 12%+" },
+      { "quantity": 100, "unit": "g", "name": "Whole Wheat Flour", "notes": "Stoneground for deeper flavor" },
+      { "quantity": 375, "unit": "g", "name": "Water", "notes": "Filtered, warm 80°F" },
+      { "quantity": 100, "unit": "g", "name": "Active Sourdough Starter", "notes": "Fed 4-6 hours prior, fully bubbly" },
+      { "quantity": 10, "unit": "g", "name": "Fine Sea Salt", "notes": "Avoid iodized salt" }
+    ],
+    "instructions": [
+      {
+        "stepNumber": 1,
+        "body": "Autolyse stage: Mix the bread flour, whole wheat flour, and 350g of water together in a large bowl. Let rest for 45 minutes to encourage gluten alignment before adding yeast and salt.",
+        "tip": "Do not skip autolysing; it greatly reduces your overall active kneading or stretching time.",
+        "imageSrc": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 2,
+        "body": "Add the bubbly starter, salt, and remaining 25g of water. Pinch and fold the dough together with your fingers until fully incorporated and wet.",
+        "tip": "Keep a bowl of warm water nearby to wet your hands, keeping the high hydration dough from sticking.",
+        "imageSrc": "https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 3,
+        "body": "Perform bulk fermentation: Over the next 4 hours, execute 4 sets of stretch-and-folds spaced 30 minutes apart, letting dough rise under a wet kitchen towel.",
+        "tip": "Pull the dough gently upwards until you feel tension, then fold it back on itself without tearing.",
+        "imageSrc": "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 4,
+        "body": "Shape dough gently into a round boule, surface tension tightening it. Place seam-side up in a floured banneton basket, wrap in a plastic bag, and retard overnight inside the fridge (12-16 hours).",
+        "tip": "Cold fermentation sweetens and develops that deeply satisfying tangy sourdough flavor profile.",
+        "imageSrc": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 5,
+        "body": "Preheat a heavy Dutch oven at 500°F (260°C). Turn the chilled dough out onto parchment, score the top with a razor lame at a 45-degree angle, transfer to preheated pot, cover with a heavy lid, and bake for 20 minutes. Remove lid, reduce heat to 450°F, and bake for 22 more minutes.",
+        "tip": "Baking covered locks in moisture, creating pristine expansion (the 'oven spring') and a crispy caramelized glass crust.",
+        "imageSrc": "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=600&h=400&q=80"
+      }
+    ],
+    "chefSecrets": [
+      "To obtain a stunning blistering crust, spray 2-3 mists of water inside the hot Dutch oven lid right as you seal the bread to capture maximum steam.",
+      "Resist cutting the loaf open for at least 2 hours. Sourdough continues cooking internally as it cools; cutting too soon results in a gummy, wet crumb structure."
+    ],
+    "nutritionFacts": {
+      "calories": 180,
+      "protein": "6g",
+      "carbs": "36g",
+      "fat": "0.5g",
+      "saturatedFat": "0g",
+      "sodium": "240mg",
+      "fiber": "3g"
+    },
+    "publishedAt": "2026-05-20T09:00:00Z",
+    "updatedAt": "2026-06-03T11:00:00Z",
+    "author": {
+      "id": "chef-isabella",
+      "name": "Chef Isabella Laurent",
+      "bio": "Culinary arts graduate from Le Cordon Bleu Paris and author of rustic French bakery bestsellers. Specializes in traditional techniques adapted for home kitchens.",
+      "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&h=200&q=80",
+      "social": {
+        "pinterest": "https://pinterest.com/isabella_laurent",
+        "instagram": "https://instagram.com/isabella_cooks",
+        "tiktok": "https://tiktok.com/@isabellalaurent"
+      }
+    },
+    "pinterestDescription": "The ultimate home Sourdough bread recipe! 🥖 Crispy, blistered, gorgeous golden crust with an airy crumb and tangy, wild yeast complexity. Includes comprehensive stretch-and-fold guides! Save this pin for weekend baking! #sourdough #breadart",
+    "isFeatured": false,
+    "relatedRecipes": ["classic-french-tarte-au-citron", "mediterranean-shakshuka"]
+  },
+  {
+    "id": "recipe-shakshuka",
+    "slug": "mediterranean-shakshuka",
+    "title": "Mediterranean Shakshuka",
+    "description": "A comforting, vibrant skillet of eggs gently poached in a rich, spiced sauce of San Marzano tomatoes, bell peppers, garlic, and fresh premium olive oil, accented with crumbly feta and cilantro.",
+    "coverImage": "https://images.unsplash.com/photo-1590412200988-a436bb705300?auto=format&fit=crop&w=1200&h=675&q=80",
+    "heroBlurHash": "LHFrH^?uE1xD~U%LR+oz5SM_E1E1",
+    "category": "BREAKFAST",
+    "cuisine": "MEDITERRANEAN",
+    "difficulty": "EASY",
+    "prepTime": 15,
+    "cookTime": 20,
+    "totalTime": 35,
+    "servings": 4,
+    "calories": 260,
+    "tags": ["shakshuka", "mediterranean", "eggs", "brunch", "one-pan"],
+    "ingredients": [
+      { "quantity": 2, "unit": "tbsp", "name": "Extra Virgin Olive Oil", "notes": "First cold pressed" },
+      { "quantity": 1, "unit": "pc", "name": "Yellow Onion", "notes": "Diced fine" },
+      { "quantity": 1, "unit": "pc", "name": "Red Bell Pepper", "notes": "Seeded and chopped" },
+      { "quantity": 3, "unit": "pc", "name": "Garlic cloves", "notes": "Minced" },
+      { "quantity": 1, "unit": "tsp", "name": "Ground Cumin", "notes": "Toasted and freshly ground" },
+      { "quantity": 1, "unit": "tsp", "name": "Smoked Paprika", "notes": "Sweet spanish style" },
+      { "quantity": 1, "unit": "can", "name": "San Marzano Whole Peeled Tomatoes", "notes": "28 oz, crushed by hand" },
+      { "quantity": 6, "unit": "pc", "name": "Large eggs", "notes": "Pasture-raised" },
+      { "quantity": 50, "unit": "g", "name": "Feta cheese", "notes": "Authentic sheep milk sheep feta" },
+      { "quantity": 0.25, "unit": "cup", "name": "Fresh coriander/cilantro", "notes": "Chopped rough" }
+    ],
+    "instructions": [
+      {
+        "stepNumber": 1,
+        "body": "Heat the extra virgin olive oil in a large cast-iron skillet over medium heat. Add the diced onion and bell pepper, sautéing until soft, sweet, and translucent (about 6 minutes).",
+        "tip": "Sautéing sluggishly on lower heat draws out maximum natural sugar from peppers and onions.",
+        "imageSrc": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 2,
+        "body": "Add the minced garlic, ground cumin, smoked paprika, and a pinch of black pepper. Stir continuously for 1 minute until the kitchen is filled with warm, aromatic toasted spice notes.",
+        "tip": "Blooming spices directly in warm oils releases oil-soluble flavor molecules that deepens the tomato base.",
+        "imageSrc": "https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 3,
+        "body": "Pour in the hand-crushed whole tomatoes along with all their pure juices. Simmer uncovered for 10-12 minutes until the sauce thickens and consolidates into a rich, savory emulsion.",
+        "tip": "Scrape the browned spicy bits off the bottom of the cast iron continuously with a flat wooden spatula.",
+        "imageSrc": "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 4,
+        "body": "Use a large culinary spoon to make 6 small well-shaped indentations in the bubbling sauce. Crack an egg directly into each well. Cover the skillet tightly with a lid and cook on medium-low for 5-8 minutes.",
+        "tip": "Watch closely: you want the whites fully set but the golden yolks incredibly wet, runny, and silky.",
+        "imageSrc": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 5,
+        "body": "Remove the skillet from high heat. Garnish generously with crumbled feta cheese, chopped cilantro, fresh ground pepper, and a final drizzle of extra-virgin olive oil. Serve sizzling hot directly inside cast iron alongside sourdough bread.",
+        "tip": "Thick slices of toasted sourdough bread are perfect for dipping and sweeping up the rich sauce.",
+        "imageSrc": "https://images.unsplash.com/photo-1590412200988-a436bb705300?auto=format&fit=crop&w=600&h=400&q=80"
+      }
+    ],
+    "chefSecrets": [
+      "Adding a small pinch of honey or organic brown sugar balances out any tinny acidity in the tomatoes without making the dish taste sweet.",
+      "Slightly crushing the garlic instead of mincing fine allows the juices to enter slowly, keeping the vegetable from burning in the hot iron."
+    ],
+    "nutritionFacts": {
+      "calories": 260,
+      "protein": "14g",
+      "carbs": "16g",
+      "fat": "15g",
+      "saturatedFat": "5g",
+      "sodium": "420mg",
+      "fiber": "4g"
+    },
+    "publishedAt": "2026-05-28T09:30:00Z",
+    "updatedAt": "2026-06-08T14:45:00Z",
+    "author": {
+      "id": "chef-isabella",
+      "name": "Chef Isabella Laurent",
+      "bio": "Culinary arts graduate from Le Cordon Bleu Paris and author of rustic French bakery bestsellers. Specializes in traditional techniques adapted for home kitchens.",
+      "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&h=200&q=80",
+      "social": {
+        "pinterest": "https://pinterest.com/isabella_laurent",
+        "instagram": "https://instagram.com/isabella_cooks",
+        "tiktok": "https://tiktok.com/@isabellalaurent"
+      }
+    },
+    "pinterestDescription": "The only Shakshuka recipe you'll ever need! Eggs poached to runny perfection in a savory, smoky bell pepper and tomato stew. Finished with sheep milk feta! Beautiful weekend brunch 🍳🌿 #shakshuka #brunchideas #eggrecipes",
+    "isFeatured": true,
+    "relatedRecipes": ["rustic-sourdough-boule"]
+  }
+]
