@@ -11,6 +11,9 @@ import {
 import { 
   BlogHeader, BlogEngagement, BlogToc, BlogSections, RelatedRecipes 
 } from './BlogWidgets';
+import NutritionCard from '@/components/recipe/NutritionCard';
+import PinGraphicCard from '@/components/recipe/PinGraphicCard';
+import PinterestImageOverlay from '@/components/recipe/PinterestImageOverlay';
 
 export default function MagazineSplit() {
   const { type, post, getSlotImage, getBlurUrl } = useTemplateState();
@@ -22,7 +25,7 @@ export default function MagazineSplit() {
       {/* Magazine 50/50 Split Header */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl overflow-hidden border border-cream-dark/40 bg-white shadow-xs">
         {/* Left Side: Editorial Image */}
-        <div className="relative aspect-square md:aspect-auto md:min-h-[380px] bg-cream/10">
+        <div className="relative group aspect-square md:aspect-auto md:min-h-[380px] bg-cream/10">
           <Image
             src={heroImage.url}
             alt={post.title}
@@ -33,6 +36,14 @@ export default function MagazineSplit() {
             className="object-cover"
             referrerPolicy="no-referrer"
           />
+          {type === 'recipe' && (
+            <PinterestImageOverlay
+              slug={post.slug}
+              imageUrl={heroImage.url}
+              title={post.title}
+              description={post.pinterestDescription || post.description}
+            />
+          )}
         </div>
 
         {/* Right Side: Bold Typography Intro */}
@@ -66,8 +77,19 @@ export default function MagazineSplit() {
           <RecipeInstructions />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <RecipeTips />
-            <RecipeAiCustomizer />
+            <div className="space-y-6">
+              <RecipeTips />
+              <RecipeAiCustomizer />
+            </div>
+            <div className="space-y-6">
+              <NutritionCard calories={post.calories} recipeTitle={post.title} />
+              <PinGraphicCard
+                slug={post.slug}
+                imageUrl={heroImage.url}
+                title={post.title}
+                description={post.pinterestDescription || post.description}
+              />
+            </div>
           </div>
 
           <RecipeBottomWidgets />

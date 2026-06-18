@@ -11,6 +11,9 @@ import {
 import { 
   BlogHeader, BlogEngagement, BlogToc, BlogSections, RelatedRecipes 
 } from './BlogWidgets';
+import NutritionCard from '@/components/recipe/NutritionCard';
+import PinGraphicCard from '@/components/recipe/PinGraphicCard';
+import PinterestImageOverlay from '@/components/recipe/PinterestImageOverlay';
 
 export default function ClassicSingle() {
   const { type, post, getSlotImage, getBlurUrl } = useTemplateState();
@@ -20,7 +23,7 @@ export default function ClassicSingle() {
   return (
     <div className="w-full space-y-6 md:space-y-10" id="layout-classic-single">
       {/* 1. Large 16:9 Hero Image */}
-      <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden border border-cream-dark/40 bg-cream/10 md:shadow-xs">
+      <div className="relative group aspect-[16/9] w-full rounded-2xl overflow-hidden border border-cream-dark/40 bg-cream/10 md:shadow-xs">
         <Image
           src={heroImage.url}
           alt={post.title}
@@ -31,6 +34,14 @@ export default function ClassicSingle() {
           className="object-cover"
           referrerPolicy="no-referrer"
         />
+        {type === 'recipe' && (
+          <PinterestImageOverlay
+            slug={post.slug}
+            imageUrl={heroImage.url}
+            title={post.title}
+            description={post.pinterestDescription || post.description}
+          />
+        )}
         {heroImage.caption && (
           <div className="absolute bottom-0 inset-x-0 bg-black/60 backdrop-blur-xs p-3 text-center text-white text-[10px] font-mono tracking-wider">
             {heroImage.caption}
@@ -44,7 +55,7 @@ export default function ClassicSingle() {
           <div className="lg:col-span-8 space-y-8">
             <div className="space-y-4">
               <span className="text-[10px] uppercase font-mono tracking-widest text-terracotta bg-terracotta/10 px-2.5 py-1 rounded inline-block">
-                #{post.category} FORMULA
+                #{post.category}
               </span>
               <h1 className="font-serif font-black text-2xl sm:text-3xl md:text-4xl text-espresso tracking-tight leading-none">
                 {post.title}
@@ -65,7 +76,7 @@ export default function ClassicSingle() {
           <aside className="lg:col-span-4 space-y-6">
             <div className="p-4 rounded-xl bg-white border border-cream-dark space-y-3 shadow-3xs text-left">
               <h4 className="font-mono text-[10px] font-black uppercase text-stone-500 tracking-wider">
-                🔬 Recipe Analytics
+                📋 Recipe Details
               </h4>
               <div className="space-y-1 bg-cream-light/45 p-3 rounded-lg border border-cream-dark/30 font-mono text-[11px] font-bold text-stone-702">
                 <div className="flex justify-between">
@@ -79,7 +90,11 @@ export default function ClassicSingle() {
                 {post.cookTime && (
                   <div className="flex justify-between">
                     <span>Cook duration:</span>
-                    <span>{post.cookTime.replace('PT', '').replace('M', ' mins')}</span>
+                    <span>
+                      {typeof post.cookTime === 'number'
+                        ? `${post.cookTime} mins`
+                        : String(post.cookTime).replace('PT', '').replace('M', ' mins')}
+                    </span>
                   </div>
                 )}
                 <div className="flex justify-between">
@@ -89,8 +104,15 @@ export default function ClassicSingle() {
               </div>
             </div>
 
+            <NutritionCard calories={post.calories} recipeTitle={post.title} />
             <RecipeTips />
             <RecipeAiCustomizer />
+            <PinGraphicCard
+              slug={post.slug}
+              imageUrl={heroImage.url}
+              title={post.title}
+              description={post.pinterestDescription || post.description}
+            />
           </aside>
           
           <CookingModeOverlay />

@@ -11,6 +11,9 @@ import {
 import { 
   BlogHeader, BlogEngagement, BlogToc, BlogSections, RelatedRecipes 
 } from './BlogWidgets';
+import NutritionCard from '@/components/recipe/NutritionCard';
+import PinGraphicCard from '@/components/recipe/PinGraphicCard';
+import PinterestImageOverlay from '@/components/recipe/PinterestImageOverlay';
 
 export default function EditorialTrio() {
   const { type, post, getSlotImage, getBlurUrl } = useTemplateState();
@@ -25,7 +28,7 @@ export default function EditorialTrio() {
   return (
     <div className="w-full space-y-8 md:space-y-12" id="layout-editorial-trio">
       {/* Trio Top Slot: Large Hero Image */}
-      <div className="relative aspect-[16/7] md:aspect-[21/9] w-full rounded-2xl overflow-hidden border border-cream-dark/40 bg-cream/10 shadow-xs">
+      <div className="relative group aspect-[16/7] md:aspect-[21/9] w-full rounded-2xl overflow-hidden border border-cream-dark/40 bg-cream/10 shadow-xs">
         <Image
           src={img1.url}
           alt={post.title}
@@ -36,6 +39,14 @@ export default function EditorialTrio() {
           className="object-cover animate-fade-in"
           referrerPolicy="no-referrer"
         />
+        {type === 'recipe' && (
+          <PinterestImageOverlay
+            slug={post.slug}
+            imageUrl={img1.url}
+            title={post.title}
+            description={post.pinterestDescription || post.description}
+          />
+        )}
         {img1.caption && (
           <div className="absolute bottom-0 inset-x-0 bg-black/60 backdrop-blur-xs p-3 text-center text-white text-[10px] font-mono">
             {img1.caption}
@@ -68,13 +79,20 @@ export default function EditorialTrio() {
 
             <aside className="lg:col-span-4 space-y-6">
               <RecipeTips />
+              <NutritionCard calories={post.calories} recipeTitle={post.title} />
               <RecipeAiCustomizer />
+              <PinGraphicCard
+                slug={post.slug}
+                imageUrl={img1.url}
+                title={post.title}
+                description={post.pinterestDescription || post.description}
+              />
             </aside>
           </div>
 
           {/* Trio Bottom Rows: Side-by-Side Images */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-cream-dark/30">
-            <div className="relative aspect-[4/3] rounded-xl overflow-hidden border border-cream-dark/40 shadow-xs bg-cream/10">
+            <div className="relative group aspect-[4/3] rounded-xl overflow-hidden border border-cream-dark/40 shadow-xs bg-cream/10">
               <Image
                 src={img2.url}
                 alt="Detailed step preparation"
@@ -84,12 +102,18 @@ export default function EditorialTrio() {
                 className="object-cover hover:scale-[1.01] transition-transform duration-500"
                 referrerPolicy="no-referrer"
               />
+              <PinterestImageOverlay
+                slug={post.slug}
+                imageUrl={img2.url}
+                title={post.title}
+                description={post.pinterestDescription || post.description}
+              />
               <div className="absolute bottom-0 inset-x-0 bg-black/60 p-2 text-[8px] font-mono text-center text-white">
                 SLOT #2: {img2.caption || 'Active culinary preparation detail'}
               </div>
             </div>
 
-            <div className="relative aspect-[4/3] rounded-xl overflow-hidden border border-cream-dark/40 shadow-xs bg-cream/10">
+            <div className="relative group aspect-[4/3] rounded-xl overflow-hidden border border-cream-dark/40 shadow-xs bg-cream/10">
               <Image
                 src={img3.url}
                 alt="Plating design presentation"
@@ -98,6 +122,12 @@ export default function EditorialTrio() {
                 blurDataURL={blur3}
                 className="object-cover hover:scale-[1.01] transition-transform duration-500"
                 referrerPolicy="no-referrer"
+              />
+              <PinterestImageOverlay
+                slug={post.slug}
+                imageUrl={img3.url}
+                title={post.title}
+                description={post.pinterestDescription || post.description}
               />
               <div className="absolute bottom-0 inset-x-0 bg-black/60 p-2 text-[8px] font-mono text-center text-white">
                 SLOT #3: {img3.caption || 'Final plating presentation and highlights'}

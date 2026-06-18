@@ -60,16 +60,53 @@ export function TemplateStateProvider({
   post: any; 
   type: 'recipe' | 'blog';
 }) {
+  // Normalize post to ensure consistent array-of-strings schemas
+  const normalizedPost = React.useMemo(() => {
+    if (!post) return post;
+    
+    // Normalize ingredients individually
+    let normalizedIngredients = post.ingredients || [];
+    normalizedIngredients = normalizedIngredients.map((item: any) => {
+      if (item && typeof item === 'object') {
+        const qty = item.quantity ? `${item.quantity} ` : '';
+        const unit = item.unit ? `${item.unit} ` : '';
+        const name = item.name || '';
+        const notes = item.notes ? `, ${item.notes}` : '';
+        return `${qty}${unit}${name}${notes}`;
+      }
+      return String(item || '');
+    });
+
+    // Normalize instructions individually
+    let normalizedInstructions = post.instructions || [];
+    normalizedInstructions = normalizedInstructions.map((item: any) => {
+      if (item && typeof item === 'object') {
+        return item.body || '';
+      }
+      return String(item || '');
+    });
+
+    // Normalize coverImage vs image
+    const image = post.image || post.coverImage || post.cover_image || '';
+
+    return {
+      ...post,
+      ingredients: normalizedIngredients,
+      instructions: normalizedInstructions,
+      image,
+    };
+  }, [post]);
+
   // 1. Image slots resolution
   const getSlotImage = (slot: number) => {
-    const images = post.template_images || [];
+    const images = normalizedPost.template_images || [];
     const found = images.find((img: any) => img.slot === slot);
     if (found && found.url) {
       return { url: found.url, caption: found.caption || '' };
     }
     // Fallbacks
     if (slot === 1) {
-      return { url: post.image || post.cover_image || 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=850', caption: '' };
+      return { url: normalizedPost.image || normalizedPost.cover_image || 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=850', caption: '' };
     }
     if (slot === 2) {
       return { url: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=650', caption: 'Step 2 preparation' };
@@ -78,7 +115,7 @@ export function TemplateStateProvider({
   };
 
   const getBlurUrl = (url: string | undefined, slot: number) => {
-    const images = post.template_images || [];
+    const images = normalizedPost.template_images || [];
     const found = images.find((img: any) => img.slot === slot);
     if (found && found.blur_hash) {
       const decoded = blurHashToDataURL(found.blur_hash);
@@ -220,11 +257,11 @@ export function TemplateStateProvider({
 
     try {
       const p = customizationPrompt.toLowerCase();
-      let modifiedIngredients = [...(post.ingredients || [])];
-      let modifiedInstructions = [...(post.instructions || [])];
+      let modifiedIngredients = [...(normalizedPost.ingredients || [])];
+      let modifiedInstructions = [...(normalizedPost.instructions || [])];
 
       if (p.includes('vegan') || p.includes('plant') || p.includes('dairy-free') || p.includes('vegetar')) {
-        modifiedIngredients = (post.ingredients || []).map((item: string) => {
+        modifiedIngredients = (normalizedPost.ingredients || []).map((item: string) => {
           let temp = item;
           temp = temp.replace(/\bbutter\b/gi, 'plant-based vegan butter')
                      .replace(/\bmilk\b/gi, 'organic oat milk')
@@ -238,7 +275,7 @@ export function TemplateStateProvider({
                      .replace(/\bchicken\b/gi, 'tofu strips');
           return temp;
         });
-        modifiedInstructions = (post.instructions || []).map((step: string) => {
+        modifiedInstructions = (normalizedPost.instructions || []).map((step: string) => {
           return step.replace(/\bbutter\b/gi, 'plant-based butter')
                      .replace(/\bmilk\b/gi, 'oat milk')
                      .replace(/\begg\b/gi, 'flax gel')
@@ -247,15 +284,15 @@ export function TemplateStateProvider({
         });
         modifiedInstructions.push("[Vegan Adjustment] Fully adapted temperature bounds and fat ratios for non-dairy performance.");
       } else if (p.includes('gluten') || p.includes('gf')) {
-        modifiedIngredients = (post.ingredients || []).map((item: string) => {
+        modifiedIngredients = (normalizedPost.ingredients || []).map((item: string) => {
           return item.replace(/\bflour\b/gi, '1-to-1 Premium Gluten-Free Baking Flour');
         });
-        modifiedInstructions = (post.instructions || []).map((step: string) => {
+        modifiedInstructions = (normalizedPost.instructions || []).map((step: string) => {
           return step.replace(/\bflour\b/gi, 'gluten-free flour blend');
         });
         modifiedInstructions.push("[Gluten-Free Adjustment] Let batter rest for 10 minutes to allow GF flours to hydrate perfectly.");
       } else {
-        modifiedIngredients = (post.ingredients || []).map((item: string) => item + ` (${customizationPrompt})`);
+        modifiedIngredients = (normalizedPost.ingredients || []).map((item: string) => item + ` (${customizationPrompt})`);
         modifiedInstructions.push(`[Custom Chef Note] Adjusted visual balances for: "${customizationPrompt}".`);
       }
 
@@ -279,7 +316,7 @@ export function TemplateStateProvider({
     const pinterestUrl = `https://www.pinterest.com/pin/create/button/?url=${encodeURIComponent(
       shareUrl
     )}&media=${encodeURIComponent(imageUrl)}&description=${encodeURIComponent(
-      `Savory Kitchen Tip: ${titleStr} — from "${post.title}"`
+      `Savory Kitchen Tip: ${titleStr} — from "${normalizedPost.title}"`
     )}`;
     window.open(pinterestUrl, '_blank', 'width=750,height=600,toolbar=0,status=0');
     toast.success('Saving on Pinterest! 📌');
@@ -299,7 +336,7 @@ export function TemplateStateProvider({
   return (
     <TemplateStateContext.Provider value={{
       type,
-      post,
+      post: normalizedPost,
       getBlurUrl,
       getSlotImage,
       servings,

@@ -11,6 +11,9 @@ import {
 import { 
   BlogHeader, BlogEngagement, BlogToc, BlogSections, RelatedRecipes, BlogSectionItem 
 } from './BlogWidgets';
+import NutritionCard from '@/components/recipe/NutritionCard';
+import PinGraphicCard from '@/components/recipe/PinGraphicCard';
+import PinterestImageOverlay from '@/components/recipe/PinterestImageOverlay';
 
 export default function SideBySide() {
   const { type, post, getSlotImage, getBlurUrl } = useTemplateState();
@@ -27,7 +30,7 @@ export default function SideBySide() {
           {/* Alternating Row 1: Image Left, Title/Ingredients Right */}
           <section className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
             {/* Left Column: Image 1 */}
-            <div className="md:col-span-5 relative aspect-[4/3] rounded-2xl overflow-hidden border border-cream-dark/40 bg-cream/10 shadow-sm">
+            <div className="md:col-span-5 relative group aspect-[4/3] rounded-2xl overflow-hidden border border-cream-dark/40 bg-cream/10 shadow-sm">
               <Image
                 src={img1.url}
                 alt={post.title}
@@ -38,6 +41,12 @@ export default function SideBySide() {
                 className="object-cover"
                 referrerPolicy="no-referrer"
               />
+              <PinterestImageOverlay
+                slug={post.slug}
+                imageUrl={img1.url}
+                title={post.title}
+                description={post.pinterestDescription || post.description}
+              />
               {img1.caption && (
                 <div className="absolute bottom-0 inset-x-0 bg-black/60 p-2 text-center text-white text-[9px] font-mono">
                   {img1.caption}
@@ -45,7 +54,7 @@ export default function SideBySide() {
               )}
             </div>
 
-            {/* Right Column: Title + Ingredients Formula */}
+            {/* Right Column: Title + Ingredients */}
             <div className="md:col-span-7 space-y-6">
               <div className="space-y-3 text-left">
                 <span className="text-[10px] font-mono font-bold tracking-widest text-[#E60023] bg-red-500/10 px-2 py-0.5 rounded">
@@ -76,7 +85,7 @@ export default function SideBySide() {
 
             {/* Right Column: Active Preparation Image 2 */}
             <div className="md:col-span-5 space-y-6">
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-cream-dark/40 bg-cream/10 shadow-sm">
+              <div className="relative group aspect-[4/3] rounded-2xl overflow-hidden border border-cream-dark/40 bg-cream/10 shadow-sm">
                 <Image
                   src={img2.url}
                   alt="Process illustration"
@@ -86,6 +95,12 @@ export default function SideBySide() {
                   className="object-cover"
                   referrerPolicy="no-referrer"
                 />
+                <PinterestImageOverlay
+                  slug={post.slug}
+                  imageUrl={img2.url}
+                  title={post.title}
+                  description={post.pinterestDescription || post.description}
+                />
                 {img2.caption && (
                   <div className="absolute bottom-0 inset-x-0 bg-black/60 p-2 text-center text-white text-[9px] font-mono">
                     {img2.caption}
@@ -94,8 +109,15 @@ export default function SideBySide() {
               </div>
 
               <RecipeTips />
+              <NutritionCard calories={post.calories} recipeTitle={post.title} />
+              <PinGraphicCard
+                slug={post.slug}
+                imageUrl={img1.url}
+                title={post.title}
+                description={post.pinterestDescription || post.description}
+              />
               <div className="p-4 bg-white rounded-xl border border-cream-dark/60 text-left font-sans text-xs text-stone-500 leading-relaxed shadow-3xs">
-                💡 <span className="font-bold text-espresso">Kitchen Scale tip:</span> Consistent dough pressure or liquid metrics require checking the formulas side-by-side with our US Customary or Metric toggle.
+                💡 <span className="font-bold text-espresso">Kitchen Scale tip:</span> Consistent dough pressure or liquid metrics require checking the quantities side-by-side with our US Customary or Metric toggle.
               </div>
             </div>
           </section>

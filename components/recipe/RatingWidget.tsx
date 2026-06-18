@@ -90,8 +90,8 @@ export default function RatingWidget({ recipeSlug }: RatingWidgetProps) {
         </h4>
         <p className="text-[11px] text-stone-500 dark:text-stone-400 font-sans">
           {hasRated 
-            ? "Your rating has been logged. Thank you for supporting our digital bread journal!"
-            : "Share your rating with the baking community. Your feedback improves our formula."
+            ? "Your rating has been logged. Thank you for supporting our recipe community!"
+            : "Share your rating with the cooking community. Your feedback helps us improve our recipes."
           }
         </p>
       </div>

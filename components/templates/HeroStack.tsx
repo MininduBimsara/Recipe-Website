@@ -11,6 +11,9 @@ import {
 import { 
   BlogHeader, BlogEngagement, BlogToc, BlogSections, RelatedRecipes, BlogSectionItem 
 } from './BlogWidgets';
+import NutritionCard from '@/components/recipe/NutritionCard';
+import PinGraphicCard from '@/components/recipe/PinGraphicCard';
+import PinterestImageOverlay from '@/components/recipe/PinterestImageOverlay';
 
 export default function HeroStack() {
   const { type, post, getSlotImage, getBlurUrl } = useTemplateState();
@@ -23,7 +26,7 @@ export default function HeroStack() {
   return (
     <div className="w-full space-y-8 md:space-y-12" id="layout-hero-stack">
       {/* Complete Full-Bleed/Extra-Wide Hero Header */}
-      <div className="-mx-6 md:-mx-12 relative aspect-[21/9] bg-cream/10 border-b border-cream-dark/50 overflow-hidden md:rounded-b-3xl">
+      <div className="-mx-6 md:-mx-12 relative group aspect-[21/9] bg-cream/10 border-b border-cream-dark/50 overflow-hidden md:rounded-b-3xl">
         <Image
           src={img1.url}
           alt={post.title}
@@ -34,6 +37,14 @@ export default function HeroStack() {
           className="object-cover"
           referrerPolicy="no-referrer"
         />
+        {type === 'recipe' && (
+          <PinterestImageOverlay
+            slug={post.slug}
+            imageUrl={img1.url}
+            title={post.title}
+            description={post.pinterestDescription || post.description}
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-espresso/40 to-transparent" />
         <div className="absolute bottom-4 left-6 md:left-12 text-left text-white drop-shadow-sm select-none">
           <span className="text-[9px] font-mono font-bold tracking-widest uppercase bg-terracotta px-2 py-0.5 rounded">
@@ -61,13 +72,20 @@ export default function HeroStack() {
 
             <aside className="lg:col-span-4 space-y-6">
               <RecipeTips />
+              <NutritionCard calories={post.calories} recipeTitle={post.title} />
               <RecipeAiCustomizer />
+              <PinGraphicCard
+                slug={post.slug}
+                imageUrl={img1.url}
+                title={post.title}
+                description={post.pinterestDescription || post.description}
+              />
             </aside>
           </div>
 
           {/* Midway Embedded Image Slot 2 */}
           <div className="py-6 border-y border-cream-dark/40 max-w-3xl mx-auto space-y-2">
-            <div className="relative aspect-video rounded-xl overflow-hidden border border-cream-dark shadow-xs bg-cream/10">
+            <div className="relative group aspect-video rounded-xl overflow-hidden border border-cream-dark shadow-xs bg-cream/10">
               <Image
                 src={img2.url}
                 alt="Preparation step and composition details"
@@ -76,6 +94,12 @@ export default function HeroStack() {
                 blurDataURL={blur2}
                 className="object-cover"
                 referrerPolicy="no-referrer"
+              />
+              <PinterestImageOverlay
+                slug={post.slug}
+                imageUrl={img2.url}
+                title={post.title}
+                description={post.pinterestDescription || post.description}
               />
             </div>
             {img2.caption && (

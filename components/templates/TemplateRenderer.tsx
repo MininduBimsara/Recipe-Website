@@ -7,6 +7,7 @@ import SideBySide from './SideBySide';
 import EditorialTrio from './EditorialTrio';
 import HeroStack from './HeroStack';
 import MagazineSplit from './MagazineSplit';
+import StickyMobileShareBar from '@/components/recipe/StickyMobileShareBar';
 
 interface TemplateRendererProps {
   post: any;
@@ -21,10 +22,11 @@ export default function TemplateRenderer({ post, type }: TemplateRendererProps) 
 
   return (
     <TemplateStateProvider post={post} type={type}>
-      <div className="w-full min-h-screen py-6 bg-[#FCFAF7] dark:bg-[#1A1A1A] select-none text-espresso print:mx-0 print:p-0 print:bg-white">
+      <div className="w-full min-h-screen py-6 bg-[#FCFAF7] dark:bg-[#1A1A1A] select-none text-espresso print:mx-0 print:p-0 print:bg-white pb-20 md:pb-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <TemplateDispatcher templateId={templateId} />
         </div>
+        <StickyMobileShareBar />
       </div>
     </TemplateStateProvider>
   );

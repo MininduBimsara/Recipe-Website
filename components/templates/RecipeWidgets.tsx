@@ -133,7 +133,7 @@ export function RecipeIngredients() {
         <CheckCircle2 className="w-4 h-4 text-sage shrink-0" />
         <div className="text-left">
           <h3 className="font-serif font-bold text-base text-espresso leading-none">
-            Ingredients Recipe Formula
+            Recipe Ingredients
           </h3>
           <span className="text-[9px] font-mono text-stone-500 uppercase">Check off completed items</span>
         </div>
@@ -283,7 +283,7 @@ export function RecipeTips() {
   return (
     <div className="p-5 rounded-2xl bg-[#FAF6F0] border border-cream-dark text-left space-y-2 shadow-3xs">
       <span className="text-[9px] font-mono text-sage font-extrabold flex items-center gap-1 tracking-widest uppercase">
-        <Award className="w-3.5 h-3.5" /> Chef's Secret Formulas
+        <Award className="w-3.5 h-3.5" /> Chef's Cooking Tips
       </span>
       <ul className="space-y-1.5 pl-1 font-serif text-[12.5px] leading-relaxed text-stone-700 italic">
         {post.tips.map((tip: string, index: number) => (
@@ -311,8 +311,8 @@ export function RecipeAiCustomizer() {
           <Sparkles className="w-4 h-4" />
         </div>
         <div className="text-left">
-          <h4 className="font-serif font-bold text-sm leading-tight">Savory Customizer Engine</h4>
-          <span className="text-[9px] font-mono uppercase tracking-wider text-stone-500">Runway AI Modifiers</span>
+          <h4 className="font-serif font-bold text-sm leading-tight">AI Recipe Customizer</h4>
+          <span className="text-[9px] font-mono uppercase tracking-wider text-stone-500">AI Personalization</span>
         </div>
       </div>
       <p className="text-[11px] text-stone-600 leading-relaxed text-left font-sans">
@@ -321,7 +321,7 @@ export function RecipeAiCustomizer() {
 
       {customizing && (
         <div className="flex items-center gap-2 py-2 px-3 bg-cream-light rounded-lg border border-cream-dark/50 animate-pulse">
-          <span className="text-[10px] font-mono font-bold text-stone-750">AI is tailoring recipe blueprint...</span>
+          <span className="text-[10px] font-mono font-bold text-stone-750">AI is tailoring recipe...</span>
         </div>
       )}
 
@@ -350,11 +350,11 @@ export function RecipeAiCustomizer() {
             setCustomizedSteps(null);
             setCustomizedIngredients(null);
             setCustomizationPrompt('');
-            toast.success('Restored original heirloom settings.');
+            toast.success('Restored original recipe settings.');
           }}
           className="text-[9px] font-mono uppercase font-bold tracking-wider text-[#E60023] hover:underline flex items-center gap-1 pt-1.5 cursor-pointer text-left"
         >
-          ✕ Discard custom adaptation
+          ✕ Discard customizations
         </button>
       )}
     </div>
