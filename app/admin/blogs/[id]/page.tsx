@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/client';
 import { createPostAction, updatePostAction } from '@/lib/actions/posts';
-import { getSavedBlogs, saveBlogs } from '@/lib/preseededPool';
+import { getSavedBlogs, saveBlogs, ExtendedBlogPost } from '@/lib/preseededPool';
 import TemplatePicker from '@/components/admin/TemplatePicker';
 import PublishControl from '@/components/admin/PublishControl';
 import { toast } from 'react-hot-toast';
@@ -94,7 +94,7 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
               sections: match.sections,
               layout_template: match.layout_template || 'classic-single',
               template_images: match.template_images || [],
-              status: match.status || (match.is_published ? 'published' : 'draft'),
+              status: match.status || 'draft',
               scheduled_for: match.scheduledAt
             });
           } else {
@@ -271,10 +271,11 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
       }
     } else {
       const localBlogs = getSavedBlogs();
-      const updatedBlog = {
+      const updatedBlog: ExtendedBlogPost = {
         id: isNew ? 'custom-b-' + Date.now() : id,
         ...dataPayload,
         summary,
+        date: publishStatus === 'published' ? 'Today' : new Date(scheduleDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
         readTime: `${dataPayload.reading_time_minutes} mins read`,
         image: coverImage,
         author,
