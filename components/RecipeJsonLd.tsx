@@ -42,11 +42,17 @@ export default function RecipeJsonLd({ post }: RecipeJsonLdProps) {
     } : {})
   };
 
+  // Sanitize JSON to prevent </script> injection from DB content
+  const safeJson = JSON.stringify(schema)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, '\\u0026');
+
   return (
     <script
       id={`recipe-jsonld-${post.id}`}
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: safeJson }}
     />
   );
 }

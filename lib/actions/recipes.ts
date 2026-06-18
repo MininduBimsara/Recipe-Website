@@ -1,9 +1,13 @@
 'use server'
 
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/server'
+import { requireAdminSession } from '@/lib/actions/auth'
 import { revalidatePath } from 'next/cache'
 
 export async function createRecipeAction(recipeData: any) {
+  const admin = await requireAdminSession();
+  if (!admin) return { success: false, error: 'Unauthorized' };
+
   if (!isSupabaseConfigured()) {
     return { success: true, localOnly: true, data: recipeData };
   }
@@ -29,6 +33,9 @@ export async function createRecipeAction(recipeData: any) {
 }
 
 export async function updateRecipeAction(id: string, recipeData: any) {
+  const admin = await requireAdminSession();
+  if (!admin) return { success: false, error: 'Unauthorized' };
+
   if (!isSupabaseConfigured()) {
     return { success: true, localOnly: true, data: recipeData };
   }
@@ -56,6 +63,9 @@ export async function updateRecipeAction(id: string, recipeData: any) {
 }
 
 export async function deleteRecipeAction(id: string) {
+  const admin = await requireAdminSession();
+  if (!admin) return { success: false, error: 'Unauthorized' };
+
   if (!isSupabaseConfigured()) {
     return { success: true, localOnly: true };
   }
@@ -80,6 +90,9 @@ export async function deleteRecipeAction(id: string) {
 }
 
 export async function togglePublishRecipeAction(id: string, isPublished: boolean) {
+  const admin = await requireAdminSession();
+  if (!admin) return { success: false, error: 'Unauthorized' };
+
   if (!isSupabaseConfigured()) {
     return { success: true, localOnly: true };
   }
@@ -105,3 +118,4 @@ export async function togglePublishRecipeAction(id: string, isPublished: boolean
     return { success: false, error: err.message || 'Error updating recipe state.' };
   }
 }
+

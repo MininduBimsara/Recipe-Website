@@ -30,7 +30,9 @@ export async function middleware(request: NextRequest) {
     const { data: { user } } = await supabase.auth.getUser()
     const path = request.nextUrl.pathname;
 
-    const isAdmin = user && user.id === 'c7fdab45-32f0-4b92-8d21-6fe025e431d7';
+    // Admin UUID is read from env var — never hardcoded in source
+    const adminUserId = process.env.ADMIN_USER_ID;
+    const isAdmin = adminUserId ? (user?.id === adminUserId) : false;
 
     // If session is empty or user is not the designated admin and requesting private admin routes
     if (!isAdmin && path.startsWith('/admin') && path !== '/admin/login') {
@@ -44,7 +46,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/admin', request.url))
     }
   } catch (err) {
-    console.error('Middleware session refresh bypass:', err);
+    console.error('Middleware session refresh error:', err);
   }
 
   return supabaseResponse;

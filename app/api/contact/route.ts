@@ -1,59 +1,40 @@
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+
+const contactSchema = z.object({
+  name: z.string().min(1, "Name is required").max(100),
+  email: z.string().email("Invalid email address"),
+  subject: z.string().min(1, "Subject is required").max(200),
+  message: z.string().min(20, "Message must be at least 20 characters").max(5000),
+});
 
 export async function POST(req: NextRequest) {
+  // Validate Content-Type
+  if (!req.headers.get("content-type")?.includes("application/json")) {
+    return NextResponse.json({ error: "Invalid content type" }, { status: 415 });
+  }
+
   try {
     const body = await req.json();
-    const { name, email, subject, message } = body;
+    const result = contactSchema.safeParse(body);
 
-    // Backend validation support
-    if (!name || name.trim().length === 0) {
+    if (!result.success) {
+      const firstError = result.error.issues[0];
       return NextResponse.json(
-        { error: "Name is a required field", code: "VALIDATION_MISSING_NAME" },
+        { error: firstError.message, code: "VALIDATION_ERROR" },
         { status: 400 }
       );
     }
 
-    if (!email || !email.includes("@")) {
-      return NextResponse.json(
-        { error: "Invalid email address format", code: "VALIDATION_INVALID_EMAIL" },
-        { status: 400 }
-      );
-    }
+    const { subject } = result.data;
 
-    if (!subject) {
-      return NextResponse.json(
-        { error: "Subject selection is required", code: "VALIDATION_MISSING_SUBJECT" },
-        { status: 400 }
-      );
-    }
+    // Log only non-PII metadata for audit purposes — never log name/email/message body
+    console.info(`[Contact] New submission. Subject: "${subject}", timestamp: ${new Date().toISOString()}`);
 
-    if (!message || message.trim().length < 20) {
-      return NextResponse.json(
-        { 
-          error: "Message must be at least 20 characters in length to avoid spam filtering", 
-          code: "VALIDATION_MESSAGE_TOO_SHORT" 
-        },
-        { status: 400 }
-      );
-    }
-
-    // Explicitly logger outputs in accordance with architectural plans
-    console.log("💌 [Dishcraft Contact Form Submission Received]:", {
-      name,
-      email,
-      subject,
-      message,
-      timestamp: new Date().toISOString(),
-    });
-
-    return NextResponse.json({ success: true, message: "Message logged securely" });
-  } catch (err: any) {
-    console.error("Contact Form Pipeline Exception:", err);
+    return NextResponse.json({ success: true, message: "Message received successfully" });
+  } catch {
     return NextResponse.json(
-      { 
-        error: err.message || "The communication gateway encountered an unexpected exception.", 
-        code: "CONTACT_API_PIPELINE_ERROR" 
-      },
+      { error: "An unexpected error occurred. Please try again.", code: "CONTACT_ERROR" },
       { status: 500 }
     );
   }

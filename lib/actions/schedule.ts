@@ -1,6 +1,7 @@
 'use server';
 
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/server';
+import { requireAdminSession } from '@/lib/actions/auth';
 import { revalidatePath } from 'next/cache';
 import { fromZonedTime, toZonedTime } from 'date-fns-tz';
 
@@ -34,6 +35,9 @@ export async function convertUtcToLocalAction(utcString: string, timezone: strin
  * Returns combined list of all recipes and blog posts with their status and publish dates
  */
 export async function getScheduleBacklogAction() {
+  const admin = await requireAdminSession();
+  if (!admin) return { success: false, error: 'Unauthorized', queue: [] };
+
   if (!isSupabaseConfigured()) {
     return { success: true, localOnly: true, queue: [] };
   }
@@ -98,6 +102,9 @@ export async function updateReleaseScheduleAction(
     scheduled_at_utc?: string | null;
   }
 ) {
+  const admin = await requireAdminSession();
+  if (!admin) return { success: false, error: 'Unauthorized' };
+
   if (!isSupabaseConfigured()) {
     return { success: true, localOnly: true };
   }
@@ -146,6 +153,9 @@ export async function updateReleaseScheduleAction(
  * Scans for items that are 'scheduled' and scheduled_for <= NOW, and publishes them immediately.
  */
 export async function runAutoPublishSimulationAction() {
+  const admin = await requireAdminSession();
+  if (!admin) return { success: false, error: 'Unauthorized' };
+
   if (!isSupabaseConfigured()) {
     return { success: true, message: 'Supabase is not configured. Simulation succeeded locally.' };
   }

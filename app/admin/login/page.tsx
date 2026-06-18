@@ -110,7 +110,7 @@ export default function AdminLoginPage() {
         </form>
 
         <div className="mt-8 text-center text-[11px] font-mono text-stone-500" id="login-footer">
-          Protected Administrative Gateway. IP address and session activities logged.
+          Protected Administrative Gateway. Unauthorized access is prohibited.
         </div>
       </div>
     </div>

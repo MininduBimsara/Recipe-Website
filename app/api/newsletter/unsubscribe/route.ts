@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/server';
 
-const newsletterSchema = z.object({
+const unsubscribeSchema = z.object({
   email: z.string().email('Invalid email address').max(254),
 });
 
@@ -13,11 +13,11 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json();
-    const result = newsletterSchema.safeParse(body);
+    const result = unsubscribeSchema.safeParse(body);
 
     if (!result.success) {
       return NextResponse.json(
-        { error: result.error.issues[0].message, code: 'INVALID_EMAIL_ADDRESS' },
+        { error: result.error.issues[0].message, code: 'INVALID_EMAIL' },
         { status: 400 }
       );
     }
@@ -28,32 +28,24 @@ export async function POST(req: NextRequest) {
       const supabase = await createClient();
       const { error } = await supabase
         .from('newsletter_subscribers')
-        .insert([{ email }]);
+        .delete()
+        .eq('email', email);
 
+      // Return success even if email wasn't found — prevents email enumeration
       if (error) {
-        // If it's a conflict/duplicate, return success to avoid email enumeration
-        if (error.code === '23505') {
-          return NextResponse.json({
-            success: true,
-            message: 'You are already subscribed to Savory Kitchen!',
-          });
-        }
-        // Log error server-side only, return generic message to client
-        console.error('[Newsletter] Supabase insert error:', error.code);
-        return NextResponse.json(
-          { error: 'Subscription failed. Please try again.', code: 'SUBSCRIPTION_FAILED' },
-          { status: 500 }
-        );
+        console.error('[Unsubscribe] DB error:', error.code);
       }
     }
 
+    console.info(`[Newsletter] Unsubscribe processed. Timestamp: ${new Date().toISOString()}`);
+
     return NextResponse.json({
       success: true,
-      message: 'Successfully subscribed to Savory Kitchen!',
+      message: 'You have been successfully unsubscribed.',
     });
   } catch {
     return NextResponse.json(
-      { error: 'Subscription failed. Please try again.', code: 'SUBSCRIPTION_FAILED' },
+      { error: 'Unsubscribe failed. Please try again.', code: 'UNSUBSCRIBE_FAILED' },
       { status: 500 }
     );
   }

@@ -1,9 +1,13 @@
 'use server'
 
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/server'
+import { requireAdminSession } from '@/lib/actions/auth'
 import { revalidatePath } from 'next/cache'
 
 export async function createPostAction(postData: any) {
+  const admin = await requireAdminSession();
+  if (!admin) return { success: false, error: 'Unauthorized' };
+
   if (!isSupabaseConfigured()) {
     return { success: true, localOnly: true, data: postData };
   }
@@ -29,6 +33,9 @@ export async function createPostAction(postData: any) {
 }
 
 export async function updatePostAction(id: string, postData: any) {
+  const admin = await requireAdminSession();
+  if (!admin) return { success: false, error: 'Unauthorized' };
+
   if (!isSupabaseConfigured()) {
     return { success: true, localOnly: true, data: postData };
   }
@@ -56,6 +63,9 @@ export async function updatePostAction(id: string, postData: any) {
 }
 
 export async function deletePostAction(id: string) {
+  const admin = await requireAdminSession();
+  if (!admin) return { success: false, error: 'Unauthorized' };
+
   if (!isSupabaseConfigured()) {
     return { success: true, localOnly: true };
   }
@@ -80,6 +90,9 @@ export async function deletePostAction(id: string) {
 }
 
 export async function togglePublishPostAction(id: string, isPublished: boolean) {
+  const admin = await requireAdminSession();
+  if (!admin) return { success: false, error: 'Unauthorized' };
+
   if (!isSupabaseConfigured()) {
     return { success: true, localOnly: true };
   }

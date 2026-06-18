@@ -59,10 +59,16 @@ export default function RecipeSchema({ recipe }: RecipeSchemaProps) {
     }
   };
 
+  // Sanitize JSON to prevent </script> injection from DB content
+  const safeJson = JSON.stringify(schemaJson)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, '\\u0026');
+
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJson) }}
+      dangerouslySetInnerHTML={{ __html: safeJson }}
     />
   );
 }

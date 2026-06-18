@@ -1,95 +1,93 @@
 import { GoogleGenAI } from '@google/genai';
 import { NextRequest, NextResponse } from 'next/server';
+// Simple in-memory rate limiter (sliding window)
+const ipRateLimits = new Map<string, { timestamps: number[] }>();
+
+function isRateLimited(ip: string, windowMs: number, maxRequests: number): boolean {
+  const now = Date.now();
+  const record = ipRateLimits.get(ip) || { timestamps: [] };
+  record.timestamps = record.timestamps.filter(t => now - t < windowMs);
+  if (record.timestamps.length >= maxRequests) {
+    ipRateLimits.set(ip, record);
+    return true;
+  }
+  record.timestamps.push(now);
+  ipRateLimits.set(ip, record);
+  return false;
+}
+
+function getClientIp(req: NextRequest): string {
+  return (
+    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+    req.headers.get('x-real-ip') ||
+    'unknown'
+  );
+}
+
+/** Strip characters that could break out of the prompt context */
+function sanitizeQuery(input: string): string {
+  return input
+    .slice(0, 100) // max 100 characters
+    .replace(/[<>"'`{}\\]/g, '') // remove injection chars
+    .trim() || 'culinary inspiration';
+}
 
 export async function GET(req: NextRequest) {
+  const ip = getClientIp(req);
+  // Max 5 AI requests per minute per IP to prevent quota drain
+  if (isRateLimited(ip, 60_000, 5)) {
+    return NextResponse.json(
+      { error: 'Too many requests. Please slow down.', suggestions: [] },
+      { status: 429 }
+    );
+  }
+
   const { searchParams } = new URL(req.url);
-  const query = searchParams.get('q') || 'culinary inspiration';
+  const rawQuery = searchParams.get('q') || 'culinary inspiration';
+  const query = sanitizeQuery(rawQuery);
 
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    // Lazily handle missing keys gracefully as instructed by safety rules
-    return NextResponse.json({ 
-      error: 'GEMINI_API_KEY is missing. Please set it in your environment dashboard.',
+    return NextResponse.json({
+      error: 'AI suggestions are not configured.',
       code: 'GEMINI_API_KEY_MISSING',
-      suggestions: [
-        {
-          title: 'Lemon Herb Garlic Chicken Breast',
-          description: 'A classic, fail-safe comfort dish with blistered lemon wheels and cold pan butter glaze.',
-          prepTime: '25 mins',
-          difficulty: 'Easy'
-        },
-        {
-          title: 'Sautéed Garlic Scallopini Pasta',
-          description: 'Glossy emulsion coatings of white wine reduction, olive oil, and crushed red peppercorn flakes.',
-          prepTime: '20 mins',
-          difficulty: 'Medium'
-        },
-        {
-          title: 'Charred Sourdough with Burrata',
-          description: 'Pristine toasted bread slices covered with raw sea salt flares, hand-torn burrata cream, and extra virgin olive oil.',
-          prepTime: '10 mins',
-          difficulty: 'Easy'
-        }
-      ]
+      suggestions: []
     });
   }
 
   try {
     const ai = new GoogleGenAI({ apiKey });
-    
-    const prompt = `You are a gourmet Michelin-starred food consultant and recipe engineer.
-The user tried to search for the keyword "${query}" on a recipe and culinary blog site, but found zero matches inside our database.
-Propose 3 creative, mouth-watering, highly-specific recipe ideas that match or elevate the searched terms.
-Return the result strictly as a valid, parsable JSON array of 3 objects.
-Each object must have exactly these keys:
-- "title": a gorgeous, artisanal recipe name
-- "description": a highly sensory, professional culinary outline (e.g. mentioning slow cold retardation, blistered sears, pan deglazes, or fragile crusts)
-- "prepTime": a realistic execution time (e.g. "30 mins", "1.5 hrs")
-- "difficulty": "Easy", "Medium", or "Hard"
 
-Return only the raw JSON text. Do not wrap it in \`\`\`json or regular code markdown blocks. Just return the valid JSON array starting with [ and ending with ].`;
+    const prompt = `You are a gourmet culinary consultant and recipe engineer.
+A user searched for: "${query}" on a recipe site but found no matches.
+Propose 3 creative, specific recipe ideas that match or elevate the searched terms.
+Return ONLY a valid JSON array of 3 objects, each with exactly these keys:
+- "title": a descriptive recipe name
+- "description": a professional culinary outline (max 2 sentences)
+- "prepTime": a realistic time (e.g., "30 mins")
+- "difficulty": "Easy", "Medium", or "Hard"
+Start with [ and end with ]. No markdown, no code blocks.`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-3.5-flash',
+      model: 'gemini-2.0-flash',
       contents: prompt,
       config: {
-        responseMimeType: 'application/json', // Force JSON output to prevent syntax errors
+        responseMimeType: 'application/json',
       }
     });
 
     const text = response.text || '[]';
-    // Clean potential markdown leftovers
     const trimmed = text.replace(/```json/gi, '').replace(/```/g, '').trim();
     const suggestions = JSON.parse(trimmed);
 
     return NextResponse.json({ success: true, suggestions });
   } catch (error: any) {
-    console.error('Gemini Recipe Suggestions search API failure details:', error);
-    
-    // Recovery block - return beautiful fallback suggestions if there is an API parsing block
+    console.error('Gemini suggest-recipes error:', error?.message || error);
     return NextResponse.json({
-      error: error.message || 'Gemini API failed to parse content.',
+      error: 'Unable to generate suggestions at this time.',
       code: 'SUGGEST_RECIPES_API_EXCEPTION',
-      suggestions: [
-        {
-          title: `Artisanal French Butter Scramble with "${query}"`,
-          description: 'A delicate slow-cooked custard texture featuring fresh seasonal chives and toasted rustic pain de campagne strips.',
-          prepTime: '15 mins',
-          difficulty: 'Easy'
-        },
-        {
-          title: `Gourmet pan-glazed Salmon with "${query}"`,
-          description: 'Seared wild salmon skins served on a bed of fresh herb quinoa, finished with high-hydration citrus dressing drops.',
-          prepTime: '20 mins',
-          difficulty: 'Medium'
-        },
-        {
-          title: `Rustic Autumn Soup featuring "${query}"`,
-          description: 'Slow-simmered vegetable mineral broth loaded with fresh roasted squashes, extra virgin olive oil swirls, and micro-greens.',
-          prepTime: '35 mins',
-          difficulty: 'Easy'
-        }
-      ]
-    });
+      suggestions: []
+    }, { status: 500 });
   }
 }
+
