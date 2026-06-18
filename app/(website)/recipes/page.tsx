@@ -163,13 +163,13 @@ function RecipesIndexClient() {
       {/* Visual Masthead and Header design */}
       <header className="text-center py-12 border-b border-stone-200 flex flex-col items-center justify-center space-y-4" id="recipes-masthead">
         <span className="font-mono text-[10px] tracking-[0.25em] text-[#7C9A7E] font-extrabold uppercase flex items-center gap-1.5">
-          <BookOpen className="w-3.5 h-3.5 text-honey" /> CULINARY ARCHIVES
+          <BookOpen className="w-3.5 h-3.5 text-honey" /> RECIPE CATALOG
         </span>
         <h1 className="font-serif font-bold text-4.5xl sm:text-5xl md:text-6xl text-espresso tracking-tight max-w-3xl leading-[1.05]">
-          Master <span className="text-terracotta italic font-sans font-extralight tracking-tight">Formulas</span>
+          Our Recipes
         </h1>
         <p className="font-sans text-xs sm:text-sm text-stone-500 max-w-xl leading-relaxed">
-          Filter and matching recipes immediately by ingredient availability, specific cuisines, and precise dietary lifestyles. Use the control decks below.
+          Find the perfect recipe by ingredient, cuisine, or dietary preference. Let's make something delicious!
         </p>
       </header>
 
@@ -203,7 +203,7 @@ function RecipesIndexClient() {
             <div className="relative flex-1">
               <input
                 type="text"
-                placeholder="Search formulas (e.g., cauliflower)..."
+                placeholder="Search recipes (e.g., pasta, cake)..."
                 value={searchPhrase}
                 onChange={handleSearchChange}
                 className="w-full bg-white border outline-none text-xs rounded-xl py-2.5 pl-4 pr-10 focus:border-terracotta transition shadow-xs"
@@ -230,7 +230,7 @@ function RecipesIndexClient() {
             {/* 1. Cuisine Picker */}
             <div className="space-y-2">
               <span className="text-[10px] font-mono font-bold text-stone-550 flex items-center gap-1.5 uppercase tracking-wider">
-                <Globe2 className="w-3.5 h-3.5 text-[#B35C2E]" /> Filter by Cuisine Origin
+                <Globe2 className="w-3.5 h-3.5 text-[#B35C2E]" /> Filter by Cuisine
               </span>
               <div className="flex flex-wrap gap-1.5">
                 {CUISINES.map(c => (
@@ -271,20 +271,20 @@ function RecipesIndexClient() {
               </div>
             </div>
 
-            {/* 3. pantry search (Ingredient Availability Matcher) */}
+            {/* 3. pantry search */}
             <div className="space-y-2">
               <span className="text-[10px] font-mono font-bold text-stone-550 flex items-center gap-1.5 uppercase tracking-wider">
-                🔑 PANTRY INGREDIENT MATCHER
+                🔑 What's in your pantry?
               </span>
               <input
                 type="text"
-                placeholder="Type items (e.g., fig, cheese, garlic)..."
+                placeholder="Enter ingredients (e.g., cheese, garlic)..."
                 value={pantryIngredients}
                 onChange={e => setPantryIngredients(e.target.value)}
                 className="w-full bg-white border text-xs p-2.5 rounded-xl outline-none focus:border-sage font-mono text-stone-650"
               />
               <p className="text-[9px] text-stone-400 leading-normal">
-                Matches recipes containing ANY of these items. Separate multiple ingredients with commas.
+                Enter ingredients you want to use, separated by commas.
               </p>
             </div>
 
@@ -297,9 +297,9 @@ function RecipesIndexClient() {
       <main className="w-full" id="recipes-catalog-grid">
         {recipes.length === 0 ? (
           <div className="py-20 text-center border border-dashed rounded-3xl bg-white space-y-4" id="empty-recipe-state">
-            <h3 className="font-serif font-bold text-xl text-espresso">No formulas match your filters</h3>
+            <h3 className="font-serif font-bold text-xl text-espresso">No recipes match your filters</h3>
             <p className="text-stone-500 text-xs font-sans max-w-md mx-auto">
-              We couldn&apos;t find any recipes covering all active keys (Cuisine: {activeCuisine}, Diet: {activeDiet}, Query: {searchPhrase}). Try clearing.
+              We couldn't find any recipes for Cuisine: {activeCuisine}, Diet: {activeDiet}, or Search: {searchPhrase}. Try reset.
             </p>
             <button
               onClick={() => {
@@ -335,7 +335,7 @@ function RecipesIndexClient() {
               onClick={handleLoadMore}
               className="px-8 py-3.5 rounded-full border text-stone-700 bg-white hover:bg-stone-50 text-xs font-mono font-bold uppercase tracking-widest cursor-pointer transition-all hover:scale-102"
             >
-              Load More Masterpieces ({visibleCount} of {recipes.length})
+              Load More Recipes ({visibleCount} of {recipes.length})
             </button>
           </div>
         )}

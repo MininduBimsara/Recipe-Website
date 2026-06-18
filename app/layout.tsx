@@ -20,8 +20,8 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: 'Savory Kitchen - Cooking Blog & Structural Architecture Planner',
-  description: 'An interactive, high-performance recipe & culinary blog featuring automated AI customization, complete with an interactive full-stack architecture guidebook.',
+  title: 'Savory Kitchen - Easy Home Recipes & Cooking Guides',
+  description: 'Explore simple, kitchen-tested recipes, weekend baking ideas, and helpful cooking tips for home cooks of all skill levels.',
 };
 
 export default function RootLayout({

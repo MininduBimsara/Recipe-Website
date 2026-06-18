@@ -141,13 +141,13 @@ function SearchPageContent() {
       {/* Header section with central searching field */}
       <header className="text-center py-8 border-b border-cream-dark/60 dark:border-stone-850 flex flex-col items-center justify-center space-y-5" id="search-header">
         <span className="font-mono text-[10px] tracking-[0.2em] text-[#7C9A7E] dark:text-[#A0BCA2] font-extrabold uppercase flex items-center gap-1.5">
-          <UtensilsCrossed className="w-3.5 h-3.5 text-honey animate-bounce" /> GLOBAL CATALOG ENGINE
+          <UtensilsCrossed className="w-3.5 h-3.5 text-honey animate-bounce" /> SEARCH OUR RECIPES
         </span>
         <h1 className="font-serif font-bold text-3xl sm:text-4xl md:text-5xl text-espresso dark:text-cream tracking-tight max-w-2xl leading-none">
           Explore the Kitchen
         </h1>
         <p className="font-sans text-xs text-stone-500 max-w-md leading-relaxed">
-          Search the entire collection of baking ratios, ingredient standards, molecular sears, and recipe steps instantaneously.
+          Search our collection of easy recipes and cooking tips to find exactly what you want to cook.
         </p>
 
         {/* Floating search input wrapper */}
@@ -155,7 +155,7 @@ function SearchPageContent() {
           <input
             type="text"
             id="search-input-box"
-            placeholder="Search flour, hydration, sourdough, scallops..."
+            placeholder="Search recipes, ingredients..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="w-full bg-transparent text-sm text-espresso dark:text-cream placeholder-stone-400 py-3.5 pl-12 pr-12 focus:outline-none"
@@ -183,7 +183,7 @@ function SearchPageContent() {
             <span className="font-mono text-3xl block">🔍</span>
             <p className="font-serif text-espresso dark:text-cream font-bold text-lg">Your Search query goes here.</p>
             <p className="font-sans text-xs max-w-md mx-auto leading-relaxed">
-              Type keywords above to reveal related recipes and chemistry logs side by side.
+              Type keywords above to find related recipes and blog posts.
             </p>
           </div>
         )}
@@ -198,7 +198,7 @@ function SearchPageContent() {
                 🔍 RESULTS FOR &ldquo;{debouncedQuery.toUpperCase()}&rdquo;
               </span>
               <span className="font-mono text-[10px] text-sage font-bold">
-                FOUND {matchingRecipes.length} RECIPES / {matchingBlogs.length} BLOG POSTES
+                FOUND {matchingRecipes.length} RECIPES / {matchingBlogs.length} BLOG POSTS
               </span>
             </div>
 
@@ -211,7 +211,7 @@ function SearchPageContent() {
                   <div className="flex items-center gap-2 border-b border-cream-dark/40 dark:border-stone-800 pb-2">
                     <span className="w-2.5 h-2.5 bg-terracotta rounded-full" />
                     <h2 className="font-serif font-bold text-xl text-espresso dark:text-cream">
-                      Coordinated Recipes ({matchingRecipes.length})
+                      Recipes ({matchingRecipes.length})
                     </h2>
                   </div>
 
@@ -274,13 +274,13 @@ function SearchPageContent() {
                   <div className="flex items-center gap-2 border-b border-cream-dark/40 dark:border-stone-800 pb-2">
                     <span className="w-2.5 h-2.5 bg-sage rounded-full" />
                     <h2 className="font-serif font-bold text-xl text-espresso dark:text-cream">
-                      Editorial Gazette ({matchingBlogs.length})
+                      From the Blog ({matchingBlogs.length})
                     </h2>
                   </div>
 
                   {matchingBlogs.length === 0 ? (
                     <div className="p-6 text-center text-stone-400 font-mono text-xs border border-dashed border-cream-dark dark:border-stone-850 rounded-2xl bg-white/20">
-                      No matching chemistry posts.
+                      No matching blog posts.
                     </div>
                   ) : (
                     <div className="space-y-4" id="matching-blogs-list">
@@ -342,7 +342,7 @@ function SearchPageContent() {
                     No results for &ldquo;{debouncedQuery}&rdquo; — let AI inspire you!
                   </h3>
                   <p className="text-xs text-stone-500 dark:text-stone-400 font-sans max-w-md mx-auto leading-relaxed">
-                    Our database didn&rsquo;t list direct matches, but our Gemini culinary brain can instantaneously synthesize 3 custom recipe structures for your keyword.
+                    We didn't find any direct matches in our catalog, but our AI assistant can suggest 3 quick recipe ideas for your keyword.
                   </p>
                 </div>
 
@@ -358,7 +358,7 @@ function SearchPageContent() {
                   ) : (
                     <Sparkles className="w-4 h-4 text-honey" />
                   )}
-                  <span>Synthesize 3 AI Recipe Ideas</span>
+                  <span>Get AI Recipe Ideas</span>
                 </button>
 
                 {/* Skeleton Loader panel compiling */}
@@ -372,7 +372,7 @@ function SearchPageContent() {
                     >
                       <div className="flex items-center justify-center gap-2 font-mono text-xs text-stone-400 italic">
                         <RefreshCw className="w-4.5 h-4.5 animate-spin text-terracotta" />
-                        <span>Querying server model layer...</span>
+                        <span>Asking our AI for suggestions...</span>
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         {[1, 2, 3].map((s) => (
@@ -399,7 +399,7 @@ function SearchPageContent() {
                       
                       <div className="flex items-center gap-2 text-sage dark:text-sage-light font-mono text-[10px] font-bold uppercase pb-1">
                         <Sparkles className="w-4 h-4 text-honey animate-pulse" />
-                        <span>Dynamically Crafted by Gemini 3.5 Flash Model</span>
+                        <span>Suggested by AI</span>
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-6" id="suggestions-box-grid">

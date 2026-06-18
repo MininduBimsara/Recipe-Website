@@ -23,6 +23,28 @@ import { BLOG_POSTS_DB } from '@/data/blogs';
 import { useFavorites } from '@/hooks/useFavorites';
 import { toast } from 'react-hot-toast';
 
+// Custom lightweight SVG illustrations for a warm, premium aesthetic
+const CookingIllustration = () => (
+  <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-16 h-16 text-sage/30 dark:text-sage/20">
+    <path d="M30 40h40v15c0 11-9 20-20 20S30 66 30 55V40z" fill="currentColor" fillOpacity="0.05" />
+    <path d="M50 20v20M40 25v15M60 25v15M30 40H20" />
+    <circle cx="50" cy="75" r="2" fill="currentColor" />
+  </svg>
+);
+
+const BakerIllustration = () => (
+  <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-16 h-16 text-terracotta/20 dark:text-terracotta/10">
+    <path d="M35 60h30v10H35zM32 60c-2-8-2-18 6-22 4-2 6-5 6-9 0-5 5-9 10-9s10 4 10 9c0 4 2 7 6 9 8 4 8 14 6 22H32z" fill="currentColor" fillOpacity="0.05" />
+    <path d="M50 20v10M40 22a8 8 0 0110-3" />
+  </svg>
+);
+
+const LeafyIllustration = () => (
+  <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-16 h-16 text-sage/35 dark:text-sage/25">
+    <path d="M50 85V25M50 45c8-10 15-8 18-3-5 5-13 3-18 3M50 60c-8-10-15-8-18-3 5 5 13 3 18 3M50 35c10-8 12-18 5-20-8 3-5 15-5 20" fill="currentColor" fillOpacity="0.05" />
+  </svg>
+);
+
 export default function HomePage() {
   const router = useRouter();
   const { isFavorite, toggleFavorite } = useFavorites();
@@ -128,17 +150,17 @@ export default function HomePage() {
 
         {/* Right Side: Editorial Warm Cream Layout with Elegant Search */}
         <div className="bg-[#FAF6F0] dark:bg-stone-900/40 w-full flex flex-col justify-center px-8 py-14 sm:px-12 md:px-16 lg:px-20 text-left space-y-6 md:space-y-8">
-          <div className="space-y-3">
+          <div className="space-y-4">
             <span className="font-mono text-[10px] sm:text-xs tracking-[0.2em] text-terracotta dark:text-terracotta-light font-bold uppercase block leading-none">
-              OVER 50+ TESTED ARTISANAL FORMULAS
+              OVER 50+ SIMPLE HOME-COOKED RECIPES
             </span>
             <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-6xl text-espresso dark:text-cream leading-[1.08] tracking-tight">
               What are you cooking tonight?
             </h1>
           </div>
 
-          <p className="text-stone-700 dark:text-stone-300 font-sans text-xs sm:text-sm md:text-base leading-relaxed max-w-lg">
-            Find weeknight dinners, weekend projects, sourdough compositions, and everything in between. Specially formulated for bakers and culinary enthusiasts.
+          <p className="text-stone-700 dark:text-stone-305 font-sans text-xs sm:text-sm md:text-base leading-relaxed max-w-lg">
+            Find easy weeknight dinners, sweet desserts, and simple baking ideas. Tested in our kitchen so they turn out perfect in yours.
           </p>
 
           {/* Clean Integrated Capsule Search Bar */}
@@ -147,7 +169,7 @@ export default function HomePage() {
               <Search className="w-4 h-4 text-stone-400 dark:text-stone-500 shrink-0 mr-2.5" />
               <input
                 type="text"
-                placeholder="Search master formulas or ingredients..."
+                placeholder="Search recipes, ingredients..."
                 value={searchPhrase}
                 onChange={(e) => setSearchPhrase(e.target.value)}
                 className="w-full bg-transparent text-espresso dark:text-cream text-xs focus:outline-none placeholder-stone-400 dark:placeholder-stone-500"
@@ -163,15 +185,15 @@ export default function HomePage() {
 
           {/* Suggestive Badges Underneath */}
           <div className="flex flex-wrap items-center gap-2 max-w-md pt-1">
-            {['Breakfast', 'Vegan', '35-min', 'One-pot', 'Desserts'].map((keyword) => {
+            {['Breakfast', 'Easy Dinners', 'Baking', 'Vegetarian', 'Desserts'].map((keyword) => {
               // Convert labels to query values
               const displayLabel = keyword;
-              const actualSearchQuery = keyword === '35-min' ? '30 mins' : keyword === 'One-pot' ? 'galette' : keyword === 'Vegan' ? 'Vegetarian' : keyword;
+              const actualSearchQuery = keyword === 'Easy Dinners' ? '30 mins' : keyword === 'Baking' ? 'galette' : keyword === 'Vegetarian' ? 'Vegetarian' : keyword;
               return (
                 <button
                   key={keyword}
                   onClick={() => handleSuggestionClick(actualSearchQuery)}
-                  className="px-4 py-1.5 rounded-full border border-cream-dark/80 dark:border-stone-750 text-stone-600 dark:text-stone-300 bg-white/60 dark:bg-stone-850/50 hover:bg-white dark:hover:bg-stone-800 text-[10px] sm:text-xs font-sans transition-all cursor-pointer font-medium"
+                  className="px-4 py-1.5 rounded-full border border-cream-dark/80 dark:border-stone-750 text-stone-606 bg-white/60 dark:bg-stone-850/50 hover:bg-white dark:hover:bg-stone-800 text-[10px] sm:text-xs font-sans transition-all cursor-pointer font-medium"
                 >
                   {displayLabel}
                 </button>
@@ -181,31 +203,33 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 2: BENTO GRID PRESENTATION (Flawless recreation of second uploaded layout image) */}
-      <section className="py-24 px-6 md:px-12 bg-[#FBF9F4] dark:bg-stone-900/10" id="today-menu-bento">
-        <div className="max-w-7xl mx-auto space-y-10">
+      {/* SECTION 2: BENTO GRID PRESENTATION */}
+      <section className="py-28 px-6 md:px-12 bg-[#FBF9F4] dark:bg-stone-900/10" id="today-menu-bento">
+        <div className="max-w-7xl mx-auto space-y-12">
           
           {/* Header indicator */}
-          <div className="text-left space-y-1 max-w-xl">
-            <span className="font-mono text-[10px] tracking-widest text-[#7C9A7E] dark:text-[#A0BCA2] font-extrabold uppercase">
-              • CURATED COMPOSITIONS
-            </span>
-            <h2 className="font-serif font-extrabold text-2xl sm:text-3xl text-espresso dark:text-cream tracking-tight">
-              Crafted Senses: Today&apos;s Grid
-            </h2>
+          <div className="flex items-center justify-between gap-4">
+            <div className="text-left space-y-1 max-w-xl">
+              <span className="font-mono text-[10px] tracking-widest text-[#7C9A7E] dark:text-[#A0BCA2] font-extrabold uppercase">
+                • TODAY'S FEATURED RECIPES
+              </span>
+              <h2 className="font-serif font-extrabold text-2xl sm:text-3xl text-espresso dark:text-cream tracking-tight">
+                Delicious Cooking Inspiration
+              </h2>
+            </div>
+            <CookingIllustration />
           </div>
 
           {/* Premium Bento Grid Structure (12 Columns, mathematically synchronized) */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-5 auto-rows-[220px] md:auto-rows-[190px] lg:auto-rows-[215px]">
             
-            {/* Bento Item 1: Giant Deep Forest Green Card (height: 2 rows) */}
             <div className="md:col-span-6 md:row-span-2 bg-[#21352A] rounded-[2rem] p-8 sm:p-12 flex flex-col justify-between text-left text-[#FAF7F2] relative overflow-hidden group shadow-md" id="bento-menu-anchor">
               <div className="space-y-4 relative z-10">
                 <span className="font-mono text-[10px] tracking-[0.25em] text-[#A2BCA0] font-bold uppercase block">
-                  TODAY&apos;S MENU
+                  TODAY'S FEATURE
                 </span>
                 <h3 className="font-serif font-medium text-4xl sm:text-5xl leading-[1.1] tracking-tight max-w-md">
-                  Eat something you&apos;ll remember.
+                  What should we cook today?
                 </h3>
               </div>
               <div className="relative z-10 pt-6">
@@ -299,7 +323,7 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/15 to-transparent" />
               <div className="absolute bottom-5 left-6 text-white text-left">
-                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2]/80 block mb-0.5">Craft Drinks</span>
+                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2]/80 block mb-0.5">Drinks</span>
                 <h4 className="font-serif font-bold text-md sm:text-lg tracking-tight leading-none">Smoked Rosemary Grapefruit Paloma</h4>
               </div>
             </Link>
@@ -319,8 +343,8 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/15 to-transparent" />
               <div className="absolute bottom-5 left-6 text-white text-left">
-                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2]/80 block mb-0.5">Baking Science</span>
-                <h4 className="font-serif font-bold text-md sm:text-lg tracking-tight leading-none">Heirloom Tomato & Burrata Galette Crust</h4>
+                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2]/80 block mb-0.5">Baking</span>
+                <h4 className="font-serif font-bold text-md sm:text-lg tracking-tight leading-none">Heirloom Tomato & Burrata Galette</h4>
               </div>
             </Link>
 
@@ -329,18 +353,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 3: FEATURED FORMULA SPOTLIGHTS (Dual-Column Curated Cards) */}
-      <section className="py-24 bg-white dark:bg-[#1A1A1A]" id="curated-showcase-section">
+      {/* SECTION 3: FEATURED RECIPES */}
+      <section className="py-28 bg-white dark:bg-[#1A1A1A]" id="curated-showcase-section">
         <div className="max-w-7xl mx-auto px-6 space-y-16">
           
-          <div className="text-center space-y-2 max-w-2xl mx-auto">
-            <span className="font-mono text-[10px] tracking-[0.2em] text-[#7C9A7E] dark:text-[#A0BCA2] font-extrabold uppercase py-1">
-              • SEASONED MASTERPIECES
-            </span>
-            <h2 className="font-serif font-bold text-3xl md:text-4xl text-espresso dark:text-cream tracking-tight">
-              Featured Editorial Masterpieces
-            </h2>
-            <div className="h-0.5 w-12 bg-terracotta mx-auto mt-4" />
+          <div className="flex items-center justify-between max-w-2xl mx-auto border-b border-cream-dark dark:border-stone-800 pb-6">
+            <div className="text-left space-y-2 flex-1">
+              <span className="font-mono text-[10px] tracking-[0.2em] text-[#7C9A7E] dark:text-[#A0BCA2] font-extrabold uppercase py-1">
+                • OUR FAVORITES
+              </span>
+              <h2 className="font-serif font-bold text-3xl md:text-4xl text-espresso dark:text-cream tracking-tight">
+                Our Most Loved Recipes
+              </h2>
+            </div>
+            <BakerIllustration />
           </div>
 
           {/* Feature 1: Rustic Sourdough Boule */}
@@ -363,7 +389,7 @@ export default function HomePage() {
             <div className="lg:col-span-5 p-8 sm:p-12 flex flex-col justify-between space-y-6 text-left">
               <div className="space-y-5">
                 <span className="inline-block text-[9px] font-mono font-bold tracking-widest text-white uppercase bg-sage dark:bg-sage/40 px-3 py-1.5 rounded-full">
-                  #{mainFeature.category} Highlight
+                  #{mainFeature.category} Recipe
                 </span>
                 
                 <h3 className="font-serif font-black text-2xl sm:text-3xl text-espresso dark:text-cream leading-tight">
@@ -378,11 +404,11 @@ export default function HomePage() {
                 <div className="space-y-2 border-t border-cream-dark/50 dark:border-stone-800/80 pt-4 font-sans text-xs text-stone-500 dark:text-stone-400">
                   <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-terracotta" />
-                    <span>Uses live probiotic wild cultures</span>
+                    <span>Perfect crispy crust and soft texture</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-terracotta" />
-                    <span>Slow cold fermentation for blistering crust</span>
+                    <span>Simple step-by-step bread baking guide</span>
                   </div>
                 </div>
               </div>
@@ -407,7 +433,7 @@ export default function HomePage() {
                   href={`/recipes/${mainFeature.slug}`}
                   className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase text-terracotta dark:text-terracotta-light group-hover:translate-x-1.5 transition-transform duration-300 cursor-pointer"
                 >
-                  <span>View Formula Sheet</span>
+                  <span>Get the Recipe</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -422,7 +448,7 @@ export default function HomePage() {
             <div className="lg:col-span-5 p-8 sm:p-12 order-2 lg:order-1 flex flex-col justify-between space-y-6 text-left">
               <div className="space-y-5">
                 <span className="inline-block text-[9px] font-mono font-bold tracking-widest text-[#FFF] uppercase bg-terracotta px-3 py-1.5 rounded-full">
-                  #{secondaryFeature.category} Selection
+                  #{secondaryFeature.category} Recipe
                 </span>
                 
                 <h3 className="font-serif font-black text-2xl sm:text-3xl text-espresso dark:text-cream leading-tight">
@@ -437,11 +463,11 @@ export default function HomePage() {
                 <div className="space-y-2 border-t border-cream-dark/50 dark:border-stone-800/80 pt-4 font-sans text-xs text-stone-500 dark:text-stone-400">
                   <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-sage" />
-                    <span>Twenty stacked translucent crêpe layers</span>
+                    <span>Delicious stacked crepe layers</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-sage" />
-                    <span>Whipped, emerald Sicilian pistachio pastry cream</span>
+                    <span>Creamy pistachio filling</span>
                   </div>
                 </div>
               </div>
@@ -466,7 +492,7 @@ export default function HomePage() {
                   href={`/recipes/${secondaryFeature.slug}`}
                   className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase text-terracotta dark:text-terracotta-light group-hover:translate-x-1.5 transition-transform duration-300 cursor-pointer"
                 >
-                  <span>Build This Cake</span>
+                  <span>Get the Recipe</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -490,27 +516,30 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 4: INTERACTIVE SEASONAL HARVEST SPOTLIGHT (Powered by Gemini AI) */}
-      <section className="py-20 bg-white dark:bg-[#1A1A1A] border-t border-cream-dark/40 dark:border-stone-850 px-6">
+      {/* SECTION 4: IN-SEASON COOKING IDEAS */}
+      <section className="py-24 bg-white dark:bg-[#1A1A1A] border-t border-cream-dark/40 dark:border-stone-850 px-6">
         <div className="max-w-4xl mx-auto">
           
-          <div className="rounded-3.5xl border border-cream-dark dark:border-stone-800 bg-[#FAF7F2] dark:bg-stone-850 p-6 sm:p-10 shadow-sm relative overflow-hidden flex flex-col text-left space-y-6">
+          <div className="rounded-3.5xl border border-cream-dark dark:border-stone-800 bg-[#FAF7F2] dark:bg-stone-850 p-8 sm:p-12 shadow-sm relative overflow-hidden flex flex-col text-left space-y-6">
             
             {/* Glowing spotlight emblem */}
             <div className="absolute top-0 right-0 w-24 h-24 bg-sage/10 dark:bg-sage/5 rounded-bl-[4rem] border-b border-l border-cream-dark dark:border-stone-800 flex items-center justify-center pointer-events-none">
               <Sparkles className="w-6 h-6 text-honey" />
             </div>
 
-            <div className="space-y-2 max-w-lg">
-              <span className="text-[10px] font-mono tracking-[0.2em] text-[#7C9A7E] font-extrabold uppercase">
-                • REAL-TIME HARVEST ARCHIVES
-              </span>
-              <h3 className="font-serif font-black text-2.5xl sm:text-3xl text-espresso dark:text-cream tracking-tight">
-                Seasonal Harvest Spotlights
-              </h3>
-              <p className="text-xs sm:text-sm text-stone-550 dark:text-stone-450 leading-relaxed font-sans">
-                Curate regional solar calendars to harvest the top organic materials. Our integrated AI coordinates food databases to compose perfect ingredient summaries and recipe formulas.
-              </p>
+            <div className="flex items-center justify-between gap-4 max-w-lg">
+              <div className="space-y-2">
+                <span className="text-[10px] font-mono tracking-[0.2em] text-[#7C9A7E] font-extrabold uppercase">
+                  • FRESH FROM THE GARDEN
+                </span>
+                <h3 className="font-serif font-black text-2.5xl sm:text-3xl text-espresso dark:text-cream tracking-tight">
+                  In-Season Cooking Ideas
+                </h3>
+                <p className="text-xs sm:text-sm text-stone-550 dark:text-stone-450 leading-relaxed font-sans">
+                  Not sure what ingredients are fresh this month? Let our AI suggest delicious seasonal ingredients and simple cooking ideas.
+                </p>
+              </div>
+              <LeafyIllustration />
             </div>
 
             {/* Fetch controls */}
@@ -525,7 +554,7 @@ export default function HomePage() {
                 ) : (
                   <Sparkles className="w-3.5 h-3.5 text-sage" />
                 )}
-                <span>Fetch {aiMonth || 'Seasonal'} Ingredient Analysis</span>
+                <span>Get Seasonal Ideas for {aiMonth || 'this month'}</span>
               </button>
             </div>
 
@@ -540,7 +569,7 @@ export default function HomePage() {
                 >
                   <div className="flex items-center gap-2">
                     <div className="w-2.5 h-2.5 bg-terracotta rounded-full animate-bounce" />
-                    <span className="text-xs font-mono italic text-stone-400">Consulting regional soil moisture and temperature profiles...</span>
+                    <span className="text-xs font-mono italic text-stone-400">Thinking of delicious ideas for {aiMonth || 'this month'}...</span>
                   </div>
                   <div className="h-4 bg-stone-100 dark:bg-stone-800 rounded w-1/3 animate-pulse" />
                   <div className="h-3.5 bg-stone-100 dark:bg-stone-800 rounded w-5/6 animate-pulse" />
@@ -558,7 +587,7 @@ export default function HomePage() {
                 >
                   <div className="space-y-4 max-w-3xl prose prose-stone dark:prose-invert">
                     <div className="p-4 bg-cream/35 dark:bg-stone-900/40 rounded-2xl border border-cream-dark dark:border-stone-800/60 font-sans text-stone-850 dark:text-stone-200 italic text-justify leading-relaxed">
-                      📌 Dynamic Analysis: This harvest catalog was formulated using specific regional humidity thresholds and seasonal culinary science.
+                      📌 Seasonal Cooking Ideas: Here are some fresh ingredients and meal ideas for your kitchen this month.
                     </div>
                     <div className="text-xs sm:text-sm font-sans leading-relaxed text-stone-700 dark:text-stone-300 whitespace-pre-wrap">
                       {aiSpotlightText}
@@ -573,17 +602,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 5: "THE SAVORY GAZETTE" (KITCHEN SCIENCE BLOG STRIP) */}
-      <section className="py-24 bg-[#FBF9F4] dark:bg-stone-900/20 px-6 border-t border-cream-dark/50 dark:border-stone-850" id="blog-strip-section">
+      {/* SECTION 5: KITCHEN TIPS & BLOG */}
+      <section className="py-28 bg-[#FBF9F4] dark:bg-stone-900/20 px-6 border-t border-cream-dark/50 dark:border-stone-850" id="blog-strip-section">
         <div className="max-w-7xl mx-auto space-y-14">
           
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-5 col-auto">
             <div className="text-left space-y-2">
               <span className="font-mono text-[10px] tracking-widest text-[#7C9A7E] dark:text-[#A0BCA2] font-extrabold uppercase font-bold">
-                • THE CHRONICLES
+                • FROM THE BLOG
               </span>
               <h2 className="font-serif font-extrabold text-2xl md:text-3.5xl text-espresso dark:text-cream tracking-tight leading-none">
-                Kitchen Science & Editorial Logs
+                Kitchen Tips & Cooking Guides
               </h2>
             </div>
             
@@ -591,7 +620,7 @@ export default function HomePage() {
               href="/blog"
               className="inline-flex items-center gap-1.5 text-xs font-mono font-extrabold uppercase text-terracotta hover:text-espresso dark:text-terracotta-light dark:hover:text-cream transition-colors group/link cursor-pointer underline-offset-4 hover:underline"
             >
-              <span>Visit Blog Gazette</span>
+              <span>Visit Our Blog</span>
               <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
             </Link>
           </div>

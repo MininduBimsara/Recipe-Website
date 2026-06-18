@@ -77,8 +77,8 @@ export default function Header() {
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'Recipes', href: '/recipes' },
-    { name: 'Gazette Blog', href: '/blog' },
-    { name: 'Explore Catalog', href: '/search' }
+    { name: 'Blog', href: '/blog' },
+    { name: 'Search', href: '/search' }
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -137,7 +137,7 @@ export default function Header() {
                 Savory Kitchen
               </span>
               <span className="text-[9px] font-mono tracking-widest uppercase text-stone-500 dark:text-stone-400">
-                Gourmet Editorial
+                Easy Home Recipes
               </span>
             </div>
           </a>
@@ -172,7 +172,7 @@ export default function Header() {
                   >
                     <input
                       type="text"
-                      placeholder="Search savories..."
+                      placeholder="Search recipes..."
                       className="w-full bg-cream dark:bg-stone-800 border border-cream-dark dark:border-stone-700 rounded-full px-3 py-1 text-xs focus:outline-none focus:border-terracotta text-stone-800 dark:text-cream font-sans"
                       onKeyDown={(e) => {
                         if (e.key === 'Enter') {
@@ -273,7 +273,7 @@ export default function Header() {
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder="Search master bakes..."
+                    placeholder="Search recipes..."
                     className="w-full bg-cream dark:bg-stone-800 border border-cream-dark dark:border-stone-700 rounded-xl px-4 py-2 text-xs focus:outline-none focus:border-terracotta text-stone-800 dark:text-cream font-sans"
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') {
@@ -329,7 +329,7 @@ export default function Header() {
                   <span>Follow on Pinterest</span>
                 </a>
                 <p className="text-[10px] text-center text-stone-500 dark:text-stone-400 tracking-wide font-sans">
-                  Dishcraft Ecosystem • 2026
+                  Savory Kitchen • 2026
                 </p>
               </div>
             </motion.div>
