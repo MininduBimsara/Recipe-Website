@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { ratingsStore } from '@/lib/ratings';
 
 // --- Simple in-memory rate limiter (sliding window) ---
 // For production, replace with Upstash Redis + @upstash/ratelimit
@@ -29,17 +30,6 @@ function getClientIp(req: NextRequest): string {
     'unknown'
   );
 }
-
-// In-memory rating store (replace with Supabase table for persistence)
-interface RatingData {
-  count: number;
-  sum: number;
-}
-
-const ratingsStore: Record<string, RatingData> = {
-  'artisanal-sourdough-levain': { count: 32, sum: 156.8 },
-  'heirloom-tomato-burrata-galette': { count: 18, sum: 86.4 },
-};
 
 const SLUG_MAX_LEN = 120;
 
