@@ -14,6 +14,7 @@ import {
 import NutritionCard from '@/components/recipe/NutritionCard';
 import PinGraphicCard from '@/components/recipe/PinGraphicCard';
 import PinterestImageOverlay from '@/components/recipe/PinterestImageOverlay';
+import { InArticleAd, SidebarAd, BelowRecipeAd } from '@/components/ads';
 
 export default function ClassicSingle() {
   const { type, post, getSlotImage, getBlurUrl } = useTemplateState();
@@ -68,7 +69,9 @@ export default function ClassicSingle() {
             <RecipeEngagement />
             <RecipeServings />
             <RecipeIngredients />
+            <InArticleAd />
             <RecipeInstructions />
+            <BelowRecipeAd />
             <RecipeBottomWidgets />
           </div>
 
@@ -104,6 +107,8 @@ export default function ClassicSingle() {
               </div>
             </div>
 
+            <SidebarAd />
+
             <NutritionCard calories={post.calories} recipeTitle={post.title} />
             <RecipeTips />
             <RecipeAiCustomizer />
@@ -130,6 +135,7 @@ export default function ClassicSingle() {
           {/* Table of contents sidebar */}
           <aside className="lg:col-span-4 hidden lg:block">
             <BlogToc />
+            <SidebarAd />
           </aside>
         </div>
       )}

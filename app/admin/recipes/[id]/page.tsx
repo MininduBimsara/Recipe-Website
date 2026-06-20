@@ -80,8 +80,8 @@ export default function EditRecipePage({ params }: { params: Promise<{ id: strin
               description: match.description,
               category: match.category,
               cuisine: match.recipeCuisine,
-              prep_time: parseInt(match.prepTime) || 15,
-              cook_time: parseInt(match.cookTime) || 20,
+              prep_time: parseInt(match.prepTime || '') || 15,
+              cook_time: parseInt(match.cookTime || '') || 20,
               calories: match.calories,
               difficulty: match.difficulty,
               cover_image: match.image,
@@ -90,7 +90,7 @@ export default function EditRecipePage({ params }: { params: Promise<{ id: strin
               tags: match.tags,
               layout_template: match.layout_template || 'classic-single',
               template_images: match.template_images || [],
-              status: match.status || (match.is_published ? 'published' : 'draft'),
+              status: match.status || 'draft',
               scheduled_for: match.scheduledAt
             });
           } else {
@@ -246,6 +246,7 @@ export default function EditRecipePage({ params }: { params: Promise<{ id: strin
       }
     } else {
       const localRecipes = getSavedRecipes();
+      const match = localRecipes.find(r => r.id === id);
       const updatedRecipe = {
         id: isNew ? 'custom-r-' + Date.now() : id,
         ...dataPayload,
@@ -259,6 +260,8 @@ export default function EditRecipePage({ params }: { params: Promise<{ id: strin
         totalTime: `PT${cookMin}M`,
         scheduledAt: dataPayload.scheduled_for || undefined,
         publishedAt: dataPayload.published_at || undefined,
+        size: (match?.size || 'medium') as 'short' | 'medium' | 'tall',
+        difficulty: difficulty as 'Easy' | 'Medium' | 'Hard',
       };
 
       let newList = [];

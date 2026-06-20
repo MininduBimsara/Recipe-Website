@@ -14,6 +14,7 @@ import {
 import NutritionCard from '@/components/recipe/NutritionCard';
 import PinGraphicCard from '@/components/recipe/PinGraphicCard';
 import PinterestImageOverlay from '@/components/recipe/PinterestImageOverlay';
+import { InArticleAd, SidebarAd, BelowRecipeAd } from '@/components/ads';
 
 export default function MagazineSplit() {
   const { type, post, getSlotImage, getBlurUrl } = useTemplateState();
@@ -74,7 +75,9 @@ export default function MagazineSplit() {
           <RecipeEngagement />
           <RecipeServings />
           <RecipeIngredients />
+          <InArticleAd />
           <RecipeInstructions />
+          <BelowRecipeAd />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-6">
@@ -83,6 +86,7 @@ export default function MagazineSplit() {
             </div>
             <div className="space-y-6">
               <NutritionCard calories={post.calories} recipeTitle={post.title} />
+              <SidebarAd />
               <PinGraphicCard
                 slug={post.slug}
                 imageUrl={heroImage.url}
@@ -105,6 +109,7 @@ export default function MagazineSplit() {
 
           <aside className="lg:col-span-3 hidden lg:block">
             <BlogToc />
+            <SidebarAd />
           </aside>
         </div>
       )}

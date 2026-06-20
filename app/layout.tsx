@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Toaster } from 'react-hot-toast';
 import NewsletterPopup from '@/components/NewsletterPopup';
+import ConsentBanner from '@/components/ads/ConsentBanner';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -22,6 +23,9 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: 'Savory Kitchen - Easy Home Recipes & Cooking Guides',
   description: 'Explore simple, kitchen-tested recipes, weekend baking ideas, and helpful cooking tips for home cooks of all skill levels.',
+  other: {
+    "google-adsense-account": process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? "",
+  },
 };
 
 export default function RootLayout({
@@ -39,6 +43,7 @@ export default function RootLayout({
           </div>
           <Footer />
           <NewsletterPopup />
+          <ConsentBanner />
           <Toaster 
             position="bottom-right" 
             toastOptions={{

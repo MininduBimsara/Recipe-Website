@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { BookOpen, Clock, ArrowRight, Layers } from 'lucide-react';
 import { BLOG_POSTS_DB } from '@/data/blogs';
 import { getSavedBlogs, ExtendedBlogPost } from '@/lib/preseededPool';
+import { InFeedAd } from '@/components/ads';
 
 const BLOG_CATEGORIES = [
   'All',
@@ -135,16 +136,16 @@ export default function BlogIndexClient() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10" id="blog-posts-grid">
             <AnimatePresence mode="popLayout">
               {filteredPosts.map((post, idx) => (
-                <motion.article
-                  key={post.id}
-                  id={`article-card-${post.slug}`}
-                  layout
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.4, delay: idx * 0.05 }}
-                  className="group bg-white dark:bg-stone-850 rounded-3xl overflow-hidden border border-cream-dark/60 dark:border-stone-800/80 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between text-left font-sans"
-                >
+                <React.Fragment key={post.id}>
+                  <motion.article
+                    id={`article-card-${post.slug}`}
+                    layout
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.4, delay: idx * 0.05 }}
+                    className="group bg-white dark:bg-stone-850 rounded-3xl overflow-hidden border border-cream-dark/60 dark:border-stone-800/80 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between text-left font-sans"
+                  >
                   
                   {/* Part 1: Hero Image area */}
                   <div className="relative aspect-video w-full overflow-hidden bg-cream-dark/20" id={`image-frame-${post.id}`}>
@@ -207,7 +208,13 @@ export default function BlogIndexClient() {
 
                   </div>
 
-                </motion.article>
+                  </motion.article>
+                  {idx % 3 === 2 && (
+                    <div className="col-span-full">
+                      <InFeedAd />
+                    </div>
+                  )}
+                </React.Fragment>
               ))}
             </AnimatePresence>
           </div>

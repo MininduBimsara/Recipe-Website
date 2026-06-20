@@ -180,3 +180,30 @@ select:focus-visible,
   outline-offset: 2px !important;
 }
 
+/* Google AdSense Integration & Cumulative Layout Shift (CLS) Prevention */
+.ad-wrapper,
+.ad-placeholder {
+  width: 100%;
+  background: transparent;
+  /* Isolates ad layout recalculation from the rest of the page */
+  contain: layout;
+}
+
+/* Hide ad blocks during print operations */
+@media print {
+  .ad-wrapper,
+  .ad-placeholder,
+  .adsbygoogle {
+    display: none !important;
+  }
+}
+
+/* On mobile devices, restrict heights dynamically to preserve visual balance */
+@media (max-width: 640px) {
+  .ad-wrapper ins,
+  .ad-placeholder {
+    min-height: 100px !important;
+  }
+}
+
+

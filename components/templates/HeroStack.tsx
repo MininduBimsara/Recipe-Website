@@ -14,6 +14,7 @@ import {
 import NutritionCard from '@/components/recipe/NutritionCard';
 import PinGraphicCard from '@/components/recipe/PinGraphicCard';
 import PinterestImageOverlay from '@/components/recipe/PinterestImageOverlay';
+import { InArticleAd, SidebarAd, BelowRecipeAd } from '@/components/ads';
 
 export default function HeroStack() {
   const { type, post, getSlotImage, getBlurUrl } = useTemplateState();
@@ -68,10 +69,12 @@ export default function HeroStack() {
               <RecipeEngagement />
               <RecipeServings />
               <RecipeIngredients />
+              <InArticleAd />
             </div>
 
             <aside className="lg:col-span-4 space-y-6">
               <RecipeTips />
+              <SidebarAd />
               <NutritionCard calories={post.calories} recipeTitle={post.title} />
               <RecipeAiCustomizer />
               <PinGraphicCard
@@ -112,6 +115,7 @@ export default function HeroStack() {
           {/* Core content area: Part 2 */}
           <div className="max-w-3xl mx-auto text-left">
             <RecipeInstructions />
+            <BelowRecipeAd />
           </div>
 
           <RecipeBottomWidgets />
@@ -156,6 +160,7 @@ export default function HeroStack() {
 
           <aside className="lg:col-span-3 hidden lg:block">
             <BlogToc />
+            <SidebarAd />
           </aside>
         </div>
       )}

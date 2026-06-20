@@ -7,14 +7,14 @@ export type EditorialStyle = 'classic' | 'chemistry' | 'spotlight' | 'bento' | '
 export interface ExtendedBlogPost extends BlogPost {
   style?: EditorialStyle;
   scheduledAt?: string; // Date string for scheduling queue
-  status?: 'published' | 'scheduled';
+  status?: 'published' | 'scheduled' | 'draft';
   layout_template?: string;
   template_images?: any[];
 }
 
 export interface ExtendedRecipe extends Recipe {
   scheduledAt?: string;
-  status?: 'published' | 'scheduled';
+  status?: 'published' | 'scheduled' | 'draft';
   layout_template?: string;
   template_images?: any[];
 }

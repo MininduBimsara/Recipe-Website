@@ -9,6 +9,7 @@ import { motion } from 'motion/react';
 import Link from 'next/link';
 import Image from 'next/image';
 import RecipeCard from '@/components/RecipeCard';
+import { InArticleAd } from '@/components/ads';
 
 export function BlogHeader() {
   const { post } = useTemplateState();
@@ -198,9 +199,12 @@ export function BlogSections() {
     return (
       <div className="space-y-4">
         {paragraphs.map((para: string, idx: number) => (
-          <p key={idx} className="font-sans text-stone-700 text-xs sm:text-sm leading-relaxed text-justify">
-            {para}
-          </p>
+          <React.Fragment key={idx}>
+            <p className="font-sans text-stone-700 text-xs sm:text-sm leading-relaxed text-justify">
+              {para}
+            </p>
+            {idx === 2 && <InArticleAd />}
+          </React.Fragment>
         ))}
       </div>
     );
@@ -208,8 +212,11 @@ export function BlogSections() {
 
   return (
     <div className="space-y-4">
-      {sections.map((sec: any) => (
-        <BlogSectionItem key={sec.id} section={sec} />
+      {sections.map((sec: any, idx: number) => (
+        <React.Fragment key={sec.id}>
+          <BlogSectionItem section={sec} />
+          {idx === 2 && <InArticleAd />}
+        </React.Fragment>
       ))}
     </div>
   );

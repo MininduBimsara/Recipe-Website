@@ -25,6 +25,7 @@ import { RECIPES_DB } from '@/data/recipes';
 import { BLOG_POSTS_DB } from '@/data/blogs';
 import { useFavorites } from '@/hooks/useFavorites';
 import { toast } from 'react-hot-toast';
+import { HeaderBannerAd, BelowRecipeAd } from '@/components/ads';
 
 // Custom lightweight SVG illustrations wrapped in circular badges for visual balance
 const CookingIllustration = () => (
@@ -500,6 +501,9 @@ export default function HomeClient() {
         </div>
       </section>
 
+      {/* Header Banner Ad placed after Featured Recipes section */}
+      <HeaderBannerAd />
+
       {/* SECTION 4: IN-SEASON COOKING IDEAS */}
       <section className="py-24 bg-white dark:bg-[#1A1A1A] border-t border-cream-dark/40 dark:border-stone-850 px-6">
         <div className="max-w-4xl mx-auto">
@@ -585,6 +589,9 @@ export default function HomeClient() {
 
         </div>
       </section>
+
+      {/* Below Recipe Ad placed between In-Season ideas and Blog Feed */}
+      <BelowRecipeAd />
 
       {/* SECTION 5: KITCHEN TIPS & BLOG */}
       <section className="py-28 bg-[#FBF9F4] dark:bg-stone-900/20 px-6 border-t border-cream-dark/50 dark:border-stone-850" id="blog-strip-section">

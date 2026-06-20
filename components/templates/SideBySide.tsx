@@ -14,6 +14,7 @@ import {
 import NutritionCard from '@/components/recipe/NutritionCard';
 import PinGraphicCard from '@/components/recipe/PinGraphicCard';
 import PinterestImageOverlay from '@/components/recipe/PinterestImageOverlay';
+import { InArticleAd, SidebarAd, BelowRecipeAd } from '@/components/ads';
 
 export default function SideBySide() {
   const { type, post, getSlotImage, getBlurUrl } = useTemplateState();
@@ -70,6 +71,7 @@ export default function SideBySide() {
 
               <RecipeServings />
               <RecipeIngredients />
+              <InArticleAd />
             </div>
           </section>
 
@@ -80,6 +82,7 @@ export default function SideBySide() {
             {/* Left Column: Directions */}
             <div className="md:col-span-7 space-y-6">
               <RecipeInstructions />
+              <BelowRecipeAd />
               <RecipeAiCustomizer />
             </div>
 
@@ -108,6 +111,7 @@ export default function SideBySide() {
                 )}
               </div>
 
+              <SidebarAd />
               <RecipeTips />
               <NutritionCard calories={post.calories} recipeTitle={post.title} />
               <PinGraphicCard
@@ -130,6 +134,7 @@ export default function SideBySide() {
           {/* Sidebar */}
           <aside className="lg:col-span-3 hidden lg:block">
             <BlogToc />
+            <SidebarAd />
             <div className="mt-6 aspect-[3/4] relative rounded-xl overflow-hidden border border-cream-dark">
               <Image
                 src={img2.url}
