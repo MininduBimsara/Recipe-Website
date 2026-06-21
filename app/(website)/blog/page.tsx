@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Explore cooking tips, kitchen guides, and delicious recipes from home bakers and culinary enthusiasts.',
   robots: 'index, follow',
   alternates: {
-    canonical: 'https://savorykitchen.com/blog',
+    canonical: 'https://pebbleplate.page/blog',
   },
 };
 

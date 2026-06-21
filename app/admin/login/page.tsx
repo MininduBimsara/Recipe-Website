@@ -75,7 +75,7 @@ export default function AdminLoginPage() {
                 required
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                placeholder="chef@savorykitchen.com"
+                placeholder="chef@pebbleplate.page"
                 className="w-full pl-10 pr-4 py-3 bg-stone-950 border border-stone-800 focus:border-[#E6D5C3] focus:ring-1 focus:ring-[#E6D5C3] rounded-xl text-sm text-stone-100 placeholder-stone-600 outline-none transition"
               />
             </div>

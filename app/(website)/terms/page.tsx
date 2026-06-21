@@ -18,7 +18,7 @@ export default function TermsPage() {
         lastUpdated={lastUpdatedDate}
       >
         <p>
-          Welcome to <strong>Savory Kitchen</strong>, accessible at <a href="https://savorykitchen.com" className="hover:text-terracotta underline">https://savorykitchen.com</a>. By accessing, bookmarking, scaling, or downloading any materials or using the interactive services hosted on this website, you agree to comply with and be bound by the following Terms and Conditions. Please review them carefully before utilizing our recipe platforms. If you do not agree with any statement herein, you must immediately halt your use of this site.
+          Welcome to <strong>Savory Kitchen</strong>, accessible at <a href="https://pebbleplate.page" className="hover:text-terracotta underline">https://pebbleplate.page</a>. By accessing, bookmarking, scaling, or downloading any materials or using the interactive services hosted on this website, you agree to comply with and be bound by the following Terms and Conditions. Please review them carefully before utilizing our recipe platforms. If you do not agree with any statement herein, you must immediately halt your use of this site.
         </p>
 
         <section className="space-y-4">
@@ -136,7 +136,7 @@ export default function TermsPage() {
           <div className="bg-cream/40 dark:bg-stone-850/40 p-5 rounded-2xl border border-cream-dark dark:border-stone-800 text-xs sm:text-sm space-y-2.5 font-mono text-stone-605 dark:text-stone-300">
             <div><span className="font-bold text-espresso dark:text-cream">Publisher:</span> Minindu Bimsara</div>
             <div><span className="font-bold text-espresso dark:text-cream">Electronic desk:</span> minindubim@gmail.com</div>
-            <div><span className="font-bold text-espresso dark:text-cream">Primary URL:</span> https://savorykitchen.com</div>
+            <div><span className="font-bold text-espresso dark:text-cream">Primary URL:</span> https://pebbleplate.page</div>
           </div>
         </section>
 

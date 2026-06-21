@@ -21,7 +21,7 @@ function parseDateToISO(dateStr: string): string {
 export default function BlogPostSchema({ post }: BlogPostSchemaProps) {
   const publishedDate = parseDateToISO(post.date);
   const authorName = post.author || "Chef Alexandre Dumas";
-  const postUrl = `https://savorykitchen.com/blog/${post.slug}`;
+  const postUrl = `https://pebbleplate.page/blog/${post.slug}`;
 
   const schemaJson = {
     "@context": "https://schema.org",

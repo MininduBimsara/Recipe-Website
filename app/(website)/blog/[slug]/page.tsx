@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = `${post.title} | Savory Kitchen`;
   const description = (post as any).summary || post.subtitle;
-  const canonicalUrl = `https://savorykitchen.com/blog/${post.slug}`;
+  const canonicalUrl = `https://pebbleplate.page/blog/${post.slug}`;
 
   // Match corresponding formatted ISO UTC publishes
   const publishedISO = post.slug === 'science-of-gluten-shaping' 

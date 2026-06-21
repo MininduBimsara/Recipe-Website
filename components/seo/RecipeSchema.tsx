@@ -22,7 +22,7 @@ export default function RecipeSchema({ recipe }: RecipeSchemaProps) {
     "@type": "HowToStep",
     "name": `Step ${index + 1}`,
     "text": step,
-    "url": `https://savorykitchen.com/recipes/${recipe.slug}#step-${index + 1}`,
+    "url": `https://pebbleplate.page/recipes/${recipe.slug}#step-${index + 1}`,
     "image": recipe.image
   }));
 

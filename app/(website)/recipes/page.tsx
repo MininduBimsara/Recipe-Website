@@ -7,13 +7,13 @@ export const metadata: Metadata = {
   description: 'Search and filter our library of simple, kitchen-tested recipes by category, cuisine, dietary preference, or ingredients you have in your pantry.',
   robots: 'index, follow',
   alternates: {
-    canonical: 'https://savorykitchen.com/recipes',
+    canonical: 'https://pebbleplate.page/recipes',
   },
   openGraph: {
     type: 'website',
     title: 'Browse All Recipes | Savory Kitchen',
     description: 'Search and filter our library of simple, kitchen-tested recipes by category, cuisine, dietary preference, or ingredients you have in your pantry.',
-    url: 'https://savorykitchen.com/recipes',
+    url: 'https://pebbleplate.page/recipes',
     siteName: 'Savory Kitchen',
   },
 };

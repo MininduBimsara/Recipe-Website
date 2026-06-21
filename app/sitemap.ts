@@ -3,7 +3,7 @@ import { RECIPES_DB } from '@/data/recipes';
 import { BLOG_POSTS_DB } from '@/data/blogs';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://savorykitchen.com';
+  const baseUrl = 'https://pebbleplate.page';
 
   // 1. Static Index Routes
   const staticRoutes: MetadataRoute.Sitemap = [

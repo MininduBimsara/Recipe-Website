@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/admin', '/admin/'],
     },
-    sitemap: 'https://savorykitchen.com/sitemap.xml',
+    sitemap: 'https://pebbleplate.page/sitemap.xml',
   };
 }

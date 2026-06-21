@@ -15,7 +15,7 @@ export default function Breadcrumbs({ post, type }: BreadcrumbsProps) {
   const categoryLabel = isRecipe ? 'Recipes' : 'Blog';
   const categoryPath = isRecipe ? '/recipes' : '/blog';
   const postPath = `${categoryPath}/${post.slug}`;
-  const baseUrl = 'https://savorykitchen.com';
+  const baseUrl = 'https://pebbleplate.page';
 
   // BreadcrumbList JSON-LD Schema
   const schemaJson = {

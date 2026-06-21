@@ -7,13 +7,13 @@ export const metadata: Metadata = {
   description: 'Explore simple, kitchen-tested recipes, weekend baking ideas, and helpful cooking tips for home cooks of all skill levels.',
   robots: 'index, follow',
   alternates: {
-    canonical: 'https://savorykitchen.com',
+    canonical: 'https://pebbleplate.page',
   },
   openGraph: {
     type: 'website',
     title: 'Savory Kitchen - Easy Home Recipes & Cooking Guides',
     description: 'Explore simple, kitchen-tested recipes, weekend baking ideas, and helpful cooking tips for home cooks of all skill levels.',
-    url: 'https://savorykitchen.com',
+    url: 'https://pebbleplate.page',
     siteName: 'Savory Kitchen',
   },
 };

@@ -18,7 +18,7 @@ export default function PrivacyPolicyPage() {
         lastUpdated={lastUpdatedDate}
       >
         <p>
-          At <strong>Savory Kitchen</strong>, accessible at <a href="https://savorykitchen.com" className="hover:text-terracotta underline">https://savorykitchen.com</a>, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains the types of information collected and recorded by Savory Kitchen and how we use it. If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.
+          At <strong>Savory Kitchen</strong>, accessible at <a href="https://pebbleplate.page" className="hover:text-terracotta underline">https://pebbleplate.page</a>, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains the types of information collected and recorded by Savory Kitchen and how we use it. If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.
         </p>
 
         <section className="space-y-4">
@@ -86,7 +86,7 @@ export default function PrivacyPolicyPage() {
             6. Third-Party Links & Off-site Redirection
           </h2>
           <p>
-            Savory Kitchen may display relevant links pointing to external sites, such as curated Pinterest boards, affiliate shopping products, or food science research papers. This Privacy Policy is strictly limited to parameters indexed on <a href="https://savorykitchen.com" className="hover:text-terracotta underline">https://savorykitchen.com</a>. 
+            Savory Kitchen may display relevant links pointing to external sites, such as curated Pinterest boards, affiliate shopping products, or food science research papers. This Privacy Policy is strictly limited to parameters indexed on <a href="https://pebbleplate.page" className="hover:text-terracotta underline">https://pebbleplate.page</a>. 
           </p>
           <p>
             We encourage you to inspect the respective legal pages and cookie policies of any third-party website you visit, as we do not govern their operational data routines.
@@ -136,7 +136,7 @@ export default function PrivacyPolicyPage() {
           <div className="bg-cream/40 dark:bg-stone-850/40 p-5 rounded-2xl border border-cream-dark dark:border-stone-800 text-xs sm:text-sm space-y-2.5 font-mono text-stone-605 dark:text-stone-300">
             <div><span className="font-bold text-espresso dark:text-cream">Publisher:</span> Minindu Bimsara</div>
             <div><span className="font-bold text-espresso dark:text-cream">Electronic desk:</span> minindubim@gmail.com</div>
-            <div><span className="font-bold text-espresso dark:text-cream">Website Home:</span> https://savorykitchen.com</div>
+            <div><span className="font-bold text-espresso dark:text-cream">Website Home:</span> https://pebbleplate.page</div>
           </div>
         </section>
 

@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = `${recipe.title} | Savory Kitchen`;
   const description = recipe.pinterestDescription || recipe.description;
-  const canonicalUrl = `https://savorykitchen.com/recipes/${recipe.slug}`;
+  const canonicalUrl = `https://pebbleplate.page/recipes/${recipe.slug}`;
   const keywordsStr = recipe.tags ? recipe.tags.join(', ') : `${recipe.category}, ${recipe.title}, Recipe`;
 
   const imageUrl = (recipe as any).image || recipe.coverImage;
