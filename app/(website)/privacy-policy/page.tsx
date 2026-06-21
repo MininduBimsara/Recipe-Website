@@ -101,7 +101,7 @@ export default function PrivacyPolicyPage() {
             We place a high value on protecting children as they navigate online portals. Savory Kitchen does not knowingly collect, index, or request any personal identification variables from children under the age of 13.
           </p>
           <p>
-            If you are a parent or legal guardian and discover that your minor has submitted personal metrics to our server registry, we advise you to contact us immediately at <a href="mailto:minindubim@gmail.com" className="hover:text-terracotta underline">minindubim@gmail.com</a>. We will perform immediate server-side purging of those parameters from our global database profiles.
+            If you are a parent or legal guardian and discover that your minor has submitted personal metrics to our server registry, we advise you to contact us immediately at <a href="mailto:minindufreelance@gmail.com" className="hover:text-terracotta underline">minindufreelance@gmail.com</a>. We will perform immediate server-side purging of those parameters from our global database profiles.
           </p>
         </section>
 
@@ -113,7 +113,7 @@ export default function PrivacyPolicyPage() {
             Depending on your physical location and jurisdiction (such as CCPA in California or GDPR in the EU), you are entitled to distinct visual data protections and rights. These include options to view, update, correct, or demand the deletion of any personal parameters held by Savory Kitchen.
           </p>
           <p>
-            To exercise any of these compliance opt-out structures, please dispatch a short electronic mail detailing your request directly to: <a href="mailto:minindubim@gmail.com" className="hover:text-terracotta underline">minindubim@gmail.com</a>. We handle GDPR/CCPA requests without billing fees.
+            To exercise any of these compliance opt-out structures, please dispatch a short electronic mail detailing your request directly to: <a href="mailto:minindufreelance@gmail.com" className="hover:text-terracotta underline">minindufreelance@gmail.com</a>. We handle GDPR/CCPA requests without billing fees.
           </p>
         </section>
 
@@ -135,7 +135,7 @@ export default function PrivacyPolicyPage() {
           </p>
           <div className="bg-cream/40 dark:bg-stone-850/40 p-5 rounded-2xl border border-cream-dark dark:border-stone-800 text-xs sm:text-sm space-y-2.5 font-mono text-stone-605 dark:text-stone-300">
             <div><span className="font-bold text-espresso dark:text-cream">Publisher:</span> Minindu Bimsara</div>
-            <div><span className="font-bold text-espresso dark:text-cream">Electronic desk:</span> minindubim@gmail.com</div>
+            <div><span className="font-bold text-espresso dark:text-cream">Electronic desk:</span> minindufreelance@gmail.com</div>
             <div><span className="font-bold text-espresso dark:text-cream">Website Home:</span> https://pebbleplate.page</div>
           </div>
         </section>

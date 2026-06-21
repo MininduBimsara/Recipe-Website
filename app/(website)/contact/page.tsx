@@ -42,11 +42,11 @@ export default function ContactPage() {
                   <Mail className="w-4.5 h-4.5" />
                 </div>
                 <a 
-                  href="mailto:minindubim@gmail.com"
+                  href="mailto:minindufreelance@gmail.com"
                   className="font-sans font-bold text-lg text-espresso dark:text-cream hover:underline hover:text-terracotta transition-all"
                   id="direct-email-link"
                 >
-                  minindubim@gmail.com
+                  minindufreelance@gmail.com
                 </a>
               </div>
               <p className="text-xs text-stone-500 dark:text-stone-400 pl-13 leading-relaxed">

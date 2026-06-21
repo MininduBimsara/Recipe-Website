@@ -135,7 +135,7 @@ export default function TermsPage() {
           </p>
           <div className="bg-cream/40 dark:bg-stone-850/40 p-5 rounded-2xl border border-cream-dark dark:border-stone-800 text-xs sm:text-sm space-y-2.5 font-mono text-stone-605 dark:text-stone-300">
             <div><span className="font-bold text-espresso dark:text-cream">Publisher:</span> Minindu Bimsara</div>
-            <div><span className="font-bold text-espresso dark:text-cream">Electronic desk:</span> minindubim@gmail.com</div>
+            <div><span className="font-bold text-espresso dark:text-cream">Electronic desk:</span> minindufreelance@gmail.com</div>
             <div><span className="font-bold text-espresso dark:text-cream">Primary URL:</span> https://pebbleplate.page</div>
           </div>
         </section>

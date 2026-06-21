@@ -113,7 +113,7 @@ export default function ContactForm() {
           <div className="text-xs text-red-600 dark:text-red-300 space-y-1">
             <p className="font-bold">Message failed to deliver</p>
             <p className="leading-relaxed">
-              {errorMessage || 'Something went wrong. Please email directly at minindubim@gmail.com'}
+              {errorMessage || 'Something went wrong. Please email directly at minindufreelance@gmail.com'}
             </p>
           </div>
         </div>
