@@ -17,8 +17,7 @@ import {
   ArrowUpRight,
   Search,
   CookingPot,
-  ChefHat,
-  Leaf
+  ChefHat
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { RECIPES_DB } from '@/data/recipes';
@@ -40,34 +39,19 @@ const BakerIllustration = () => (
   </div>
 );
 
-const LeafyIllustration = () => (
-  <div className="w-12 h-12 rounded-full bg-sage/10 dark:bg-sage/20 flex items-center justify-center text-sage dark:text-sage-light border border-sage/20 shadow-2xs shrink-0">
-    <Leaf className="w-5 h-5" />
-  </div>
-);
+
 
 export default function HomeClient() {
   const router = useRouter();
   const { isFavorite, toggleFavorite } = useFavorites();
   
-  // 1. Core State Managers for Seasonal AI Analysis
-  const [aiMonth, setAiMonth] = useState('');
-  const [aiSpotlightText, setAiSpotlightText] = useState('');
-  const [loadingAi, setLoadingAi] = useState(false);
   const [searchPhrase, setSearchPhrase] = useState('');
 
   // Curated items from DB
   const mainFeature = RECIPES_DB.find(r => r.slug === 'artisanal-sourdough-levain') || RECIPES_DB[0];
   const secondaryFeature = RECIPES_DB.find(r => r.slug === 'pistachio-matcha-mille-crepe') || RECIPES_DB[3];
 
-  // Initialize month helper
-  useEffect(() => {
-    const months = [
-      'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
-    ];
-    setAiMonth(months[new Date().getMonth()]);
-  }, []);
+
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -86,30 +70,7 @@ export default function HomeClient() {
     }
   };
 
-  // Fetch seasonal AI summary from our server endpoint
-  const handleFetchAiSpotlight = async () => {
-    setLoadingAi(true);
-    setAiSpotlightText('');
-    try {
-      const response = await fetch('/api/seasonal-ideas', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ task: 'seasonal_ideas', month: aiMonth }),
-      });
-      const data = await response.json();
-      if (data.success && data.text) {
-        setAiSpotlightText(data.text);
-        toast.success(`Culinary harvest profiles for ${aiMonth} updated! 🌟`);
-      } else {
-        toast.error('Failed to parse AI harvest payload.');
-      }
-    } catch (err) {
-      console.error(err);
-      toast.error('Could not load seasonal profile.');
-    } finally {
-      setLoadingAi(false);
-    }
-  };
+
 
   return (
     <main className="w-full flex flex-col pt-0 bg-[#FBF9F4] dark:bg-[#121212] overflow-x-hidden" id="savory-kitchen-root">
@@ -504,91 +465,7 @@ export default function HomeClient() {
       {/* Header Banner Ad placed after Featured Recipes section */}
       <HeaderBannerAd />
 
-      {/* SECTION 4: IN-SEASON COOKING IDEAS */}
-      <section className="py-24 bg-white dark:bg-[#1A1A1A] border-t border-cream-dark/40 dark:border-stone-850 px-6">
-        <div className="max-w-4xl mx-auto">
-          
-          <div className="rounded-3.5xl border border-cream-dark dark:border-stone-800 bg-[#FAF7F2] dark:bg-stone-850 p-8 sm:p-12 shadow-sm relative overflow-hidden flex flex-col text-left space-y-6">
-            
-            {/* Glowing spotlight emblem */}
-            <div className="absolute top-0 right-0 w-24 h-24 bg-sage/10 dark:bg-sage/5 rounded-bl-[4rem] border-b border-l border-cream-dark dark:border-stone-800 flex items-center justify-center pointer-events-none">
-              <Sparkles className="w-6 h-6 text-honey" />
-            </div>
 
-            <div className="flex items-center justify-between gap-4 max-w-lg">
-              <div className="space-y-2">
-                <span className="text-[10px] font-mono tracking-[0.2em] text-[#7C9A7E] font-extrabold uppercase">
-                  • FRESH FROM THE GARDEN
-                </span>
-                <h3 className="font-serif font-black text-2.5xl sm:text-3xl text-espresso dark:text-cream tracking-tight">
-                  In-Season Cooking Ideas
-                </h3>
-                <p className="text-xs sm:text-sm text-stone-550 dark:text-stone-450 leading-relaxed font-sans">
-                  Not sure what ingredients are fresh this month? Let our AI suggest delicious seasonal ingredients and simple cooking ideas.
-                </p>
-              </div>
-              <LeafyIllustration />
-            </div>
-
-            {/* Fetch controls */}
-            <div className="flex items-center gap-3 pt-2 print:hidden">
-              <button
-                onClick={handleFetchAiSpotlight}
-                disabled={loadingAi}
-                className="px-6 py-3.5 bg-espresso dark:bg-cream hover:bg-terracotta dark:hover:bg-terracotta text-cream dark:text-espresso hover:text-white dark:hover:text-white rounded-xl text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer disabled:opacity-40 transition-all shadow-xs shrink-0"
-              >
-                {loadingAi ? (
-                  <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                ) : (
-                  <Sparkles className="w-3.5 h-3.5 text-sage" />
-                )}
-                <span>Get Seasonal Ideas for {aiMonth || 'this month'}</span>
-              </button>
-            </div>
-
-            {/* Loading elements */}
-            <AnimatePresence>
-              {loadingAi && (
-                <motion.div 
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="space-y-3 pt-4 border-t border-cream-dark dark:border-stone-800"
-                >
-                  <div className="flex items-center gap-2">
-                    <div className="w-2.5 h-2.5 bg-terracotta rounded-full animate-bounce" />
-                    <span className="text-xs font-mono italic text-stone-400">Thinking of delicious ideas for {aiMonth || 'this month'}...</span>
-                  </div>
-                  <div className="h-4 bg-stone-100 dark:bg-stone-800 rounded w-1/3 animate-pulse" />
-                  <div className="h-3.5 bg-stone-100 dark:bg-stone-800 rounded w-5/6 animate-pulse" />
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Render Output block */}
-            <AnimatePresence>
-              {aiSpotlightText && !loadingAi && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="pt-6 border-t border-cream-dark dark:border-stone-800 font-sans text-xs text-stone-700 dark:text-stone-300 leading-relaxed whitespace-pre-wrap text-left pr-4"
-                >
-                  <div className="space-y-4 max-w-3xl prose prose-stone dark:prose-invert">
-                    <div className="p-4 bg-cream/35 dark:bg-stone-900/40 rounded-2xl border border-cream-dark dark:border-stone-800/60 font-sans text-stone-850 dark:text-stone-200 italic text-justify leading-relaxed">
-                      📌 Seasonal Cooking Ideas: Here are some fresh ingredients and meal ideas for your kitchen this month.
-                    </div>
-                    <div className="text-xs sm:text-sm font-sans leading-relaxed text-stone-700 dark:text-stone-300 whitespace-pre-wrap">
-                      {aiSpotlightText}
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-          </div>
-
-        </div>
-      </section>
 
       {/* Below Recipe Ad placed between In-Season ideas and Blog Feed */}
       <BelowRecipeAd />

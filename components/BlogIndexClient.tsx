@@ -135,9 +135,10 @@ export default function BlogIndexClient() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10" id="blog-posts-grid">
             <AnimatePresence mode="popLayout">
-              {filteredPosts.map((post, idx) => (
-                <React.Fragment key={post.id}>
+              {filteredPosts.flatMap((post, idx) => {
+                const elements = [
                   <motion.article
+                    key={post.id}
                     id={`article-card-${post.slug}`}
                     layout
                     initial={{ opacity: 0, y: 20 }}
@@ -209,13 +210,23 @@ export default function BlogIndexClient() {
                   </div>
 
                   </motion.article>
-                  {idx % 3 === 2 && (
-                    <div className="col-span-full">
+                ];
+                if (idx % 3 === 2) {
+                  elements.push(
+                    <motion.div
+                      key={`ad-${post.id}`}
+                      layout
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="col-span-full"
+                    >
                       <InFeedAd />
-                    </div>
-                  )}
-                </React.Fragment>
-              ))}
+                    </motion.div>
+                  );
+                }
+                return elements;
+              })}
             </AnimatePresence>
           </div>
         )}
