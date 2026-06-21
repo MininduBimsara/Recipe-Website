@@ -63,9 +63,11 @@ export default function MagazineSplit() {
           </p>
 
           <div className="pt-2 border-t border-cream-dark flex items-center gap-3 font-mono text-[9px] text-stone-500 font-bold">
-            <span>BY {post.author ? post.author.toUpperCase() : 'HEIRLOOM CHEF'}</span>
+            <span>BY {String(typeof post.author === 'string' ? post.author : (post.author?.name || 'HEIRLOOM CHEF')).toUpperCase()}</span>
             <span>•</span>
-            <span>{post.prepTime ? post.prepTime.toUpperCase() : '5 MINS READ'}</span>
+            <span>{type === 'recipe'
+              ? `${post.prepTime + (post.cookTime || 0)} MINS TOTAL`
+              : String(post.readTime || post.readingTimeMinutes || '5 MINS READ').toUpperCase()}</span>
           </div>
         </div>
       </div>

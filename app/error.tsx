@@ -30,11 +30,6 @@ export default function GlobalError({ error, reset }: ErrorProps) {
           <p className="text-sm font-sans text-stone-605 dark:text-stone-300 leading-relaxed font-semibold max-w-sm mx-auto">
             Our virtual kitchen hit a thermal spike while prepping this page. Rest assured, the sous chef is on it.
           </p>
-          {error.message && (
-            <p className="text-[11px] font-mono bg-cream-dark/50 dark:bg-stone-800 text-stone-500 py-2 px-3 rounded-lg overflow-x-auto max-w-full">
-              System: {error.message}
-            </p>
-          )}
         </div>
 
         {/* Action Button */}

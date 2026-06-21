@@ -32,11 +32,11 @@ export function BlogHeader() {
       <div className="flex flex-wrap items-center gap-3.5 py-2 border-y border-cream-dark/50 text-stone-500 font-mono text-[10px] font-semibold">
         <div className="flex items-center gap-1">
           <User className="w-3.5 h-3.5 text-sage" />
-          <span>BY {post.author.toUpperCase()}</span>
+          <span>BY {String(typeof post.author === 'string' ? post.author : (post.author?.name || 'Chef Isabella')).toUpperCase()}</span>
         </div>
         <div className="flex items-center gap-1">
           <Calendar className="w-3.5 h-3.5 text-sage" />
-          <span>{(post.date || post.publishedAt || 'June 17, 2026').toUpperCase()}</span>
+          <span>{String(post.date || post.publishedAt || post.published_at || 'June 17, 2026').toUpperCase()}</span>
         </div>
         <div className="flex items-center gap-1 ml-auto text-terracotta">
           <Clock className="w-3.5 h-3.5" />

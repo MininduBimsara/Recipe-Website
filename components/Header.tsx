@@ -458,15 +458,14 @@ export default function Header() {
             onClick={(e) => handleLinkClick(e, '/')}
             className="flex items-center gap-2 group cursor-pointer"
           >
-            <div className="relative w-10 h-10 rounded-full overflow-hidden transition-all duration-300 group-hover:scale-105 border border-cream-dark dark:border-stone-800 bg-white">
-              <Image 
-                src="/logo.png" 
-                alt="PebblePlate Logo" 
-                fill 
-                className="object-cover p-1" 
-                priority
-              />
-            </div>
+            <Image 
+              src="/logo.png" 
+              alt="PebblePlate Logo" 
+              width={40}
+              height={40}
+              className="object-contain transition-all duration-300 group-hover:scale-105" 
+              priority
+            />
             <div className="flex flex-col">
               <span className="font-serif font-bold text-lg leading-tight tracking-tight text-espresso dark:text-cream">
                 PebblePlate
@@ -579,14 +578,13 @@ export default function Header() {
                 {/* Drawer Header */}
                 <div className="flex items-center justify-between pb-4 border-b border-cream-dark dark:border-stone-800">
                   <div className="flex items-center gap-2">
-                    <div className="relative w-8 h-8 rounded-full overflow-hidden border border-cream-dark dark:border-stone-800 bg-white shrink-0">
-                      <Image 
-                        src="/logo.png" 
-                        alt="PebblePlate Logo" 
-                        fill 
-                        className="object-cover p-0.5" 
-                      />
-                    </div>
+                    <Image 
+                      src="/logo.png" 
+                      alt="PebblePlate Logo" 
+                      width={32}
+                      height={32}
+                      className="object-contain shrink-0" 
+                    />
                     <span className="font-serif font-bold text-base text-espresso dark:text-cream">PebblePlate</span>
                   </div>
                   <button 
