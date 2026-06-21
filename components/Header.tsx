@@ -458,15 +458,21 @@ export default function Header() {
             onClick={(e) => handleLinkClick(e, '/')}
             className="flex items-center gap-2 group cursor-pointer"
           >
-            <div className="w-10 h-10 rounded-full bg-cream dark:bg-stone-850 flex items-center justify-center transition-all duration-300 group-hover:scale-105 border border-cream-dark dark:border-stone-800">
-              <GourmetLogoIcon className="w-7 h-7 text-sage group-hover:text-terracotta transition-colors duration-300" />
+            <div className="relative w-10 h-10 rounded-full overflow-hidden transition-all duration-300 group-hover:scale-105 border border-cream-dark dark:border-stone-800 bg-white">
+              <Image 
+                src="/logo.png" 
+                alt="PebblePlate Logo" 
+                fill 
+                className="object-cover p-1" 
+                priority
+              />
             </div>
             <div className="flex flex-col">
               <span className="font-serif font-bold text-lg leading-tight tracking-tight text-espresso dark:text-cream">
-                Savory Kitchen
+                PebblePlate
               </span>
               <span className="text-[9px] font-mono tracking-widest uppercase text-stone-500 dark:text-stone-400">
-                Easy Home Recipes
+                pebbleplate.page
               </span>
             </div>
           </a>
@@ -573,8 +579,15 @@ export default function Header() {
                 {/* Drawer Header */}
                 <div className="flex items-center justify-between pb-4 border-b border-cream-dark dark:border-stone-800">
                   <div className="flex items-center gap-2">
-                    <GourmetLogoIcon className="w-6 h-6 text-sage" />
-                    <span className="font-serif font-bold text-base text-espresso dark:text-cream">Savory Kitchen</span>
+                    <div className="relative w-8 h-8 rounded-full overflow-hidden border border-cream-dark dark:border-stone-800 bg-white shrink-0">
+                      <Image 
+                        src="/logo.png" 
+                        alt="PebblePlate Logo" 
+                        fill 
+                        className="object-cover p-0.5" 
+                      />
+                    </div>
+                    <span className="font-serif font-bold text-base text-espresso dark:text-cream">PebblePlate</span>
                   </div>
                   <button 
                     onClick={() => setMobileMenuOpen(false)}
@@ -634,7 +647,7 @@ export default function Header() {
                   <span>Follow on Pinterest</span>
                 </a>
                 <p className="text-[10px] text-center text-stone-500 dark:text-stone-400 tracking-wide font-sans">
-                  Savory Kitchen • 2026
+                  PebblePlate • 2026
                 </p>
               </div>
             </motion.div>

@@ -1,5 +1,5 @@
 /**
- * Strict TypeScript interfaces and enums for Savory Kitchen's Recipe and Blog schemas.
+ * Strict TypeScript interfaces and enums for PebblePlate's Recipe and Blog schemas.
  * Fully optimized for Google Rich Guidelines, Schema.org Recipe markup, and Pinterest Rich Pin ingestion.
  */
 

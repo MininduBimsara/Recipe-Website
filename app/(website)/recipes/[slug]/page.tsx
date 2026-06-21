@@ -25,12 +25,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!recipe) {
     return {
-      title: 'Recipe Not Found | Savory Kitchen',
-      description: 'Could not locate this recipe in the Savory Kitchen digital archives.',
+      title: 'Recipe Not Found | PebblePlate',
+      description: 'Could not locate this recipe in the PebblePlate digital archives.',
     };
   }
 
-  const title = `${recipe.title} | Savory Kitchen`;
+  const title = `${recipe.title} | PebblePlate`;
   const description = recipe.pinterestDescription || recipe.description;
   const canonicalUrl = `https://pebbleplate.page/recipes/${recipe.slug}`;
   const keywordsStr = recipe.tags ? recipe.tags.join(', ') : `${recipe.category}, ${recipe.title}, Recipe`;

@@ -1,5 +1,5 @@
 -- =====================================================================
--- SAVORY KITCHEN - SUPABASE DATABASE SCHEMA AND ACCESS CONTROL DEFINITIONS
+-- PEBBLEPLATE - SUPABASE DATABASE SCHEMA AND ACCESS CONTROL DEFINITIONS
 -- Designated Admin User ID: c7fdab45-32f0-4b92-8d21-6fe025e431d7
 -- =====================================================================
 

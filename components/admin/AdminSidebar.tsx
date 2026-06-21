@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { 
   Settings, 
@@ -45,11 +46,16 @@ export default function AdminSidebar() {
       <div className="space-y-8">
         {/* Brand/Logo Header */}
         <div className="flex items-center gap-2.5 pb-4 border-b border-cream-dark/60">
-          <div className="p-2 bg-espresso text-cream rounded-xl">
-            <ChefHat className="w-5 h-5" />
+          <div className="relative w-9 h-9 rounded-xl overflow-hidden border border-cream-dark bg-white shrink-0">
+            <Image 
+              src="/logo.png" 
+              alt="PebblePlate Logo" 
+              fill 
+              className="object-cover p-0.5" 
+            />
           </div>
           <div className="text-left leading-tight">
-            <h1 className="font-serif font-black text-sm text-espresso tracking-tight">Savory Kitchen</h1>
+            <h1 className="font-serif font-black text-sm text-espresso tracking-tight">PebblePlate</h1>
             <span className="text-[9px] font-mono text-stone-400 font-bold uppercase tracking-wider">CMS Console Desk</span>
           </div>
         </div>

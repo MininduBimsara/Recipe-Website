@@ -4,8 +4,8 @@ import { Mail, Clock, ShieldCheck, Heart } from 'lucide-react';
 import ContactForm from '@/components/ContactForm';
 
 export const metadata: Metadata = {
-  title: "Contact | Savory Kitchen",
-  description: "Get in touch with Minindu Bimsara at Savory Kitchen. Questions about recipes, collaborations, or just want to say hi — I read everything.",
+  title: "Contact | PebblePlate",
+  description: "Get in touch with Minindu Bimsara at PebblePlate. Questions about recipes, collaborations, or just want to say hi — I read everything.",
 };
 
 export default function ContactPage() {

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Send } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 
@@ -47,7 +48,7 @@ export default function Footer() {
 
       if (response.ok) {
         setSubscribed(true);
-        toast.success('Successfully subscribed to Savory Newsletter! 🥐');
+        toast.success('Successfully subscribed to PebblePlate Newsletter! 🥐');
         setEmail('');
       } else {
         toast.error('Something went wrong. Please try again.');
@@ -75,11 +76,16 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="space-y-4 text-left">
             <div className="flex items-center gap-2.5">
-              <span className="w-8 h-8 rounded-full bg-terracotta text-white flex items-center justify-center font-serif font-black text-sm">
-                S
-              </span>
+              <div className="relative w-8 h-8 rounded-full overflow-hidden border border-cream-dark dark:border-stone-850 bg-white shrink-0">
+                <Image 
+                  src="/logo.png" 
+                  alt="PebblePlate Logo" 
+                  fill 
+                  className="object-cover p-0.5" 
+                />
+              </div>
               <span className="font-serif font-bold text-lg text-espresso dark:text-cream tracking-tight">
-                Savory Kitchen
+                PebblePlate
               </span>
             </div>
             <p className="text-stone-500 dark:text-stone-400 text-xs leading-relaxed max-w-sm">
@@ -157,7 +163,7 @@ export default function Footer() {
         {/* Bottom links and copyright */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-4 text-xs text-stone-500 dark:text-stone-400">
           <p className="text-center sm:text-left">
-            &copy; {currentYear} <strong>Savory Kitchen</strong>. Simple and delicious recipes for home cooks.
+            &copy; {currentYear} <strong>PebblePlate</strong>. Simple and delicious recipes for home cooks.
           </p>
           
           <nav aria-label="Footer navigation" className="flex flex-wrap justify-center gap-x-6 gap-y-2">

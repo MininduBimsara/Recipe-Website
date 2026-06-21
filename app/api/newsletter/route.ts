@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
         if (error.code === '23505') {
           return NextResponse.json({
             success: true,
-            message: 'You are already subscribed to Savory Kitchen!',
+            message: 'You are already subscribed to PebblePlate!',
           });
         }
         // Log error server-side only, return generic message to client
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: 'Successfully subscribed to Savory Kitchen!',
+      message: 'Successfully subscribed to PebblePlate!',
     });
   } catch {
     return NextResponse.json(

@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import BlogIndexClient from '@/components/BlogIndexClient';
 
 export const metadata: Metadata = {
-  title: 'Savory Kitchen Blog - Culinary Tips & Home Baking Guides',
+  title: 'PebblePlate Blog - Culinary Tips & Home Baking Guides',
   description: 'Explore cooking tips, kitchen guides, and delicious recipes from home bakers and culinary enthusiasts.',
   robots: 'index, follow',
   alternates: {

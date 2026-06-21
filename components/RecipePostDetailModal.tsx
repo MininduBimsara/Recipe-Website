@@ -388,7 +388,7 @@ export default function RecipePostDetailModal({ recipe, onClose }: RecipePostDet
             {/* Structured Schema output (Schema.org Json-LD embed for Pintrest bots) */}
             <div className="hidden print:block">
               <div className="border-t border-stone-200 mt-8 pt-4 text-[10px] text-stone-400 font-mono text-center">
-                Savory Kitchen Regional Archive • Full-stack physical culinary ledger sheet
+                PebblePlate Regional Archive • Full-stack physical culinary ledger sheet
               </div>
             </div>
 

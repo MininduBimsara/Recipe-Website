@@ -1,5 +1,5 @@
 /**
- * Savory Kitchen - Content Schema Definitions
+ * PebblePlate - Content Schema Definitions
  * 
  * Elegant, robust TypeScript interfaces designed for a high-performance food blog.
  * Supports both structured Recipes (with ingredients, instructions, cooking times,

@@ -43,10 +43,10 @@ export default function BlogPostSchema({ post }: BlogPostSchemaProps) {
     },
     "publisher": {
       "@type": "Organization",
-      "name": "Savory Kitchen",
+      "name": "PebblePlate",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&q=80&w=200"
+        "url": "https://pebbleplate.page/logo.png"
       }
     }
   };

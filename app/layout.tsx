@@ -21,7 +21,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: 'Savory Kitchen - Easy Home Recipes & Cooking Guides',
+  title: 'PebblePlate - Easy Home Recipes & Cooking Guides',
   description: 'Explore simple, kitchen-tested recipes, weekend baking ideas, and helpful cooking tips for home cooks of all skill levels.',
   other: {
     "google-adsense-account": process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? "",

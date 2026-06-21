@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
       const safePrompt = sanitizeInput(prompt || '', 500);
       const safeTitle = sanitizeInput(recipeTitle || '', 200);
 
-      const systemInstruction = `You are a Michelin-star culinary editor at Savory Kitchen.
+      const systemInstruction = `You are a Michelin-star culinary editor at PebblePlate.
 Adjust the provided recipe based on the dietary or scaling request below.
 Modify BOTH ingredients and instructions to match the request.
 Return ONLY a valid JSON object: { "ingredients": ["string"], "instructions": ["string"] }
@@ -106,7 +106,7 @@ Original Instructions: ${JSON.stringify(instructions).slice(0, 2000)}`;
       // Default task: 'seasonal_ideas'
       const safeMonth = sanitizeInput(body.month || 'June', 20);
 
-      const systemInstruction = `You are a gourmet food critic and seasonal recipe developer for Savory Kitchen.
+      const systemInstruction = `You are a gourmet food critic and seasonal recipe developer for PebblePlate.
 Recommend 3 extraordinary seasonal ingredients or dishes in prime harvest during ${safeMonth}.
 For each, provide: name, why it is spectacular now, and a quick pairing idea.
 Format in clean Markdown with bold subheadings and bullet points. Max 300 words.`;

@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import RecipesClient from './RecipesClient';
 
 export const metadata: Metadata = {
-  title: 'Browse All Recipes | Savory Kitchen',
+  title: 'Browse All Recipes | PebblePlate',
   description: 'Search and filter our library of simple, kitchen-tested recipes by category, cuisine, dietary preference, or ingredients you have in your pantry.',
   robots: 'index, follow',
   alternates: {
@@ -11,10 +11,10 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    title: 'Browse All Recipes | Savory Kitchen',
+    title: 'Browse All Recipes | PebblePlate',
     description: 'Search and filter our library of simple, kitchen-tested recipes by category, cuisine, dietary preference, or ingredients you have in your pantry.',
     url: 'https://pebbleplate.page/recipes',
-    siteName: 'Savory Kitchen',
+    siteName: 'PebblePlate',
   },
 };
 

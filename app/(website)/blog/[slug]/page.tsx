@@ -26,12 +26,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!post) {
     return {
-      title: 'Article Not Found | Savory Kitchen',
-      description: 'Could not locate this article in the Savory Kitchen digital archives.',
+      title: 'Article Not Found | PebblePlate',
+      description: 'Could not locate this article in the PebblePlate digital archives.',
     };
   }
 
-  const title = `${post.title} | Savory Kitchen`;
+  const title = `${post.title} | PebblePlate`;
   const description = (post as any).summary || post.subtitle;
   const canonicalUrl = `https://pebbleplate.page/blog/${post.slug}`;
 

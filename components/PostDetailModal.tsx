@@ -101,7 +101,7 @@ export default function PostDetailModal({ post, onClose }: PostDetailModalProps)
 
             {/* Printable Footnote */}
             <div className="hidden print:block text-center text-[10px] text-stone-400 font-mono pt-4 border-t border-stone-100">
-              Savory Kitchen Magazine • Web Edition Article
+              PebblePlate Magazine • Web Edition Article
             </div>
 
           </div>

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { ChefHat, Lock, Mail } from 'lucide-react';
 import { signInAction } from '@/lib/actions/auth';
 import { toast } from 'react-hot-toast';
@@ -44,11 +45,16 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md bg-stone-900 border border-stone-800 rounded-3xl p-8 shadow-2xl" id="login-card">
         {/* Header Logo */}
         <div className="flex flex-col items-center mb-8 text-center">
-          <div className="p-3 bg-[#E6D5C3]/10 text-[#E6D5C3] rounded-2xl mb-4">
-            <ChefHat className="w-8 h-8" />
+          <div className="relative w-16 h-16 rounded-2xl overflow-hidden border border-stone-800 bg-white mb-4 shadow-sm">
+            <Image 
+              src="/logo.png" 
+              alt="PebblePlate Logo" 
+              fill
+              className="object-cover p-1.5" 
+            />
           </div>
           <h1 className="text-3xl font-serif text-[#E6D5C3] tracking-wide">
-            Savory Kitchen
+            PebblePlate
           </h1>
           <p className="text-xs font-mono tracking-widest text-stone-400 mt-2 uppercase">
             Admin Panel

@@ -239,7 +239,7 @@ export default function RecipeInteractiveClient({ recipe: initialRecipe, fallbac
     if (!customizationPrompt.trim()) return;
 
     setCustomizing(true);
-    toast.loading('Consulting Savory Kitchen digital AI pipeline...', { id: 'ai-custom' });
+    toast.loading('Consulting PebblePlate digital AI pipeline...', { id: 'ai-custom' });
 
     try {
       const p = customizationPrompt.toLowerCase();
@@ -776,7 +776,7 @@ export default function RecipeInteractiveClient({ recipe: initialRecipe, fallbac
               <Sparkles className="w-5 h-5" />
             </div>
             <div className="text-left">
-              <h4 className="font-serif font-bold text-base leading-snug">Savory Editorial Customizer Engine</h4>
+              <h4 className="font-serif font-bold text-base leading-snug">PebblePlate Editorial Customizer Engine</h4>
               <span className="text-[10px] font-mono uppercase tracking-wider text-stone-500">Runway AI Culinary Modifiers</span>
             </div>
           </div>

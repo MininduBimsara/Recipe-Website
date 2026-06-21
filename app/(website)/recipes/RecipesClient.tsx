@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Search, Clock, Filter, Leaf, Globe2 } from 'lucide-react';
+import { Search, Clock, Filter, Leaf, Globe2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Recipe, RECIPES_DB } from '@/data/recipes';
 import { getSavedRecipes } from '@/lib/preseededPool';
 import RecipeCard from '@/components/RecipeCard';
@@ -32,6 +32,58 @@ export default function RecipesClient() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [visibleCount, setVisibleCount] = useState(12);
   const [showAdvanceFilters, setShowAdvanceFilters] = useState(false);
+
+  // Scrollbar variables and logic
+  const categoryScrollerRef = useRef<HTMLDivElement>(null);
+  const [thumbWidth, setThumbWidth] = useState('20%');
+  const [thumbLeft, setThumbLeft] = useState('0%');
+  const [showScroller, setShowScroller] = useState(false);
+
+  const updateScrollState = () => {
+    if (categoryScrollerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = categoryScrollerRef.current;
+      const maxScroll = scrollWidth - clientWidth;
+      if (maxScroll > 0) {
+        const visibleRatio = clientWidth / scrollWidth;
+        const progress = scrollLeft / maxScroll;
+        const calculatedWidth = Math.max(10, Math.min(80, visibleRatio * 100));
+        const leftPos = progress * (100 - calculatedWidth);
+        
+        setThumbWidth(`${calculatedWidth}%`);
+        setThumbLeft(`${leftPos}%`);
+        setShowScroller(true);
+      } else {
+        setShowScroller(false);
+      }
+    }
+  };
+
+  const handleScrollLeft = () => {
+    if (categoryScrollerRef.current) {
+      categoryScrollerRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+    }
+  };
+
+  const handleScrollRight = () => {
+    if (categoryScrollerRef.current) {
+      categoryScrollerRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    updateScrollState();
+    window.addEventListener('resize', updateScrollState);
+    return () => {
+      window.removeEventListener('resize', updateScrollState);
+    };
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      updateScrollState();
+    }, 150);
+    return () => clearTimeout(timer);
+  }, [recipes, activeCategory]);
 
   // Sync state initially
   useEffect(() => {
@@ -178,24 +230,57 @@ export default function RecipesClient() {
         
         {/* Row A: Categories & Text Search */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 py-2 border-b border-stone-150" id="row-a">
-          {/* Categories select scroller */}
-          <div className="flex overflow-x-auto no-scrollbar items-center gap-2 py-1 scroll-smooth" id="category-scroller">
-            {RECIPE_CATEGORIES.map((cat) => {
-              const isActive = activeCategory.toLowerCase() === cat.toLowerCase();
-              return (
+          {/* Categories select scroller wrapper */}
+          <div className="flex flex-col gap-2 flex-1 min-w-0" id="category-scroller-wrapper">
+            <div 
+              ref={categoryScrollerRef}
+              onScroll={updateScrollState}
+              className="flex overflow-x-auto no-scrollbar items-center gap-2 py-1 scroll-smooth" 
+              id="category-scroller"
+            >
+              {RECIPE_CATEGORIES.map((cat) => {
+                const isActive = activeCategory.toLowerCase() === cat.toLowerCase();
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => handleCategoryChange(cat)}
+                    className={`px-4 py-2 rounded-full font-mono text-[10px] font-bold tracking-wider uppercase whitespace-nowrap cursor-pointer transition-all ${
+                      isActive
+                        ? 'bg-terracotta text-white scale-102 shadow-xs'
+                        : 'bg-white border text-stone-605 hover:bg-stone-50 hover:scale-101'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Custom Horizontal Scrollbar Controls */}
+            {showScroller && (
+              <div className="flex items-center gap-2 px-1 py-1" id="category-scrollbar-controls">
                 <button
-                  key={cat}
-                  onClick={() => handleCategoryChange(cat)}
-                  className={`px-4 py-2 rounded-full font-mono text-[10px] font-bold tracking-wider uppercase whitespace-nowrap cursor-pointer transition-all ${
-                    isActive
-                      ? 'bg-terracotta text-white scale-102 shadow-xs'
-                      : 'bg-white border text-stone-605 hover:bg-stone-50 hover:scale-101'
-                  }`}
+                  onClick={handleScrollLeft}
+                  className="p-1 rounded-full text-stone-400 hover:text-espresso hover:bg-stone-100 transition cursor-pointer"
+                  aria-label="Scroll left"
                 >
-                  {cat}
+                  <ChevronLeft className="w-3.5 h-3.5" />
                 </button>
-              );
-            })}
+                <div className="flex-1 h-0.5 bg-stone-200 rounded-full relative overflow-hidden">
+                  <div
+                    className="absolute top-0 bottom-0 bg-espresso rounded-full transition-all duration-100"
+                    style={{ left: thumbLeft, width: thumbWidth }}
+                  />
+                </div>
+                <button
+                  onClick={handleScrollRight}
+                  className="p-1 rounded-full text-stone-400 hover:text-espresso hover:bg-stone-100 transition cursor-pointer"
+                  aria-label="Scroll right"
+                >
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Action Row */}

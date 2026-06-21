@@ -11,8 +11,8 @@ const PinterestIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 export const metadata: Metadata = {
-  title: "About Minindu Bimsara | Savory Kitchen",
-  description: "Meet Minindu Bimsara, the recipe developer and food writer behind Savory Kitchen. Learn about the story behind the blog and the philosophy behind every recipe.",
+  title: "About Minindu Bimsara | PebblePlate",
+  description: "Meet Minindu Bimsara, the recipe developer and food writer behind PebblePlate. Learn about the story behind the blog and the philosophy behind every recipe.",
 };
 
 export default function AboutPage() {
@@ -68,7 +68,7 @@ export default function AboutPage() {
               My journey in the kitchen didn&apos;t start in a pristine culinary institute. It began right at home, surrounded by the warm, earthy aromas of cardamoms, cinnamon spice blends, and the daily rhythm of pan-searing. Moving into my own kitchen, I realized that cooking at home should feel like an enriching act of craft, rather than a frantic exercise. 
             </p>
             <p>
-              I started <strong>Savory Kitchen</strong> in 2025 because I got tired of recipe websites cluttered with auto-generated content and unreliable guides. Out of that frustration, this digital catalog was born—a reliable place where simple ingredients, clear cooking guides, and time-tested methods are carefully explained and made accessible to everyone.
+              I started <strong>PebblePlate</strong> in 2025 because I got tired of recipe websites cluttered with auto-generated content and unreliable guides. Out of that frustration, this digital catalog was born—a reliable place where simple ingredients, clear cooking guides, and time-tested methods are carefully explained and made accessible to everyone.
             </p>
             <p>
               Whether you are an aspiring baker aiming for that perfect bubbly bread structure or a busy professional preparing comforting weeknight meals, I write with you in mind. No secrets are locked away in gatekeeping courses. Everything is laid out transparently and structured clearly for easy scaling.

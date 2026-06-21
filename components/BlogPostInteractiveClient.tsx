@@ -158,7 +158,7 @@ export default function BlogPostInteractiveClient({ post: initialPost, relatedRe
     const pinterestUrl = `https://www.pinterest.com/pin/create/button/?url=${encodeURIComponent(
       shareUrl
     )}&media=${encodeURIComponent(imageUrl)}&description=${encodeURIComponent(
-      `Savory Kitchen Tip: ${titleStr} — from "${post.title}"`
+      `PebblePlate Tip: ${titleStr} — from "${post.title}"`
     )}`;
     window.open(pinterestUrl, '_blank', 'width=750,height=600,toolbar=0,status=0');
     toast.success('Opening Pinterest Save board! 📌');
@@ -511,7 +511,7 @@ export default function BlogPostInteractiveClient({ post: initialPost, relatedRe
             )}
 
             <div className="hidden print:block text-center text-[10px] text-stone-400 font-mono py-8 border-t border-stone-200 mt-12">
-              Savory Kitchen Editorial Article &bull; All recipes available at Savory Kitchen
+              PebblePlate Editorial Article &bull; All recipes available at pebbleplate.page
             </div>
           </main>
 

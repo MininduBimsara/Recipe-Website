@@ -253,7 +253,7 @@ export function TemplateStateProvider({
     if (!customizationPrompt.trim()) return;
 
     setCustomizing(true);
-    toast.loading('Consulting Savory Kitchen digital AI pipeline...', { id: 'ai-custom' });
+    toast.loading('Consulting PebblePlate digital AI pipeline...', { id: 'ai-custom' });
 
     try {
       const p = customizationPrompt.toLowerCase();
@@ -316,7 +316,7 @@ export function TemplateStateProvider({
     const pinterestUrl = `https://www.pinterest.com/pin/create/button/?url=${encodeURIComponent(
       shareUrl
     )}&media=${encodeURIComponent(imageUrl)}&description=${encodeURIComponent(
-      `Savory Kitchen Tip: ${titleStr} — from "${normalizedPost.title}"`
+      `PebblePlate Tip: ${titleStr} — from "${normalizedPost.title}"`
     )}`;
     window.open(pinterestUrl, '_blank', 'width=750,height=600,toolbar=0,status=0');
     toast.success('Saving on Pinterest! 📌');
