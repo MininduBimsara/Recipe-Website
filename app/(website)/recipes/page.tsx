@@ -15,6 +15,20 @@ export const metadata: Metadata = {
     description: 'Search and filter our library of simple, kitchen-tested recipes by category, cuisine, dietary preference, or ingredients you have in your pantry.',
     url: 'https://pebbleplate.page/recipes',
     siteName: 'PebblePlate',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Browse All Recipes | PebblePlate',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Browse All Recipes | PebblePlate',
+    description: 'Search and filter our library of simple, kitchen-tested recipes by category, cuisine, dietary preference, or ingredients you have in your pantry.',
+    images: ['/og-image.png'],
   },
 };
 

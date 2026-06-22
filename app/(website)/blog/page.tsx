@@ -9,6 +9,27 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://pebbleplate.page/blog',
   },
+  openGraph: {
+    type: 'website',
+    title: 'PebblePlate Blog - Culinary Tips & Home Baking Guides',
+    description: 'Explore cooking tips, kitchen guides, and delicious recipes from home bakers and culinary enthusiasts.',
+    url: 'https://pebbleplate.page/blog',
+    siteName: 'PebblePlate',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'PebblePlate Blog - Culinary Tips & Home Baking Guides',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'PebblePlate Blog - Culinary Tips & Home Baking Guides',
+    description: 'Explore cooking tips, kitchen guides, and delicious recipes from home bakers and culinary enthusiasts.',
+    images: ['/og-image.png'],
+  },
 };
 
 function BlogIndexFallback() {
