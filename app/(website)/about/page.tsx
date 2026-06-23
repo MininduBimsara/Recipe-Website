@@ -150,7 +150,7 @@ export default function AboutPage() {
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
             <a
-              href="https://pinterest.com/"
+              href="https://www.pinterest.com/PebblePlate/"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white dark:bg-stone-800 hover:bg-stone-50 text-stone-700 dark:text-stone-200 text-xs font-mono font-bold uppercase tracking-widest rounded-xl border border-cream-dark dark:border-stone-700 transition-colors shadow-3xs"

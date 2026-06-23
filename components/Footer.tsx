@@ -95,7 +95,7 @@ export default function Footer() {
             {/* Socials */}
             <div className="flex items-center gap-3 pt-2">
               <a 
-                href="https://pinterest.com/" 
+                href="https://www.pinterest.com/PebblePlate/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-8 h-8 rounded-lg bg-white dark:bg-stone-850 border border-cream-dark dark:border-stone-800 flex items-center justify-center text-stone-500 dark:text-stone-400 hover:text-white hover:bg-[#E60023] hover:border-transparent transition-all cursor-pointer shadow-xs"

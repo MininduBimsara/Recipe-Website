@@ -526,7 +526,7 @@ export default function Header() {
 
             {/* Pinterest follow button */}
             <a
-              href="https://pinterest.com/"
+              href="https://www.pinterest.com/PebblePlate/"
               target="_blank"
               rel="noopener noreferrer"
               className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#E60023] hover:bg-[#AD0018] text-white text-[11px] font-bold uppercase tracking-wider font-mono cursor-pointer transition-all shadow-sm"
@@ -636,7 +636,7 @@ export default function Header() {
                   </a>
                 </div>
                 <a
-                  href="https://pinterest.com/"
+                  href="https://www.pinterest.com/PebblePlate/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#E60023] hover:bg-[#AD0018] text-white text-xs font-bold uppercase tracking-wider font-mono cursor-pointer transition-colors shadow-sm"
