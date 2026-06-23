@@ -58,20 +58,32 @@ export default function ContactForm() {
     setErrorMessage('');
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('https://formsubmit.co/ajax/minindufreelance@gmail.com', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          _subject: `PebblePlate Contact: ${formData.subject}`,
+          _replyto: formData.email,
+          _captcha: 'false',
+          _template: 'table',
+        }),
       });
 
       const data = await response.json();
 
-      if (response.ok && data.success) {
+      if (data.success === 'true' || data.success === true) {
         setSubmitStatus('success');
         setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
         setSubmitStatus('error');
-        setErrorMessage(data.error || 'Server rejected the submission.');
+        setErrorMessage(data.message || 'Server rejected the submission.');
       }
     } catch (err: any) {
       console.error(err);
