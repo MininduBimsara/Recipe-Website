@@ -292,16 +292,20 @@ export default function AdminRecipesPage() {
                         {r.status || 'draft'}
                       </button>
                     </td>
-                    <td className="p-4 text-right">
-                      <div className="flex items-center justify-end gap-1.5">
+                    <td className="p-4 text-right relative">
+                      <div className="flex items-center justify-end gap-1.5 relative">
                         <button
                           onClick={() => {
-                            setActiveRecipe(r);
-                            setPinterestUrl(r.pinterest_url || '');
-                            setInstagramUrl(r.instagram_url || '');
-                            setSocialModalOpen(true);
+                            if (socialModalOpen && activeRecipe?.id === r.id) {
+                              setSocialModalOpen(false);
+                            } else {
+                              setActiveRecipe(r);
+                              setPinterestUrl(r.pinterest_url || '');
+                              setInstagramUrl(r.instagram_url || '');
+                              setSocialModalOpen(true);
+                            }
                           }}
-                          className="p-2 hover:bg-stone-50 text-stone-500 hover:text-emerald-600 rounded-lg transition cursor-pointer"
+                          className={`p-2 rounded-lg transition cursor-pointer ${socialModalOpen && activeRecipe?.id === r.id ? 'bg-emerald-50 text-emerald-600' : 'hover:bg-stone-50 text-stone-500 hover:text-emerald-600'}`}
                           title="Link Socials"
                         >
                           <Link2 className="w-3.5 h-3.5" />
@@ -328,6 +332,55 @@ export default function AdminRecipesPage() {
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
+
+                        {/* Inline Popover for Socials */}
+                        {socialModalOpen && activeRecipe?.id === r.id && (
+                          <div className="absolute right-[110%] top-0 z-[100] w-[280px] bg-white rounded-xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.15)] border border-cream-dark overflow-hidden animate-fade-slide-up text-left cursor-default">
+                            <div className="px-4 py-3 border-b border-cream-dark flex items-center justify-between bg-[#FAF9F6]">
+                              <h3 className="font-serif font-bold text-espresso text-[13px]">Link Socials</h3>
+                              <button onClick={() => setSocialModalOpen(false)} className="text-stone-400 hover:text-espresso cursor-pointer p-1">
+                                <X className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                            <div className="p-4 space-y-3">
+                              <div className="space-y-1">
+                                <label className="text-[9px] font-mono font-bold uppercase tracking-wider text-stone-500">Pinterest URL</label>
+                                <input 
+                                  type="url" 
+                                  placeholder="https://pinterest.com/pin/..." 
+                                  value={pinterestUrl}
+                                  onChange={(e) => setPinterestUrl(e.target.value)}
+                                  className="w-full bg-[#FAF9F5] border border-cream-dark focus:border-terracotta text-stone-850 text-xs rounded-lg px-2.5 py-2 focus:outline-none"
+                                />
+                              </div>
+                              <div className="space-y-1">
+                                <label className="text-[9px] font-mono font-bold uppercase tracking-wider text-stone-500">Instagram URL</label>
+                                <input 
+                                  type="url" 
+                                  placeholder="https://instagram.com/p/..." 
+                                  value={instagramUrl}
+                                  onChange={(e) => setInstagramUrl(e.target.value)}
+                                  className="w-full bg-[#FAF9F5] border border-cream-dark focus:border-terracotta text-stone-850 text-xs rounded-lg px-2.5 py-2 focus:outline-none"
+                                />
+                              </div>
+                            </div>
+                            <div className="px-4 py-3 border-t border-cream-dark bg-[#FAF9F6] flex justify-end gap-2">
+                              <button 
+                                onClick={() => setSocialModalOpen(false)}
+                                className="px-3 py-1.5 text-[10px] font-mono font-bold text-stone-500 hover:text-espresso uppercase tracking-wider transition-colors cursor-pointer"
+                              >
+                                Cancel
+                              </button>
+                              <button 
+                                onClick={handleSaveSocials}
+                                disabled={isSavingSocials}
+                                className="px-3 py-1.5 bg-espresso hover:bg-terracotta text-cream hover:text-white rounded-lg text-[10px] font-mono font-bold uppercase tracking-wider transition-all shadow-3xs cursor-pointer disabled:opacity-50 flex items-center gap-1.5"
+                              >
+                                {isSavingSocials ? 'Saving...' : 'Save'}
+                              </button>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </td>
                   </tr>
@@ -338,59 +391,6 @@ export default function AdminRecipesPage() {
         )}
       </div>
 
-      {/* Social Links Modal */}
-      {socialModalOpen && activeRecipe && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-espresso/20 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl shadow-xl border border-cream-dark w-full max-w-md overflow-hidden animate-fade-slide-up">
-            <div className="px-5 py-4 border-b border-cream-dark flex items-center justify-between">
-              <h3 className="font-serif font-bold text-espresso">Link Social Posts</h3>
-              <button onClick={() => setSocialModalOpen(false)} className="text-stone-400 hover:text-espresso cursor-pointer">
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-            <div className="p-5 space-y-4">
-              <p className="text-xs text-stone-500 mb-2">Connect <span className="font-bold text-espresso">{activeRecipe.title}</span> to your social channels.</p>
-              
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-stone-500">Pinterest Pin URL</label>
-                <input 
-                  type="url" 
-                  placeholder="https://pinterest.com/pin/..." 
-                  value={pinterestUrl}
-                  onChange={(e) => setPinterestUrl(e.target.value)}
-                  className="w-full bg-[#FAF9F5] border border-cream-dark focus:border-terracotta text-stone-850 text-xs rounded-lg px-3 py-2.5 focus:outline-none"
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-stone-500">Instagram Reel/Post URL</label>
-                <input 
-                  type="url" 
-                  placeholder="https://instagram.com/p/..." 
-                  value={instagramUrl}
-                  onChange={(e) => setInstagramUrl(e.target.value)}
-                  className="w-full bg-[#FAF9F5] border border-cream-dark focus:border-terracotta text-stone-850 text-xs rounded-lg px-3 py-2.5 focus:outline-none"
-                />
-              </div>
-            </div>
-            <div className="px-5 py-4 border-t border-cream-dark bg-[#FAF9F6] flex justify-end gap-3">
-              <button 
-                onClick={() => setSocialModalOpen(false)}
-                className="px-4 py-2 text-xs font-mono font-bold text-stone-500 hover:text-espresso uppercase tracking-wider transition-colors cursor-pointer"
-              >
-                Cancel
-              </button>
-              <button 
-                onClick={handleSaveSocials}
-                disabled={isSavingSocials}
-                className="px-4 py-2 bg-espresso hover:bg-terracotta text-cream hover:text-white rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-all shadow-3xs cursor-pointer disabled:opacity-50"
-              >
-                {isSavingSocials ? 'Saving...' : 'Save Links'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
