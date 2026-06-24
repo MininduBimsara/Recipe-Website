@@ -3,10 +3,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Search, Clock, Filter, Leaf, Globe2, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Recipe, RECIPES_DB } from '@/data/recipes';
+import { Recipe } from '@/data/recipes';
 import { getSavedRecipes } from '@/lib/preseededPool';
 import RecipeCard from '@/components/RecipeCard';
 import { useDebounce } from '@/hooks/useDebounce';
+import { fetchRecipesAction } from '@/app/actions/recipeActions';
+import { isSupabaseConfigured } from '@/lib/supabase/client';
 
 const RECIPE_CATEGORIES = [
   'All', 'Breakfast', 'Lunch', 'Dinner', 'Desserts', 'Quick & Easy', 'Vegetarian', 'Meal Prep', 'Drinks'
@@ -30,7 +32,11 @@ export default function RecipesClient() {
   const debouncedPantry = useDebounce<string>(pantryIngredients, 300);
 
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [visibleCount, setVisibleCount] = useState(12);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+  const [hasMore, setHasMore] = useState(false);
+  const limit = 12;
   const [showAdvanceFilters, setShowAdvanceFilters] = useState(false);
 
   // Scrollbar variables and logic
@@ -93,121 +99,144 @@ export default function RecipesClient() {
     }
   }, [searchParams]);
 
-  // Load and apply multi-faceted filter matching client-side
+  // Load data from server action when filters or page changes
   useEffect(() => {
-    // 1. Merge hardcoded recipes with User created & preseeded queue
-    const customRecipes = getSavedRecipes();
-    const merged = [...RECIPES_DB, ...customRecipes];
+    let active = true;
 
-    // Remove duplicates by ID or Slug
-    const seen = new Set<string>();
-    const uniqueList = merged.filter(r => {
-      if (seen.has(r.id) || seen.has(r.slug)) {
-        return false;
-      }
-      seen.add(r.id);
-      seen.add(r.slug);
-      return true;
-    });
+    async function loadData() {
+      setLoading(true);
+      const offset = (page - 1) * limit;
+      try {
+        const res = await fetchRecipesAction(
+          offset,
+          limit,
+          activeCategory,
+          debouncedSearch,
+          activeCuisine,
+          activeDiet,
+          debouncedPantry
+        );
+        if (active) {
+          if (!isSupabaseConfigured()) {
+            // Merge local fallback from server action with client-side localStorage recipes
+            const customRecipes = getSavedRecipes();
+            // Filter custom recipes client-side using the same filters
+            const filteredCustom = customRecipes.filter(recipe => {
+              if (activeCategory !== 'All' && recipe.category.toLowerCase() !== activeCategory.toLowerCase()) return false;
+              if (activeCuisine !== 'All' && !(recipe.recipeCuisine || '').toLowerCase().includes(activeCuisine.toLowerCase())) return false;
+              if (activeDiet !== 'All') {
+                const tagsJoined = (recipe.tags || []).join(' ').toLowerCase();
+                const catQuery = recipe.category.toLowerCase();
+                let dietMatch = false;
+                const dietQuery = activeDiet.toLowerCase();
+                if (dietQuery === 'vegetarian' && (tagsJoined.includes('vegetarian') || catQuery === 'vegetarian')) dietMatch = true;
+                if (dietQuery === 'vegan' && (tagsJoined.includes('vegan') || tagsJoined.includes('plant-based'))) dietMatch = true;
+                if (dietQuery === 'gluten-free' && (tagsJoined.includes('gluten-free') || tagsJoined.includes('gf'))) dietMatch = true;
+                if (dietQuery === 'low-carb' && (tagsJoined.includes('low-carb') || tagsJoined.includes('keto'))) dietMatch = true;
+                if (dietQuery === 'keto' && tagsJoined.includes('keto')) dietMatch = true;
+                if (dietQuery === 'dairy-free' && tagsJoined.includes('dairy-free')) dietMatch = true;
+                if (!dietMatch) return false;
+              }
+              if (debouncedSearch) {
+                const word = debouncedSearch.toLowerCase();
+                const titleMatch = recipe.title.toLowerCase().includes(word);
+                const descMatch = recipe.description.toLowerCase().includes(word);
+                const tagsMatch = (recipe.tags || []).join(' ').toLowerCase().includes(word);
+                if (!titleMatch && !descMatch && !tagsMatch) return false;
+              }
+              if (debouncedPantry) {
+                const pantryItems = debouncedPantry.toLowerCase().split(',').map(item => item.trim()).filter(Boolean);
+                if (pantryItems.length > 0) {
+                  const recipeIngredientsJoined = recipe.ingredients.join(' ').toLowerCase();
+                  if (!pantryItems.some(item => recipeIngredientsJoined.includes(item))) return false;
+                }
+              }
+              return true;
+            });
 
-    // 2. Perform filters
-    let filtered = uniqueList.filter(recipe => {
-      // Check if scheduled in future
-      const isCustom = 'status' in recipe;
-      if (isCustom) {
-        const ext = recipe as any;
-        if (ext.status === 'scheduled') {
-          const schedTime = ext.scheduledAt ? new Date(ext.scheduledAt).getTime() : 0;
-          const now = Date.now();
-          if (schedTime > now) {
-            return false; // hide future scheduled items
+            // Combine both lists
+            const combined = [...res.recipes, ...filteredCustom];
+            
+            // Remove duplicates
+            const seen = new Set();
+            const uniqueCombined = combined.filter(r => {
+              if (seen.has(r.id) || seen.has(r.slug)) return false;
+              seen.add(r.id);
+              seen.add(r.slug);
+              return true;
+            });
+
+            // Sliced combined for page
+            const paginatedCombined = uniqueCombined.slice(offset, offset + limit);
+            
+            setRecipes(paginatedCombined);
+            setTotalCount(uniqueCombined.length);
+            setHasMore(offset + limit < uniqueCombined.length);
+          } else {
+            setRecipes(res.recipes);
+            setHasMore(res.hasMore);
+            setTotalCount(res.totalCount);
           }
         }
-      }
-
-      // Category Match
-      if (activeCategory !== 'All') {
-        if (recipe.category.toLowerCase() !== activeCategory.toLowerCase()) {
-          return false;
+      } catch (err) {
+        console.error('Error fetching recipes:', err);
+      } finally {
+        if (active) {
+          setLoading(false);
         }
       }
+    }
 
-      // Cuisine Match
-      if (activeCuisine !== 'All') {
-        const cuis = (recipe.recipeCuisine || '').toLowerCase();
-        if (!cuis.includes(activeCuisine.toLowerCase())) {
-          return false;
-        }
-      }
+    loadData();
 
-      // Dietary Match
-      if (activeDiet !== 'All') {
-        const dietQuery = activeDiet.toLowerCase();
-        const tagsJoined = (recipe.tags || []).join(' ').toLowerCase();
-        const catQuery = recipe.category.toLowerCase();
-        
-        let match = false;
-        if (dietQuery === 'vegetarian' && (tagsJoined.includes('vegetarian') || catQuery === 'vegetarian')) match = true;
-        if (dietQuery === 'vegan' && (tagsJoined.includes('vegan') || tagsJoined.includes('plant-based'))) match = true;
-        if (dietQuery === 'gluten-free' && (tagsJoined.includes('gluten-free') || tagsJoined.includes('gf'))) match = true;
-        if (dietQuery === 'low-carb' && (tagsJoined.includes('low-carb') || tagsJoined.includes('keto'))) match = true;
-        if (dietQuery === 'keto' && tagsJoined.includes('keto')) match = true;
-        if (dietQuery === 'dairy-free' && tagsJoined.includes('dairy-free')) match = true;
-        
-        if (!match) return false;
-      }
+    return () => {
+      active = false;
+    };
+  }, [page, activeCategory, activeCuisine, activeDiet, debouncedSearch, debouncedPantry]);
 
-      // Search Phrase keyword Match (matches on title, description, or tags)
-      if (debouncedSearch) {
-        const word = debouncedSearch.toLowerCase();
-        const titleMatch = recipe.title.toLowerCase().includes(word);
-        const descMatch = recipe.description.toLowerCase().includes(word);
-        const tagsMatch = (recipe.tags || []).join(' ').toLowerCase().includes(word);
-        if (!titleMatch && !descMatch && !tagsMatch) {
-          return false;
-        }
-      }
-
-      // Pantry Ingredients Matcher (Ingredient Availability Matcher!)
-      if (debouncedPantry) {
-        const pantryItems = debouncedPantry.toLowerCase().split(',').map(item => item.trim()).filter(Boolean);
-        if (pantryItems.length > 0) {
-          // Check if recipes ingredients contain ANY of the pantry items
-          const recipeIngredientsJoined = recipe.ingredients.join(' ').toLowerCase();
-          const matchesAny = pantryItems.some(item => recipeIngredientsJoined.includes(item));
-          if (!matchesAny) {
-            return false;
-          }
-        }
-      }
-
-      return true;
-    });
-
-    setRecipes(filtered);
-    setVisibleCount(12);
-
-    // Sync URLs
+  // Sync state to URL params
+  useEffect(() => {
     const params = new URLSearchParams();
     if (activeCategory !== 'All') params.set('category', activeCategory);
     if (debouncedSearch) params.set('q', debouncedSearch);
     router.replace(`/recipes?${params.toString()}`, { scroll: false });
-  }, [activeCategory, activeCuisine, activeDiet, debouncedSearch, debouncedPantry]);
+  }, [activeCategory, debouncedSearch]);
 
   const handleCategoryChange = (categoryName: string) => {
     setActiveCategory(categoryName);
+    setPage(1);
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchPhrase(e.target.value);
+    setPage(1);
   };
 
-  const handleLoadMore = () => {
-    setVisibleCount(prev => prev + 12);
+  const handlePantryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPantryIngredients(e.target.value);
+    setPage(1);
   };
 
-  const currentBatch = recipes.slice(0, visibleCount);
-  const hasMore = visibleCount < recipes.length;
+  const totalPages = Math.ceil(totalCount / limit);
+
+  const handlePrevPage = () => {
+    if (page > 1) {
+      setPage(prev => prev - 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleNextPage = () => {
+    if (page < totalPages) {
+      setPage(prev => prev + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handlePageClick = (p: number) => {
+    setPage(p);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="w-full min-h-screen bg-[#FAFAF8] text-espresso py-10 px-6 max-w-7xl mx-auto flex flex-col space-y-8" id="recipes-index-board">
@@ -321,7 +350,7 @@ export default function RecipesClient() {
                 {CUISINES.map(c => (
                   <button
                     key={c}
-                    onClick={() => setActiveCuisine(c)}
+                    onClick={() => { setActiveCuisine(c); setPage(1); }}
                     className={`px-2.5 py-1 text-[10px] font-mono font-bold rounded-lg border transition cursor-pointer ${
                       activeCuisine === c 
                         ? 'bg-[#B35C2E]/10 border-terracotta text-terracotta' 
@@ -343,7 +372,7 @@ export default function RecipesClient() {
                 {DIETARY_PREFS.map(d => (
                   <button
                     key={d}
-                    onClick={() => setActiveDiet(d)}
+                    onClick={() => { setActiveDiet(d); setPage(1); }}
                     className={`px-2.5 py-1 text-[10px] font-mono font-bold rounded-lg border transition cursor-pointer ${
                       activeDiet === d 
                         ? 'bg-sage/10 border-sage text-[#4A634D]' 
@@ -365,7 +394,7 @@ export default function RecipesClient() {
                 type="text"
                 placeholder="Enter ingredients (e.g., cheese, garlic)..."
                 value={pantryIngredients}
-                onChange={e => setPantryIngredients(e.target.value)}
+                onChange={handlePantryChange}
                 className="w-full bg-white border text-xs p-2.5 rounded-xl outline-none focus:border-sage font-mono text-stone-650"
               />
               <p className="text-[9px] text-stone-400 leading-normal">
@@ -380,7 +409,20 @@ export default function RecipesClient() {
 
       {/* Primary catalog grid */}
       <main className="w-full" id="recipes-catalog-grid">
-        {recipes.length === 0 ? (
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full" id="recipes-loading-skeleton">
+            {Array.from({ length: 6 }).map((_, idx) => (
+              <div key={idx} className="bg-white border border-cream-dark rounded-3xl overflow-hidden p-4 space-y-4 animate-pulse">
+                <div className="bg-stone-200 h-52 sm:h-60 rounded-2xl w-full" />
+                <div className="space-y-2">
+                  <div className="bg-stone-200 h-3 rounded-md w-1/3" />
+                  <div className="bg-stone-200 h-5 rounded-md w-3/4" />
+                  <div className="bg-stone-200 h-4 rounded-md w-5/6" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : recipes.length === 0 ? (
           <div className="py-20 text-center border border-dashed rounded-3xl bg-white space-y-4" id="empty-recipe-state">
             <h3 className="font-serif font-bold text-xl text-espresso">No recipes match your filters</h3>
             <p className="text-stone-500 text-xs font-sans max-w-md mx-auto">
@@ -393,6 +435,7 @@ export default function RecipesClient() {
                 setActiveCategory('All');
                 setActiveCuisine('All');
                 setActiveDiet('All');
+                setPage(1);
               }}
               className="px-6 py-3 bg-espresso text-cream rounded-xl text-xs font-mono font-bold uppercase tracking-wider hover:bg-terracotta hover:text-white cursor-pointer transition"
             >
@@ -401,7 +444,7 @@ export default function RecipesClient() {
           </div>
         ) : (
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 [column-fill:_balance] w-full" id="masonry-recipes-wrapper">
-            {currentBatch.map((recipe) => (
+            {recipes.map((recipe) => (
               <RecipeCard
                 key={recipe.id}
                 recipe={recipe}
@@ -413,15 +456,60 @@ export default function RecipesClient() {
           </div>
         )}
 
-        {/* Load more logic */}
-        {hasMore && recipes.length > 0 && (
-          <div className="flex items-center justify-center pt-12 print:hidden" id="pagination-controls">
-            <button
-              onClick={handleLoadMore}
-              className="px-8 py-3.5 rounded-full border text-stone-700 bg-white hover:bg-stone-50 text-xs font-mono font-bold uppercase tracking-widest cursor-pointer transition-all hover:scale-102"
-            >
-              Load More Recipes ({visibleCount} of {recipes.length})
-            </button>
+        {/* Pagination Controls */}
+        {totalPages > 1 && !loading && (
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-12 pb-6 border-t border-stone-200 print:hidden" id="pagination-controls">
+            <span className="font-mono text-[10px] text-stone-500 font-medium">
+              SHOWING {recipes.length} OF {totalCount} RECIPES (PAGE {page} OF {totalPages})
+            </span>
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={handlePrevPage}
+                disabled={page === 1}
+                className="px-3.5 py-2.5 rounded-xl border text-[10px] font-mono font-bold uppercase tracking-wider transition bg-white text-espresso hover:bg-stone-50 disabled:opacity-40 disabled:hover:bg-white cursor-pointer disabled:cursor-not-allowed"
+              >
+                Previous
+              </button>
+              
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => {
+                if (
+                  totalPages > 6 &&
+                  p !== 1 &&
+                  p !== totalPages &&
+                  Math.abs(p - page) > 1
+                ) {
+                  if (p === 2 && page > 3) {
+                    return <span key="ell-1" className="px-2 text-stone-400 font-mono text-xs">...</span>;
+                  }
+                  if (p === totalPages - 1 && page < totalPages - 2) {
+                    return <span key="ell-2" className="px-2 text-stone-400 font-mono text-xs">...</span>;
+                  }
+                  return null;
+                }
+
+                return (
+                  <button
+                    key={p}
+                    onClick={() => handlePageClick(p)}
+                    className={`w-9 h-9 rounded-xl font-mono text-[10px] font-bold uppercase transition flex items-center justify-center cursor-pointer ${
+                      page === p
+                        ? 'bg-espresso text-white scale-105'
+                        : 'bg-white border text-stone-600 hover:bg-stone-50'
+                    }`}
+                  >
+                    {p}
+                  </button>
+                );
+              })}
+
+              <button
+                onClick={handleNextPage}
+                disabled={page === totalPages}
+                className="px-3.5 py-2.5 rounded-xl border text-[10px] font-mono font-bold uppercase tracking-wider transition bg-white text-espresso hover:bg-stone-50 disabled:opacity-40 disabled:hover:bg-white cursor-pointer disabled:cursor-not-allowed"
+              >
+                Next
+              </button>
+            </div>
           </div>
         )}
       </main>

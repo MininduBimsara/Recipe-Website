@@ -1,0 +1,544 @@
+[
+  {
+    "id": "recipe-tuscan-pasta",
+    "slug": "creamy-tuscan-sun-dried-tomato-pasta",
+    "title": "Creamy Tuscan Sun-Dried Tomato Pasta",
+    "description": "A restaurant-quality, 30-minute pasta dish featuring a luscious cream sauce loaded with sun-dried tomatoes, fresh baby spinach, garlic, and Parmigiano-Reggiano. Rich, deeply savory, and endlessly satisfying.",
+    "coverImage": "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?auto=format&fit=crop&w=1200&h=675&q=80",
+    "heroBlurHash": "LEHV6nWB2yk8pyoJadR*~BozMaaz",
+    "category": "DINNER",
+    "cuisine": "ITALIAN",
+    "difficulty": "EASY",
+    "prepTime": 10,
+    "cookTime": 20,
+    "totalTime": 30,
+    "servings": 4,
+    "calories": 580,
+    "tags": ["pasta", "italian", "cream sauce", "sun-dried tomatoes", "quick dinner", "vegetarian"],
+    "ingredients": [
+      { "quantity": 400, "unit": "g", "name": "Fettuccine or Pappardelle", "notes": "Bronze-die cut for sauce grip" },
+      { "quantity": 3, "unit": "tbsp", "name": "Unsalted Butter", "notes": "" },
+      { "quantity": 5, "unit": "pc", "name": "Garlic Cloves", "notes": "Thinly sliced" },
+      { "quantity": 120, "unit": "g", "name": "Sun-Dried Tomatoes in Oil", "notes": "Drained, sliced into strips" },
+      { "quantity": 350, "unit": "ml", "name": "Heavy Whipping Cream", "notes": "Full fat" },
+      { "quantity": 120, "unit": "ml", "name": "Pasta Cooking Water", "notes": "Reserved from boiling water" },
+      { "quantity": 80, "unit": "g", "name": "Parmigiano-Reggiano", "notes": "Freshly grated, aged 24 months" },
+      { "quantity": 100, "unit": "g", "name": "Baby Spinach", "notes": "Fresh, washed" },
+      { "quantity": 1, "unit": "tsp", "name": "Chili Flakes", "notes": "Or to taste" },
+      { "quantity": 1, "unit": "tsp", "name": "Dried Italian Herbs", "notes": "Oregano and basil blend" }
+    ],
+    "instructions": [
+      {
+        "stepNumber": 1,
+        "body": "Bring a large pot of heavily salted water to a rolling boil. Cook fettuccine 1 minute less than the package instructions for al dente. Before draining, scoop out 120ml of the starchy pasta water and set aside.",
+        "tip": "The pasta water is liquid gold — its starch content emulsifies the cream sauce and gives it that silky, coating quality.",
+        "imageSrc": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 2,
+        "body": "Melt butter in a large skillet over medium heat. Add sliced garlic and chili flakes, sautéing for 90 seconds until the garlic turns pale golden and fragrant. Do not let it brown.",
+        "tip": "Pale gold garlic delivers sweetness; dark brown turns bitter and acrid and will ruin the sauce base.",
+        "imageSrc": "https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 3,
+        "body": "Add the drained sun-dried tomatoes to the pan and stir for 1 minute to warm them through and release their concentrated, umami-laden oils into the butter base.",
+        "tip": "Use sun-dried tomatoes packed in good olive oil — the oil they come in is an extra flavour bonus for the sauce.",
+        "imageSrc": "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 4,
+        "body": "Pour in the heavy cream and bring to a gentle simmer. Reduce heat to low and cook for 3–4 minutes, stirring occasionally, until the cream thickens slightly and coats the back of a spoon.",
+        "tip": "A gentle simmer, not a boil, prevents the cream from breaking and keeps the sauce silky-smooth.",
+        "imageSrc": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 5,
+        "body": "Add the al dente pasta directly to the skillet. Toss aggressively, adding pasta water a splash at a time to achieve a glossy, clingy sauce. Stir in baby spinach and grated Parmigiano-Reggiano until the spinach wilts and cheese melts in. Serve immediately garnished with extra Parmesan and black pepper.",
+        "tip": "Tossing the pasta directly in the sauce for 60–90 seconds is essential — the pasta absorbs the sauce and every strand gets perfectly coated.",
+        "imageSrc": "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?auto=format&fit=crop&w=600&h=400&q=80"
+      }
+    ],
+    "chefSecrets": [
+      "For an even richer, restaurant-depth flavour, add a tablespoon of the sun-dried tomato packing oil directly into the cream as it simmers.",
+      "Finishing with a squeeze of fresh lemon juice just before serving cuts through the richness and makes every other flavour in the dish pop dramatically."
+    ],
+    "nutritionFacts": {
+      "calories": 580,
+      "protein": "16g",
+      "carbs": "62g",
+      "fat": "30g",
+      "saturatedFat": "18g",
+      "sodium": "390mg",
+      "fiber": "4g"
+    },
+    "publishedAt": "2026-06-18T08:00:00Z",
+    "updatedAt": "2026-06-18T08:00:00Z",
+    "author": {
+      "id": "chef-isabella",
+      "name": "Chef Isabella Laurent",
+      "bio": "Culinary arts graduate from Le Cordon Bleu Paris and author of rustic French bakery bestsellers. Specializes in traditional techniques adapted for home kitchens.",
+      "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&h=200&q=80",
+      "social": {
+        "pinterest": "https://pinterest.com/isabella_laurent",
+        "instagram": "https://instagram.com/isabella_cooks",
+        "tiktok": "https://tiktok.com/@isabellalaurent"
+      }
+    },
+    "pinterestDescription": "30-minute Creamy Tuscan Pasta that tastes like a 5-star restaurant! Sun-dried tomatoes, baby spinach, and Parmigiano-Reggiano in a silky cream sauce. The best weeknight dinner you'll ever make! 🍝✨ #pastarecipe #tuscancooking #easydinnerideas",
+    "isFeatured": false,
+    "relatedRecipes": ["mediterranean-shakshuka", "classic-french-tarte-au-citron"]
+  },
+  {
+    "id": "recipe-souffle-pancakes",
+    "slug": "fluffy-japanese-souffle-pancakes",
+    "title": "Fluffy Japanese Soufflé Pancakes",
+    "description": "Impossibly tall, cloud-like Japanese soufflé pancakes with a jiggly, melt-in-your-mouth texture thanks to a Swiss meringue fold technique — the weekend breakfast that will stop your Instagram followers mid-scroll.",
+    "coverImage": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=1200&h=675&q=80",
+    "heroBlurHash": "LKO2?U%2Tw=w]~RBVZRi};RPxuwH",
+    "category": "BREAKFAST",
+    "cuisine": "FUSION",
+    "difficulty": "MEDIUM",
+    "prepTime": 20,
+    "cookTime": 15,
+    "totalTime": 35,
+    "servings": 2,
+    "calories": 310,
+    "tags": ["japanese pancakes", "souffle pancakes", "fluffy breakfast", "brunch", "weekend cooking", "instagram food"],
+    "ingredients": [
+      { "quantity": 2, "unit": "pc", "name": "Large Eggs", "notes": "Separated, whites and yolks in separate bowls" },
+      { "quantity": 30, "unit": "g", "name": "All-Purpose Flour", "notes": "Sifted twice for lump-free batter" },
+      { "quantity": 30, "unit": "ml", "name": "Whole Milk", "notes": "Room temperature" },
+      { "quantity": 1, "unit": "tsp", "name": "Vanilla Extract", "notes": "Pure, not imitation" },
+      { "quantity": 0.5, "unit": "tsp", "name": "Baking Powder", "notes": "Fresh for maximum lift" },
+      { "quantity": 30, "unit": "g", "name": "Granulated Sugar", "notes": "For stiff meringue peaks" },
+      { "quantity": 0.25, "unit": "tsp", "name": "Cream of Tartar", "notes": "Stabilises the meringue" },
+      { "quantity": 1, "unit": "tbsp", "name": "Unsalted Butter", "notes": "For cooking the pan" }
+    ],
+    "instructions": [
+      {
+        "stepNumber": 1,
+        "body": "In a medium bowl, whisk together the 2 egg yolks, milk, vanilla extract, sifted flour, and baking powder until a smooth, thick ribbon batter forms. Set aside.",
+        "tip": "Sifting the flour twice removes lumps that would deflate the delicate meringue when folded in.",
+        "imageSrc": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 2,
+        "body": "In a completely clean, grease-free bowl, beat the 2 egg whites and cream of tartar with an electric mixer on medium speed until foamy. Gradually add granulated sugar in three additions, beating on high until stiff, glossy meringue peaks form and the bowl can be turned upside down without the mixture falling.",
+        "tip": "Any trace of fat or egg yolk in the bowl will prevent the whites from whipping properly — clean the bowl with a slice of lemon before starting.",
+        "imageSrc": "https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 3,
+        "body": "Gently fold one-third of the meringue into the yolk batter with a silicone spatula using large circular scooping motions to lighten it. Add the remaining meringue in two additions, folding until just combined with visible white streaks still faintly present — do not over-mix.",
+        "tip": "Under-folding is better than over-folding. A few white streaks disappear in the pan; deflated batter cannot be rescued.",
+        "imageSrc": "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 4,
+        "body": "Heat a non-stick pan over the lowest heat setting. Lightly butter the surface. Place two 3-inch ring moulds (or improvise with crumpled foil rings) on the pan. Spoon batter into each mould in two layers, doming it high above the ring. Cover the pan with a lid and cook for 6–7 minutes.",
+        "tip": "The lowest heat is critical. These pancakes cook by steam — too hot and the outside burns while the inside stays raw.",
+        "imageSrc": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 5,
+        "body": "Carefully slide a thin spatula under each pancake and flip in one decisive motion. Cook covered for a further 5–6 minutes until the pancakes are cooked through and spring back lightly when touched. Slide rings off and serve stacked immediately with maple syrup, whipped cream, and fresh seasonal berries.",
+        "tip": "Serve within 60 seconds of plating — these soufflé pancakes slowly deflate as they cool, so getting them to the table quickly is part of the recipe.",
+        "imageSrc": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=600&h=400&q=80"
+      }
+    ],
+    "chefSecrets": [
+      "Adding a tablespoon of cold water into the hot pan just before covering with the lid creates a burst of steam that helps the pancakes cook evenly all the way through without burning.",
+      "For perfectly even pancakes, chill your batter bowl briefly in the refrigerator between batches — this stops residual pan heat from melting the meringue before it sets."
+    ],
+    "nutritionFacts": {
+      "calories": 310,
+      "protein": "12g",
+      "carbs": "42g",
+      "fat": "10g",
+      "saturatedFat": "4g",
+      "sodium": "190mg",
+      "fiber": "1g"
+    },
+    "publishedAt": "2026-06-20T07:30:00Z",
+    "updatedAt": "2026-06-20T07:30:00Z",
+    "author": {
+      "id": "chef-isabella",
+      "name": "Chef Isabella Laurent",
+      "bio": "Culinary arts graduate from Le Cordon Bleu Paris and author of rustic French bakery bestsellers. Specializes in traditional techniques adapted for home kitchens.",
+      "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&h=200&q=80",
+      "social": {
+        "pinterest": "https://pinterest.com/isabella_laurent",
+        "instagram": "https://instagram.com/isabella_cooks",
+        "tiktok": "https://tiktok.com/@isabellalaurent"
+      }
+    },
+    "pinterestDescription": "The fluffiest Japanese Soufflé Pancakes you can make at home! Jiggly, cloud-like stacks that melt in your mouth. Step-by-step guide including the meringue fold secret! Perfect weekend brunch treat 🥞☁️ #japanesepancakes #soufflepancakes #brunchrecipe",
+    "isFeatured": true,
+    "relatedRecipes": ["mediterranean-shakshuka", "creamy-tuscan-sun-dried-tomato-pasta"]
+  },
+  {
+    "id": "recipe-avocado-toast",
+    "slug": "ultimate-smashed-avocado-toast",
+    "title": "Ultimate Smashed Avocado Toast with Poached Egg",
+    "description": "The café-style smashed avocado toast you have been chasing — creamy, lemony, perfectly seasoned avocado on thick sourdough toast, crowned with a silky soft-poached egg and chili flakes. Ready in under 15 minutes.",
+    "coverImage": "https://images.unsplash.com/photo-1541519227354-08fa5d50c820?auto=format&fit=crop&w=1200&h=675&q=80",
+    "heroBlurHash": "L9DMKsx]tSRj0MbHj[bH0M%1nOoL",
+    "category": "BREAKFAST",
+    "cuisine": "AMERICAN",
+    "difficulty": "EASY",
+    "prepTime": 5,
+    "cookTime": 8,
+    "totalTime": 13,
+    "servings": 2,
+    "calories": 390,
+    "tags": ["avocado toast", "healthy breakfast", "poached egg", "brunch", "quick meal", "sourdough"],
+    "ingredients": [
+      { "quantity": 2, "unit": "pc", "name": "Thick Sourdough Bread Slices", "notes": "1.5-inch thick cut" },
+      { "quantity": 2, "unit": "pc", "name": "Ripe Hass Avocados", "notes": "Ready when they yield to gentle thumb pressure" },
+      { "quantity": 2, "unit": "pc", "name": "Large Eggs", "notes": "Fridge-cold for tighter whites when poaching" },
+      { "quantity": 1, "unit": "pc", "name": "Lemon", "notes": "Juice only" },
+      { "quantity": 1, "unit": "tbsp", "name": "White Wine Vinegar", "notes": "For poaching water" },
+      { "quantity": 0.5, "unit": "tsp", "name": "Flaky Sea Salt", "notes": "Maldon or similar" },
+      { "quantity": 0.5, "unit": "tsp", "name": "Chili Flakes", "notes": "Aleppo pepper for a smoky kick" },
+      { "quantity": 1, "unit": "tbsp", "name": "Extra Virgin Olive Oil", "notes": "Finishing drizzle quality" },
+      { "quantity": 0.25, "unit": "cup", "name": "Microgreens or Radish Sprouts", "notes": "For garnish" }
+    ],
+    "instructions": [
+      {
+        "stepNumber": 1,
+        "body": "Toast the thick sourdough slices in a cast-iron griddle pan over high heat, pressing them down for 2 minutes per side, until deep charred grill marks form and the bread is crisp on the outside but still slightly chewy inside.",
+        "tip": "A cast-iron griddle gives sourdough those charred striped lines which add a smoky, caramelized flavour that a toaster simply cannot replicate.",
+        "imageSrc": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 2,
+        "body": "Halve the ripe avocados and scoop the flesh into a bowl. Add the lemon juice, a generous pinch of flaky sea salt, and black pepper. Smash roughly with a fork, leaving generous chunky pieces rather than pureeing to a smooth paste.",
+        "tip": "Chunky smash, not guacamole — the uneven texture gives each bite a different, more interesting avocado experience.",
+        "imageSrc": "https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 3,
+        "body": "Bring a small saucepan of water to a gentle simmer — not a boil. Add the white wine vinegar. Crack each cold egg into a small ramekin individually. Create a gentle swirl in the water with a spoon and slide each egg in one at a time. Cook for exactly 3 minutes for a set white with a fully runny, liquid golden yolk.",
+        "tip": "Cold eggs hold their shape far better than room-temperature eggs in the poaching water — always poach straight from the fridge.",
+        "imageSrc": "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 4,
+        "body": "Spread the smashed avocado generously over each toasted sourdough slice, piling it high. Lift each poached egg from the water with a slotted spoon, briefly resting on folded kitchen paper to dry.",
+        "tip": "Resting the poached egg on kitchen paper for just 10 seconds prevents the excess water from pooling on your toast and going soggy.",
+        "imageSrc": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 5,
+        "body": "Place the poached egg on top of each loaded toast. Finish with a scatter of chili flakes, microgreens, a final pinch of flaky sea salt, and a confident drizzle of extra-virgin olive oil. Serve immediately.",
+        "tip": "Breaking the yolk just before eating creates a warm, rich dressing that runs down into the avocado layer — resist eating it whole immediately and let it drip first.",
+        "imageSrc": "https://images.unsplash.com/photo-1541519227354-08fa5d50c820?auto=format&fit=crop&w=600&h=400&q=80"
+      }
+    ],
+    "chefSecrets": [
+      "Rubbing the warm toasted sourdough with a freshly cut garlic clove immediately after gridding adds a subtle, aromatic garlic undercurrent that elevates the whole dish.",
+      "A thin smear of cream cheese or labneh beneath the avocado layer adds a tangy richness and acts as glue that stops the avocado sliding off the toast."
+    ],
+    "nutritionFacts": {
+      "calories": 390,
+      "protein": "14g",
+      "carbs": "32g",
+      "fat": "24g",
+      "saturatedFat": "4g",
+      "sodium": "380mg",
+      "fiber": "9g"
+    },
+    "publishedAt": "2026-06-21T07:00:00Z",
+    "updatedAt": "2026-06-21T07:00:00Z",
+    "author": {
+      "id": "chef-isabella",
+      "name": "Chef Isabella Laurent",
+      "bio": "Culinary arts graduate from Le Cordon Bleu Paris and author of rustic French bakery bestsellers. Specializes in traditional techniques adapted for home kitchens.",
+      "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&h=200&q=80",
+      "social": {
+        "pinterest": "https://pinterest.com/isabella_laurent",
+        "instagram": "https://instagram.com/isabella_cooks",
+        "tiktok": "https://tiktok.com/@isabellalaurent"
+      }
+    },
+    "pinterestDescription": "Café-style Smashed Avocado Toast with a perfectly poached runny egg — done in 13 minutes! Creamy, lemony avocado on thick griddled sourdough with chili flakes. The only avocado toast recipe you will ever need! 🥑🍳 #avocadotoast #healthybreakfast #brunchideas",
+    "isFeatured": false,
+    "relatedRecipes": ["mediterranean-shakshuka", "fluffy-japanese-souffle-pancakes"]
+  },
+  {
+    "id": "recipe-thai-green-curry",
+    "slug": "thai-green-curry-coconut-rice",
+    "title": "Thai Green Curry with Coconut Jasmine Rice",
+    "description": "An aromatic, restaurant-authentic Thai green curry with a silky coconut milk base, vibrant homemade-style green curry paste, tender chicken thighs, Thai eggplant, and fragrant fresh Thai basil — served alongside fluffy coconut jasmine rice.",
+    "coverImage": "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&w=1200&h=675&q=80",
+    "heroBlurHash": "L6D+Cr~pRORj^FxoRkbH%gM{D%WA",
+    "category": "DINNER",
+    "cuisine": "ASIAN",
+    "difficulty": "MEDIUM",
+    "prepTime": 20,
+    "cookTime": 25,
+    "totalTime": 45,
+    "servings": 4,
+    "calories": 510,
+    "tags": ["thai curry", "green curry", "coconut milk", "asian dinner", "chicken curry", "thai food"],
+    "ingredients": [
+      { "quantity": 600, "unit": "g", "name": "Boneless Chicken Thighs", "notes": "Cut into 5cm pieces, skin-on for flavour" },
+      { "quantity": 3, "unit": "tbsp", "name": "Thai Green Curry Paste", "notes": "Mae Ploy brand preferred for authenticity" },
+      { "quantity": 400, "unit": "ml", "name": "Full-Fat Coconut Milk", "notes": "Do not shake the can before opening" },
+      { "quantity": 200, "unit": "ml", "name": "Coconut Cream", "notes": "Scooped from the top of the unshaken coconut milk can" },
+      { "quantity": 250, "unit": "ml", "name": "Chicken Stock", "notes": "Low sodium" },
+      { "quantity": 4, "unit": "pc", "name": "Thai Eggplant", "notes": "Quartered, or 1 regular eggplant cubed" },
+      { "quantity": 3, "unit": "pc", "name": "Kaffir Lime Leaves", "notes": "Torn, central rib removed" },
+      { "quantity": 1, "unit": "stalk", "name": "Lemongrass", "notes": "Bruised with the back of a knife" },
+      { "quantity": 1, "unit": "tbsp", "name": "Fish Sauce", "notes": "Tiparos brand" },
+      { "quantity": 1, "unit": "tsp", "name": "Palm Sugar or Brown Sugar", "notes": "Balances the heat" },
+      { "quantity": 1, "unit": "cup", "name": "Fresh Thai Basil Leaves", "notes": "Packed, added at the very end off-heat" },
+      { "quantity": 300, "unit": "g", "name": "Jasmine Rice", "notes": "For coconut rice" },
+      { "quantity": 200, "unit": "ml", "name": "Coconut Milk", "notes": "For cooking the rice" }
+    ],
+    "instructions": [
+      {
+        "stepNumber": 1,
+        "body": "Cook coconut jasmine rice: Rinse jasmine rice under cold water until water runs clear. Combine with coconut milk, 200ml of water, and a pinch of salt in a saucepan. Bring to a boil, reduce to the lowest heat, cover tightly, and steam for 15 minutes. Remove from heat and rest covered for 5 minutes.",
+        "tip": "Resting covered off the heat is not optional — it finishes cooking the rice in residual steam and makes every grain perfectly fluffy and separate.",
+        "imageSrc": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 2,
+        "body": "Open the coconut milk can without shaking. Scoop the thick coconut cream that has risen to the top into a cold wok or large skillet. Heat over medium-high, bringing the cream to a rapid sizzle. Add the green curry paste and fry in the coconut cream for 2–3 minutes until the paste darkens slightly and smells deeply fragrant and toasted.",
+        "tip": "Frying the paste in coconut cream rather than oil is the Thai technique that opens up the aromatic compounds in the lemongrass, galangal, and chili for a far more complex flavour profile.",
+        "imageSrc": "https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 3,
+        "body": "Add the chicken thigh pieces and sear in the fragrant paste for 3 minutes until lightly coloured on all sides. Add the remaining coconut milk, chicken stock, bruised lemongrass stalk, and torn kaffir lime leaves. Bring to a gentle simmer.",
+        "tip": "Kaffir lime leaves must be torn, not cut — tearing breaks open the oil cells along the leaf edge and releases far more citrus aroma than a knife cut would.",
+        "imageSrc": "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 4,
+        "body": "Add the quartered Thai eggplant and simmer uncovered for 10–12 minutes until the chicken is cooked through and the eggplant is perfectly tender but still holding its shape. Season the curry with fish sauce and palm sugar, tasting and adjusting — it should be a balanced harmony of salty, sweet, and spicy.",
+        "tip": "Thai food is always about balance: if it tastes too spicy, add more sugar; too salty, add lime juice; too sweet, add more fish sauce — keep adjusting until all four notes are in perfect harmony.",
+        "imageSrc": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 5,
+        "body": "Remove from heat. Discard the lemongrass stalk. Stir in the fresh Thai basil leaves — their residual heat wilts them beautifully without cooking them to a dark mush. Serve immediately over coconut jasmine rice with sliced red chili and fresh lime wedges.",
+        "tip": "Always add Thai basil completely off the heat — cooking it turns the leaves brown and strips away the delicate anise-like fragrance that defines authentic Thai curry.",
+        "imageSrc": "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&w=600&h=400&q=80"
+      }
+    ],
+    "chefSecrets": [
+      "For maximum aromatic depth, toast whole cumin seeds and coriander seeds in a dry pan before stirring into the curry paste when you fry it — this is the technique street food vendors in Bangkok use.",
+      "A small piece of fresh galangal (not ginger — they are entirely different flavours) added to the simmering curry alongside the lemongrass dramatically deepens the authentic Thai character of the dish."
+    ],
+    "nutritionFacts": {
+      "calories": 510,
+      "protein": "35g",
+      "carbs": "48g",
+      "fat": "20g",
+      "saturatedFat": "14g",
+      "sodium": "740mg",
+      "fiber": "3g"
+    },
+    "publishedAt": "2026-06-22T12:00:00Z",
+    "updatedAt": "2026-06-22T12:00:00Z",
+    "author": {
+      "id": "chef-isabella",
+      "name": "Chef Isabella Laurent",
+      "bio": "Culinary arts graduate from Le Cordon Bleu Paris and author of rustic French bakery bestsellers. Specializes in traditional techniques adapted for home kitchens.",
+      "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&h=200&q=80",
+      "social": {
+        "pinterest": "https://pinterest.com/isabella_laurent",
+        "instagram": "https://instagram.com/isabella_cooks",
+        "tiktok": "https://tiktok.com/@isabellalaurent"
+      }
+    },
+    "pinterestDescription": "Restaurant-level Thai Green Curry made at home in 45 minutes! Silky coconut broth, fragrant kaffir lime, tender chicken, and fluffy coconut jasmine rice. Way better than takeout! Save this for your next dinner night 🍛🌿 #thaicurry #greencurry #asiandinner",
+    "isFeatured": false,
+    "relatedRecipes": ["mediterranean-shakshuka", "creamy-tuscan-sun-dried-tomato-pasta"]
+  },
+  {
+    "id": "recipe-lava-cakes",
+    "slug": "dark-chocolate-molten-lava-cakes",
+    "title": "Dark Chocolate Molten Lava Cakes",
+    "description": "The ultimate dinner-party showstopper — individual dark chocolate lava cakes with a perfectly set outer cake and a dramatically flowing, warm liquid chocolate centre. Made with just 5 core ingredients and ready in 25 minutes.",
+    "coverImage": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=1200&h=675&q=80",
+    "heroBlurHash": "LBBsMX~p4TM{xFRPbHWA0KRPxVM_",
+    "category": "DESSERT",
+    "cuisine": "FRENCH",
+    "difficulty": "MEDIUM",
+    "prepTime": 15,
+    "cookTime": 12,
+    "totalTime": 27,
+    "servings": 4,
+    "calories": 440,
+    "tags": ["chocolate lava cake", "molten cake", "dinner party dessert", "chocolate dessert", "french baking", "impressive dessert"],
+    "ingredients": [
+      { "quantity": 170, "unit": "g", "name": "70% Dark Chocolate", "notes": "Valrhona Guanaja or Callebaut preferred, roughly chopped" },
+      { "quantity": 115, "unit": "g", "name": "Unsalted Butter", "notes": "Plus extra for greasing ramekins" },
+      { "quantity": 2, "unit": "pc", "name": "Whole Large Eggs", "notes": "Room temperature" },
+      { "quantity": 2, "unit": "pc", "name": "Egg Yolks", "notes": "Room temperature, from fresh eggs" },
+      { "quantity": 80, "unit": "g", "name": "Caster Sugar", "notes": "Superfine for quick dissolving" },
+      { "quantity": 2, "unit": "tbsp", "name": "All-Purpose Flour", "notes": "Just 2 tablespoons is all you need" },
+      { "quantity": 1, "unit": "pinch", "name": "Flaky Sea Salt", "notes": "For finishing" },
+      { "quantity": 1, "unit": "tbsp", "name": "Good Quality Cocoa Powder", "notes": "For dusting ramekins" }
+    ],
+    "instructions": [
+      {
+        "stepNumber": 1,
+        "body": "Preheat your oven to 220°C (425°F). Generously butter four 6-ounce ramekins, then dust them with cocoa powder, tapping out any excess. Place ramekins on a baking sheet and refrigerate while you prepare the batter.",
+        "tip": "Chilling the prepared ramekins ensures the butter and cocoa coating sets firmly, creating a non-stick barrier that allows the cakes to release cleanly every time.",
+        "imageSrc": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 2,
+        "body": "Melt the dark chocolate and butter together in a heatproof bowl set over a saucepan of barely simmering water (double boiler), stirring gently until completely smooth. Remove from the heat and allow to cool for 5 minutes.",
+        "tip": "The chocolate should be just warm to the touch before adding eggs — too hot and the eggs will scramble, destroying the batter and your evening.",
+        "imageSrc": "https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 3,
+        "body": "In a separate bowl, whisk together the whole eggs, egg yolks, and caster sugar vigorously for 2 full minutes until the mixture turns pale, thick, and forms a ribbon trail off the whisk. This step is essential for the cake's structure.",
+        "tip": "Whisking the eggs and sugar until ribbon stage incorporates tiny air bubbles that give the outer cake its light, set texture while the centre stays molten.",
+        "imageSrc": "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 4,
+        "body": "Pour the cooled chocolate mixture into the egg mixture and fold gently with a spatula. Sift in the 2 tablespoons of flour and fold once more until just combined and no flour streaks are visible. Divide the batter evenly between the chilled ramekins.",
+        "tip": "This batter can be prepared up to 24 hours ahead and refrigerated — simply add 1–2 minutes to the bake time when cooking straight from cold.",
+        "imageSrc": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 5,
+        "body": "Bake the ramekins for exactly 11–12 minutes until the edges are completely set and a thin crust has formed on top, but the centre still has a definite jiggle when you gently shake the baking sheet. Run a knife around the edge of each ramekin, invert onto a plate, wait 10 seconds, then lift off. Finish with a pinch of flaky sea salt and serve immediately with vanilla ice cream.",
+        "tip": "The 10-second wait after inverting is not anxiety — it allows atmospheric pressure to gently release the cake from the ramekin. Patience here is the difference between a perfect lava cake and a broken one.",
+        "imageSrc": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=600&h=400&q=80"
+      }
+    ],
+    "chefSecrets": [
+      "Bake one test lava cake first before your dinner party — ovens vary wildly and a 1-minute difference is the difference between a runny lava core and a fully baked-through chocolate cake. Know your oven.",
+      "Using 70% cacao chocolate rather than a sweeter milk chocolate ensures the lava centre has a deeply intense, almost bittersweet quality that contrasts beautifully against vanilla ice cream and the warm cake exterior."
+    ],
+    "nutritionFacts": {
+      "calories": 440,
+      "protein": "7g",
+      "carbs": "38g",
+      "fat": "30g",
+      "saturatedFat": "18g",
+      "sodium": "120mg",
+      "fiber": "3g"
+    },
+    "publishedAt": "2026-06-23T18:00:00Z",
+    "updatedAt": "2026-06-23T18:00:00Z",
+    "author": {
+      "id": "chef-isabella",
+      "name": "Chef Isabella Laurent",
+      "bio": "Culinary arts graduate from Le Cordon Bleu Paris and author of rustic French bakery bestsellers. Specializes in traditional techniques adapted for home kitchens.",
+      "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&h=200&q=80",
+      "social": {
+        "pinterest": "https://pinterest.com/isabella_laurent",
+        "instagram": "https://instagram.com/isabella_cooks",
+        "tiktok": "https://tiktok.com/@isabellalaurent"
+      }
+    },
+    "pinterestDescription": "The only Molten Lava Cake recipe you will ever need! Dark chocolate shell, dramatically flowing warm lava centre, and just 5 ingredients. Ready in 25 minutes and guaranteed to impress every time 🍫✨ #lavacake #chocolatedessert #dinnerpartydessert",
+    "isFeatured": true,
+    "relatedRecipes": ["classic-french-tarte-au-citron", "fluffy-japanese-souffle-pancakes"]
+  },
+  {
+    "id": "recipe-bibimbap",
+    "slug": "spicy-korean-beef-bibimbap",
+    "title": "Spicy Korean Beef Bibimbap",
+    "description": "A vibrant, nourishing Korean rice bowl featuring gochujang-marinated ground beef, beautifully arranged sautéed seasonal vegetables, a crispy-bottomed rice layer, and a golden fried egg — finished with sesame oil and toasted sesame seeds.",
+    "coverImage": "https://images.unsplash.com/photo-1553163147-622ab57be1c7?auto=format&fit=crop&w=1200&h=675&q=80",
+    "heroBlurHash": "L8RhkD-p9FEM_2tRRjRj~W%M%LWCK",
+    "category": "LUNCH",
+    "cuisine": "ASIAN",
+    "difficulty": "MEDIUM",
+    "prepTime": 25,
+    "cookTime": 20,
+    "totalTime": 45,
+    "servings": 2,
+    "calories": 620,
+    "tags": ["bibimbap", "korean food", "rice bowl", "gochujang", "korean beef", "healthy bowl"],
+    "ingredients": [
+      { "quantity": 300, "unit": "g", "name": "Short-Grain White Rice", "notes": "Japanese or Korean sushi rice variety" },
+      { "quantity": 250, "unit": "g", "name": "Ground Beef", "notes": "80/20 fat ratio for flavour" },
+      { "quantity": 2, "unit": "tbsp", "name": "Gochujang Paste", "notes": "Adjust to your heat preference" },
+      { "quantity": 1, "unit": "tbsp", "name": "Soy Sauce", "notes": "Low sodium" },
+      { "quantity": 1, "unit": "tbsp", "name": "Sesame Oil", "notes": "Toasted, Korean variety" },
+      { "quantity": 1, "unit": "tsp", "name": "Brown Sugar", "notes": "" },
+      { "quantity": 2, "unit": "pc", "name": "Garlic Cloves", "notes": "Minced" },
+      { "quantity": 150, "unit": "g", "name": "Fresh Baby Spinach", "notes": "Blanched and squeezed dry" },
+      { "quantity": 150, "unit": "g", "name": "Bean Sprouts", "notes": "Briefly blanched" },
+      { "quantity": 1, "unit": "pc", "name": "Large Carrot", "notes": "Julienned fine" },
+      { "quantity": 1, "unit": "pc", "name": "Zucchini", "notes": "Julienned fine" },
+      { "quantity": 2, "unit": "pc", "name": "Large Eggs", "notes": "For frying sunny side up" },
+      { "quantity": 2, "unit": "tbsp", "name": "Toasted Sesame Seeds", "notes": "For garnish" },
+      { "quantity": 1, "unit": "sheet", "name": "Roasted Nori Seaweed", "notes": "Torn into strips, optional" }
+    ],
+    "instructions": [
+      {
+        "stepNumber": 1,
+        "body": "Cook short-grain rice according to package directions. For the iconic crispy rice bottom, press the cooked rice into a lightly sesame-oiled heavy pot or stone bowl (dolsot) over medium heat for 8–10 minutes without stirring, until you hear crackling and a golden crust forms underneath.",
+        "tip": "The crispy scorched rice layer — called 'nurungji' — is considered the best part of bibimbap in Korea. Do not rush it; let the crackling sound guide you.",
+        "imageSrc": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 2,
+        "body": "Mix together gochujang, soy sauce, sesame oil, brown sugar, and minced garlic in a bowl to make the bibimbap sauce. Separately, cook the ground beef in a hot dry pan, breaking it up well. Once browned, drain any excess fat, then add half the sauce and toss to coat the beef evenly.",
+        "tip": "Browning the beef in a dry pan without oil first renders out its own fat and creates deeper caramelization and Maillard flavour than cooking in added oil.",
+        "imageSrc": "https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 3,
+        "body": "Prepare each vegetable separately: briefly blanch the bean sprouts and spinach in boiling salted water (30 seconds each), then immediately transfer to ice water, drain, and squeeze completely dry. Season each with a few drops of sesame oil and a pinch of salt. Sauté the julienned carrot and zucchini separately in a pan with a touch of sesame oil until just tender but still with a slight bite.",
+        "tip": "Cooking each vegetable separately keeps their individual colours and textures vivid — bibimbap's visual impact comes from the distinct, unmixed appearance of each ingredient.",
+        "imageSrc": "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 4,
+        "body": "Fry the eggs sunny side up in a lightly oiled pan over medium-low heat until the whites are fully set and opaque but the yolks remain completely liquid and bright golden. Season with a tiny pinch of salt.",
+        "tip": "A liquid yolk is non-negotiable in bibimbap — it becomes the rich, silky sauce that binds all the ingredients together when you mix the bowl at the table.",
+        "imageSrc": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&h=400&q=80"
+      },
+      {
+        "stepNumber": 5,
+        "body": "Assemble bibimbap bowls: divide the crispy rice between two warm bowls. Arrange each vegetable in its own distinct section around the rim. Place the seasoned beef in the centre. Crown with the fried egg, a drizzle of the remaining gochujang sauce, toasted sesame seeds, and torn nori strips. Serve immediately and vigorously mix everything together at the table before eating.",
+        "tip": "The final vigorous table-side mix is the defining ritual of bibimbap — everything should combine into one unified, flavour-packed spicy-savory bowl.",
+        "imageSrc": "https://images.unsplash.com/photo-1553163147-622ab57be1c7?auto=format&fit=crop&w=600&h=400&q=80"
+      }
+    ],
+    "chefSecrets": [
+      "Adding a tablespoon of doenjang (Korean fermented soybean paste) to the gochujang sauce adds a deeply umami, complex fermented depth that instantly tastes more authentic than gochujang alone.",
+      "For restaurant-level bibimbap, finish the assembled bowl with a few drops of perilla (sesame leaf) oil instead of regular sesame oil — it has a completely unique herbal, nutty fragrance that is instantly recognizable as Korean."
+    ],
+    "nutritionFacts": {
+      "calories": 620,
+      "protein": "38g",
+      "carbs": "68g",
+      "fat": "20g",
+      "saturatedFat": "5g",
+      "sodium": "820mg",
+      "fiber": "6g"
+    },
+    "publishedAt": "2026-06-24T10:00:00Z",
+    "updatedAt": "2026-06-24T10:00:00Z",
+    "author": {
+      "id": "chef-isabella",
+      "name": "Chef Isabella Laurent",
+      "bio": "Culinary arts graduate from Le Cordon Bleu Paris and author of rustic French bakery bestsellers. Specializes in traditional techniques adapted for home kitchens.",
+      "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&h=200&q=80",
+      "social": {
+        "pinterest": "https://pinterest.com/isabella_laurent",
+        "instagram": "https://instagram.com/isabella_cooks",
+        "tiktok": "https://tiktok.com/@isabellalaurent"
+      }
+    },
+    "pinterestDescription": "Spicy Korean Beef Bibimbap with a crackling crispy rice bottom, gochujang beef, rainbow vegetables, and a runny fried egg! Vibrant, flavourful, and deeply satisfying. The ultimate rice bowl recipe 🍚🌶️ #bibimbap #koreanfood #ricebowl #koreancooking",
+    "isFeatured": false,
+    "relatedRecipes": ["thai-green-curry-coconut-rice", "mediterranean-shakshuka"]
+  }
+]

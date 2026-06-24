@@ -1,10 +1,11 @@
 import recipesData from '@/data/recipes.json';
+import newRecipesData from '@/data/new-recipes.json';
 import postsData from '@/data/posts.json';
 import { Recipe, BlogPost } from '@/types/pinterestBlogSchema';
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/server';
 
 // Coerce raw JSON structures to fully compliant TypeScript models
-const typedRecipes = recipesData as unknown as Recipe[];
+const typedRecipes = [...recipesData, ...newRecipesData] as unknown as Recipe[];
 const typedPosts = postsData as unknown as BlogPost[];
 
 /**

@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
   Calendar as CalendarIcon, Clock, Sparkles, RefreshCw, Play, CheckCircle2, 
-  FileText, ArrowLeft, AlertCircle, Settings, ChevronLeft, ChevronRight, CheckCircle 
+  FileText, ArrowLeft, AlertCircle, Settings, ChevronLeft, ChevronRight, CheckCircle,
+  LayoutList
 } from 'lucide-react';
 import { getScheduleBacklogAction, runAutoPublishSimulationAction, updateReleaseScheduleAction } from '@/lib/actions/schedule';
 import { toast } from 'react-hot-toast';
@@ -15,6 +16,12 @@ export default function AdminSchedulePage() {
   const [backlog, setBacklog] = useState<any[]>([]);
   const [simulating, setSimulating] = useState(false);
   const [currentMonthDate, setCurrentMonthDate] = useState(new Date(2026, 5, 1)); // June 2026
+  
+  // Tab state
+  const [activeTab, setActiveTab] = useState<'drafts' | 'scheduled' | 'live'>('scheduled');
+
+  // Drafts scheduling state
+  const [draftDates, setDraftDates] = useState<Record<string, string>>({});
 
   const fetchBacklog = async () => {
     setLoading(true);
@@ -54,14 +61,19 @@ export default function AdminSchedulePage() {
     }
   };
 
-  const handleUnschedule = async (item: any) => {
-    const ok = window.confirm(`Revert "${item.title}" back to draft state?`);
-    if (!ok) return;
+  const handleUpdateStatus = async (item: any, newStatus: 'draft' | 'scheduled' | 'published', scheduledUtc?: string) => {
+    if (newStatus === 'draft') {
+      const ok = window.confirm(`Revert "${item.title}" back to draft state?`);
+      if (!ok) return;
+    }
 
     try {
-      const res = await updateReleaseScheduleAction(item.type, item.id, { status: 'draft' });
+      const res = await updateReleaseScheduleAction(item.type, item.id, { 
+        status: newStatus,
+        scheduled_at_utc: scheduledUtc || null
+      });
       if (res.success) {
-        toast.success(`Successfully reverted "${item.title}" to local draft list.`);
+        toast.success(`Successfully updated "${item.title}".`);
         fetchBacklog();
       } else {
         toast.error(res.error || 'Update failed.');
@@ -69,6 +81,16 @@ export default function AdminSchedulePage() {
     } catch (err) {
       toast.error('Update operation crashed.');
     }
+  };
+
+  const handleScheduleDraft = (item: any) => {
+    const localVal = draftDates[item.id];
+    if (!localVal) {
+      toast.error("Please select a date and time to schedule.");
+      return;
+    }
+    const utcVal = new Date(localVal).toISOString();
+    handleUpdateStatus(item, 'scheduled', utcVal);
   };
 
   // Monthly calendar dates computation
@@ -97,7 +119,7 @@ export default function AdminSchedulePage() {
   const draftItems = backlog.filter(item => item.status === 'draft');
 
   return (
-    <div className="w-full min-h-screen bg-[#FAFAF8] text-espresso py-10 px-6 select-none" id="admin-schedule-agenda-view">
+    <div className="w-full min-h-screen bg-[#FAFAF8] text-espresso py-10 px-6 select-none animate-fade-slide-up" id="admin-schedule-agenda-view">
       <div className="max-w-7xl mx-auto space-y-8">
         
         {/* Navigation Breadcrumbs */}
@@ -111,7 +133,7 @@ export default function AdminSchedulePage() {
           </Link>
 
           <span className="font-mono text-[10px] text-stone-500 font-extrabold tracking-widest uppercase">
-            Savory release calendar
+            Publisher & Scheduler
           </span>
         </div>
 
@@ -121,11 +143,11 @@ export default function AdminSchedulePage() {
             <div className="flex items-center gap-2 text-terracotta">
               <CalendarIcon className="w-5 h-5" />
               <h1 className="font-serif font-black text-2xl sm:text-3xl leading-none">
-                Release Agenda & Calendar
+                Publisher & Scheduler Hub
               </h1>
             </div>
             <p className="text-xs text-stone-550 max-w-xl font-sans leading-relaxed">
-              Program publication workflows across global time zones. Keep audiences engaged with a steady flow of sourdough recipes and tips.
+              Program publication workflows across global time zones. Schedule your drafts, unpublish live content, and manage your editorial calendar in one place.
             </p>
           </div>
 
@@ -145,7 +167,7 @@ export default function AdminSchedulePage() {
               className="px-4 py-2.5 bg-espresso hover:bg-sage text-cream hover:text-white rounded-xl text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-3xs cursor-pointer"
             >
               <Play className="w-3.5 h-3.5 fill-current" />
-              <span>Simulate Auto-Publish Engine</span>
+              <span>Simulate Auto-Publish</span>
             </button>
           </div>
         </header>
@@ -157,6 +179,10 @@ export default function AdminSchedulePage() {
             <span className="font-serif font-black text-xl text-espresso">{backlog.length}</span>
           </div>
           <div className="bg-white p-4 rounded-xl border border-cream-dark text-left space-y-1 shadow-3xs">
+            <h4 className="font-mono text-[9px] font-bold text-stone-400 uppercase tracking-widest font-extrabold text-stone-500">Drafts shelf</h4>
+            <span className="font-serif font-black text-xl text-stone-540">{draftItems.length}</span>
+          </div>
+          <div className="bg-white p-4 rounded-xl border border-cream-dark text-left space-y-1 shadow-3xs">
             <h4 className="font-mono text-[9px] font-bold text-terracotta uppercase tracking-widest">Queued/Scheduled</h4>
             <span className="font-serif font-black text-xl text-terracotta">{scheduledItems.length}</span>
           </div>
@@ -164,17 +190,13 @@ export default function AdminSchedulePage() {
             <h4 className="font-mono text-[9px] font-bold text-sage uppercase tracking-widest">Live/Published</h4>
             <span className="font-serif font-black text-xl text-sage">{publishedItems.length}</span>
           </div>
-          <div className="bg-white p-4 rounded-xl border border-cream-dark text-left space-y-1 shadow-3xs">
-            <h4 className="font-mono text-[9px] font-bold text-stone-400 uppercase tracking-widest font-extrabold text-stone-500">Drafts shelf</h4>
-            <span className="font-serif font-black text-xl text-stone-540">{draftItems.length}</span>
-          </div>
         </div>
 
         {/* Splitted Main Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Calendar visual grid box (Left) */}
-          <div className="lg:col-span-8 bg-white p-6 rounded-2xl border border-cream-dark shadow-2xs space-y-6">
+          <div className="lg:col-span-7 bg-white p-6 rounded-2xl border border-cream-dark shadow-2xs space-y-6 sticky top-24">
             <div className="flex items-center justify-between border-b border-cream-dark/60 pb-3">
               <div className="text-left">
                 <span className="text-[9px] font-mono tracking-widest text-[#E60023] font-bold uppercase">
@@ -227,7 +249,7 @@ export default function AdminSchedulePage() {
                     key={day.toISOString()}
                     className={`aspect-square p-1 border rounded-lg flex flex-col justify-between text-left transition-all relative ${
                       isToday 
-                        ? 'bg-sage/5 border-sage font-extrabold' 
+                        ? 'bg-sage/5 border-sage font-extrabold shadow-inner' 
                         : (dayItems.length > 0 ? 'bg-terracotta/5 border-terracotta/40' : 'bg-[#FCFAF7]/40 border-cream-dark')
                     }`}
                   >
@@ -238,107 +260,201 @@ export default function AdminSchedulePage() {
                     </span>
 
                     {dayItems.length > 0 && (
-                      <div className="w-full flex items-center justify-end gap-1">
-                        <div className="w-2 h-2 rounded-full bg-terracotta animate-pulse" title={`${dayItems.length} publications scheduled`} />
-                        <span className="text-[8px] font-mono text-terracotta font-extrabold leading-none hidden sm:inline">
-                          x{dayItems.length}
-                        </span>
+                      <div className="w-full flex flex-col gap-0.5">
+                        {dayItems.slice(0, 3).map((it, idx) => (
+                          <div key={idx} className="w-full truncate text-[7px] font-bold text-terracotta bg-terracotta/10 px-1 py-0.5 rounded leading-none">
+                            {format(parseISO(it.scheduled_for), 'HH:mm')} {it.title.substring(0,6)}
+                          </div>
+                        ))}
+                        {dayItems.length > 3 && (
+                          <div className="text-[7px] text-stone-400 pl-1">+{dayItems.length - 3} more</div>
+                        )}
                       </div>
                     )}
                   </div>
                 );
               })}
             </div>
-          </div>
-
-          {/* Active Backlog queue timeline list (Right) */}
-          <div className="lg:col-span-4 space-y-6">
-            <div className="bg-white p-5 rounded-2xl border border-cream-dark shadow-2xs space-y-4">
-              <div className="flex items-center justify-between border-b border-cream-dark pb-2">
-                <div className="text-left">
-                  <h3 className="font-serif font-black text-sm text-espresso leading-none">
-                    Distribution Queue
-                  </h3>
-                  <span className="text-[9px] font-mono text-stone-500 uppercase">Upcoming timely publications</span>
-                </div>
-              </div>
-
-              {loading ? (
-                <div className="py-12 text-center text-stone-500 text-xs font-mono uppercase tracking-widest">
-                  scanning distribution lines...
-                </div>
-              ) : scheduledItems.length === 0 ? (
-                <div className="py-8 text-center bg-[#FCFAF7] border border-dashed border-cream-dark rounded-xl space-y-2">
-                  <p className="text-xs text-stone-500 font-sans">No items currently queued.</p>
-                  <p className="text-[10px] text-stone-400 font-sans max-w-[180px] mx-auto">Publish immediately or schedule items inside any edit screen pane.</p>
-                </div>
-              ) : (
-                <div className="space-y-3 max-h-[380px] overflow-y-auto pr-1">
-                  {scheduledItems.map((item) => {
-                    const lDate = item.scheduled_for ? parseISO(item.scheduled_for) : new Date();
-                    const isPast = isBefore(lDate, new Date());
-
-                    return (
-                      <div 
-                        key={`${item.type}-${item.id}`}
-                        className="p-3 rounded-lg border border-cream-dark bg-[#FFFDFB] text-left space-y-2 shadow-3xs"
-                      >
-                        <div className="flex items-start justify-between">
-                          <div className="space-y-0.5">
-                            <span className="text-[8px] font-mono uppercase bg-terracotta/10 text-terracotta px-1.5 py-0.5 rounded font-extrabold">
-                              #{item.category}
-                            </span>
-                            <h4 className="font-serif font-bold text-xs text-stone-900 line-clamp-1">
-                              {item.title}
-                            </h4>
-                          </div>
-
-                          <span className="text-[8px] font-mono text-stone-400 uppercase">
-                            {item.type}
-                          </span>
-                        </div>
-
-                        <div className="flex items-center justify-between text-stone-500 font-mono text-[9px] border-t border-cream-dark/40 pt-2">
-                          <span className="flex items-center gap-0.5" title="Converted distribution target">
-                            <Clock className="w-2.5 h-2.5 text-sage" />
-                            {format(lDate, 'MMM dd, HH:mm')} UTC
-                          </span>
-
-                          <button
-                            onClick={() => handleUnschedule(item)}
-                            className="text-[#E60023] hover:underline uppercase text-[8px] font-extrabold"
-                          >
-                            Unschedule
-                          </button>
-                        </div>
-                        
-                        {isPast && (
-                          <div className="text-[8.5px] font-sans text-yellow-700 bg-yellow-400/10 p-1.5 rounded flex items-center gap-1">
-                            <AlertCircle className="w-3 h-3 text-yellow-600" />
-                            <span>Awaiting auto-publish run simulation.</span>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-
+            
             {/* Quick tips about auto simulation */}
-            <div className="p-4 bg-sage/5 rounded-2xl border border-sage/20 text-left space-y-2">
+            <div className="p-4 bg-sage/5 rounded-xl border border-sage/20 text-left space-y-2 mt-4">
               <span className="font-mono text-[9px] text-sage font-black uppercase tracking-widest flex items-center gap-1">
                 <Sparkles className="w-3.5 h-3.5" /> Simulation Sandbox Guidance
               </span>
-              <p className="text-[10.5px] text-stone-605 font-sans leading-relaxed">
-                In a real-world environment, a background routine checks every minute (via <span className="font-semibold text-espresso">pg_cron</span> or similar cron tools) for entries scheduled in the past and publishes them automatically.
-              </p>
-              <p className="text-[10.5px] text-stone-605 font-sans leading-relaxed pt-1">
-                Click <span className="font-bold text-espresso">"Simulate Auto-Publish Engine"</span> to instantly execute this check manually and see scheduled publications go live on your home channels!
+              <p className="text-[10px] text-stone-605 font-sans leading-relaxed">
+                A background cron job checks every minute for scheduled items in the past and publishes them automatically. Click <span className="font-bold">Simulate Auto-Publish</span> to manually execute this.
               </p>
             </div>
           </div>
 
+          {/* Action Tabs & Lists (Right) */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="bg-white rounded-2xl border border-cream-dark shadow-2xs overflow-hidden flex flex-col">
+              
+              {/* Tabs Header */}
+              <div className="flex border-b border-cream-dark bg-[#FCFAF7]">
+                <button 
+                  onClick={() => setActiveTab('drafts')}
+                  className={`flex-1 p-3 text-[10px] font-mono font-bold uppercase tracking-wider transition-colors border-b-2 ${
+                    activeTab === 'drafts' ? 'border-stone-800 text-stone-800' : 'border-transparent text-stone-400 hover:text-stone-600 hover:bg-cream/50'
+                  }`}
+                >
+                  Drafts ({draftItems.length})
+                </button>
+                <button 
+                  onClick={() => setActiveTab('scheduled')}
+                  className={`flex-1 p-3 text-[10px] font-mono font-bold uppercase tracking-wider transition-colors border-b-2 ${
+                    activeTab === 'scheduled' ? 'border-terracotta text-terracotta' : 'border-transparent text-stone-400 hover:text-stone-600 hover:bg-cream/50'
+                  }`}
+                >
+                  Scheduled ({scheduledItems.length})
+                </button>
+                <button 
+                  onClick={() => setActiveTab('live')}
+                  className={`flex-1 p-3 text-[10px] font-mono font-bold uppercase tracking-wider transition-colors border-b-2 ${
+                    activeTab === 'live' ? 'border-sage text-sage' : 'border-transparent text-stone-400 hover:text-stone-600 hover:bg-cream/50'
+                  }`}
+                >
+                  Live ({publishedItems.length})
+                </button>
+              </div>
+
+              {/* Lists Content */}
+              <div className="p-5 max-h-[600px] overflow-y-auto space-y-4">
+                
+                {loading ? (
+                  <div className="py-12 text-center text-stone-400 text-xs font-mono uppercase tracking-widest flex flex-col items-center gap-2">
+                    <RefreshCw className="w-5 h-5 animate-spin" />
+                    scanning content lines...
+                  </div>
+                ) : activeTab === 'drafts' ? (
+                  /* DRAFTS TAB */
+                  draftItems.length === 0 ? (
+                    <div className="py-8 text-center text-stone-400 text-xs font-sans">No drafts available.</div>
+                  ) : (
+                    <div className="space-y-3">
+                      {draftItems.map(item => (
+                        <div key={`${item.type}-${item.id}`} className="p-3 rounded-lg border border-cream-dark bg-white shadow-3xs space-y-3 text-left transition hover:border-stone-300">
+                          <div className="flex items-start justify-between gap-2">
+                            <div>
+                              <div className="flex items-center gap-1.5 mb-1">
+                                <span className="text-[8px] font-mono uppercase bg-stone-100 text-stone-600 px-1.5 py-0.5 rounded font-extrabold">
+                                  {item.type}
+                                </span>
+                                <span className="text-[8px] font-mono uppercase text-stone-400">
+                                  {item.category}
+                                </span>
+                              </div>
+                              <h4 className="font-serif font-bold text-sm text-espresso line-clamp-2 leading-tight">
+                                {item.title}
+                              </h4>
+                            </div>
+                          </div>
+                          
+                          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 pt-2 border-t border-cream-dark/40">
+                            <input 
+                              type="datetime-local" 
+                              value={draftDates[item.id] || ''}
+                              onChange={(e) => setDraftDates(prev => ({...prev, [item.id]: e.target.value}))}
+                              className="flex-1 bg-[#FAF9F5] border border-cream-dark focus:border-terracotta text-stone-800 text-[10px] rounded px-2 py-1.5 focus:outline-none font-mono"
+                            />
+                            <button
+                              onClick={() => handleScheduleDraft(item)}
+                              className="px-3 py-1.5 bg-espresso hover:bg-terracotta text-cream hover:text-white rounded text-[9px] font-mono font-bold uppercase tracking-wider transition-colors whitespace-nowrap"
+                            >
+                              Schedule
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )
+                ) : activeTab === 'scheduled' ? (
+                  /* SCHEDULED TAB */
+                  scheduledItems.length === 0 ? (
+                    <div className="py-8 text-center text-stone-400 text-xs font-sans">No items scheduled.</div>
+                  ) : (
+                    <div className="space-y-3">
+                      {scheduledItems.map(item => {
+                        const lDate = item.scheduled_for ? parseISO(item.scheduled_for) : new Date();
+                        const isPast = isBefore(lDate, new Date());
+                        return (
+                          <div key={`${item.type}-${item.id}`} className="p-3 rounded-lg border border-terracotta/30 bg-terracotta/5 shadow-3xs space-y-2 text-left">
+                            <div className="flex items-start justify-between gap-2">
+                              <div>
+                                <span className="text-[8px] font-mono uppercase bg-terracotta/20 text-terracotta px-1.5 py-0.5 rounded font-extrabold mb-1 inline-block">
+                                  {item.type} • {item.category}
+                                </span>
+                                <h4 className="font-serif font-bold text-sm text-espresso line-clamp-1">
+                                  {item.title}
+                                </h4>
+                              </div>
+                            </div>
+                            
+                            <div className="flex items-center justify-between text-stone-600 font-mono text-[9px] pt-1">
+                              <span className="flex items-center gap-1 font-bold text-terracotta">
+                                <Clock className="w-3 h-3" />
+                                {format(lDate, 'MMM dd, HH:mm')} Local
+                              </span>
+                              <button
+                                onClick={() => handleUpdateStatus(item, 'draft')}
+                                className="text-stone-500 hover:text-[#E60023] uppercase text-[9px] font-extrabold transition-colors border border-stone-200 hover:border-[#E60023] px-2 py-1 rounded bg-white"
+                              >
+                                Unschedule
+                              </button>
+                            </div>
+                            
+                            {isPast && (
+                              <div className="text-[8.5px] font-sans text-yellow-700 bg-yellow-400/20 p-1.5 rounded flex items-center gap-1 mt-1">
+                                <AlertCircle className="w-3 h-3 text-yellow-600" />
+                                <span>Awaiting auto-publish.</span>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )
+                ) : (
+                  /* LIVE TAB */
+                  publishedItems.length === 0 ? (
+                    <div className="py-8 text-center text-stone-400 text-xs font-sans">No published items.</div>
+                  ) : (
+                    <div className="space-y-3">
+                      {publishedItems.map(item => (
+                        <div key={`${item.type}-${item.id}`} className="p-3 rounded-lg border border-sage/30 bg-sage/5 shadow-3xs space-y-2 text-left">
+                          <div className="flex items-start justify-between gap-2">
+                            <div>
+                              <span className="text-[8px] font-mono uppercase bg-sage/20 text-sage-dark px-1.5 py-0.5 rounded font-extrabold mb-1 inline-block">
+                                {item.type} • {item.category}
+                              </span>
+                              <h4 className="font-serif font-bold text-sm text-espresso line-clamp-1">
+                                {item.title}
+                              </h4>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-center justify-between text-stone-600 font-mono text-[9px] pt-1 border-t border-sage/20">
+                            <span className="flex items-center gap-1 font-bold text-sage-dark">
+                              <CheckCircle2 className="w-3 h-3" />
+                              Live {item.published_at ? format(parseISO(item.published_at), 'MMM dd') : ''}
+                            </span>
+                            <button
+                              onClick={() => handleUpdateStatus(item, 'draft')}
+                              className="text-stone-500 hover:text-[#E60023] uppercase text-[9px] font-extrabold transition-colors border border-stone-200 hover:border-[#E60023] px-2 py-1 rounded bg-white"
+                            >
+                              Unpublish
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )
+                )}
+
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>

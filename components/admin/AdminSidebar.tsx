@@ -28,7 +28,7 @@ const SIDEBAR_LINKS: SidebarLink[] = [
   { href: '/admin/recipes', name: 'Recipes', icon: Utensils },
   { href: '/admin/blogs', name: 'Journals & Blogs', icon: FileText },
   { href: '/admin/media', name: 'Media Uploads', icon: ImageIcon },
-  { href: '/admin/schedule', name: 'Release calendar', icon: Calendar },
+  { href: '/admin/schedule', name: 'Publisher & Scheduler', icon: Calendar },
 ];
 
 export default function AdminSidebar() {
