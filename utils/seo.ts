@@ -7,15 +7,18 @@
  * - "8 hrs" -> "PT8H"
  * - "45 mins" -> "PT45M"
  */
-export function parseToISODuration(timeStr: string | undefined): string {
-  if (!timeStr) return 'PT20M'; // fallback placeholder
+export function parseToISODuration(timeStr: string | number | undefined): string {
+  if (timeStr === undefined || timeStr === null || timeStr === '') return 'PT20M'; // fallback placeholder
+
+  // Convert to string safely
+  const timeStrClean = String(timeStr).trim();
 
   // If it is already in ISO 8601 format (starts with P, e.g. PT42M, PT24H42M)
-  if (/^P[T]?\d+/.test(timeStr)) {
-    return timeStr;
+  if (/^P[T]?\d+/.test(timeStrClean)) {
+    return timeStrClean;
   }
 
-  const normalized = timeStr.toLowerCase().trim();
+  const normalized = timeStrClean.toLowerCase();
   
   let hours = 0;
   let minutes = 0;
