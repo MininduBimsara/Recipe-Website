@@ -10,10 +10,12 @@ import {
   Trash2, 
   Eye, 
   Edit2, 
-  RefreshCw
+  RefreshCw,
+  Link2,
+  X
 } from 'lucide-react';
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/client';
-import { deleteRecipeAction, togglePublishRecipeAction } from '@/lib/actions/recipes';
+import { deleteRecipeAction, togglePublishRecipeAction, updateRecipeSocialsAction } from '@/lib/actions/recipes';
 import { getSavedRecipes, saveRecipes } from '@/lib/preseededPool';
 import { toast } from 'react-hot-toast';
 
@@ -26,6 +28,13 @@ export default function AdminRecipesPage() {
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
+
+  // Social Links Modal State
+  const [socialModalOpen, setSocialModalOpen] = useState(false);
+  const [activeRecipe, setActiveRecipe] = useState<any>(null);
+  const [pinterestUrl, setPinterestUrl] = useState('');
+  const [instagramUrl, setInstagramUrl] = useState('');
+  const [isSavingSocials, setIsSavingSocials] = useState(false);
 
   const loadRecipes = async () => {
     setLoading(true);
@@ -51,7 +60,9 @@ export default function AdminRecipesPage() {
             image: r.cover_image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=200',
             is_published: !!r.is_published,
             status: r.status || (r.is_published ? 'published' : 'draft'),
-            created_at: r.created_at
+            created_at: r.created_at,
+            pinterest_url: r.pinterest_url || '',
+            instagram_url: r.instagram_url || ''
           })));
         }
       } else {
@@ -107,6 +118,33 @@ export default function AdminRecipesPage() {
       saveRecipes(updated);
       toast.success('Removed Recipe from offline shelf.');
     }
+  };
+
+  const handleSaveSocials = async () => {
+    if (!activeRecipe) return;
+    setIsSavingSocials(true);
+    
+    if (isSupabase) {
+      toast.loading('Saving social links...', { id: 'save-socials' });
+      const res = await updateRecipeSocialsAction(activeRecipe.id, {
+        pinterest_url: pinterestUrl,
+        instagram_url: instagramUrl
+      });
+      if (res.success) {
+        toast.success('Social links saved.', { id: 'save-socials' });
+        setRecipes(prev => prev.map(r => r.id === activeRecipe.id ? { ...r, pinterest_url: pinterestUrl, instagram_url: instagramUrl } : r));
+        setSocialModalOpen(false);
+      } else {
+        toast.error(res.error || 'Failed to save socials.', { id: 'save-socials' });
+      }
+    } else {
+      const updated = recipes.map(r => r.id === activeRecipe.id ? { ...r, pinterest_url: pinterestUrl, instagram_url: instagramUrl } : r);
+      setRecipes(updated);
+      saveRecipes(updated);
+      toast.success('Social links saved locally.');
+      setSocialModalOpen(false);
+    }
+    setIsSavingSocials(false);
   };
 
   // Filter logic
@@ -256,6 +294,18 @@ export default function AdminRecipesPage() {
                     </td>
                     <td className="p-4 text-right">
                       <div className="flex items-center justify-end gap-1.5">
+                        <button
+                          onClick={() => {
+                            setActiveRecipe(r);
+                            setPinterestUrl(r.pinterest_url || '');
+                            setInstagramUrl(r.instagram_url || '');
+                            setSocialModalOpen(true);
+                          }}
+                          className="p-2 hover:bg-stone-50 text-stone-500 hover:text-emerald-600 rounded-lg transition cursor-pointer"
+                          title="Link Socials"
+                        >
+                          <Link2 className="w-3.5 h-3.5" />
+                        </button>
                         <Link
                           href={`/admin/recipes/${r.id}`}
                           className="p-2 hover:bg-stone-50 text-stone-500 hover:text-espresso rounded-lg transition"
@@ -287,6 +337,60 @@ export default function AdminRecipesPage() {
           </div>
         )}
       </div>
+
+      {/* Social Links Modal */}
+      {socialModalOpen && activeRecipe && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-espresso/20 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-xl border border-cream-dark w-full max-w-md overflow-hidden animate-fade-slide-up">
+            <div className="px-5 py-4 border-b border-cream-dark flex items-center justify-between">
+              <h3 className="font-serif font-bold text-espresso">Link Social Posts</h3>
+              <button onClick={() => setSocialModalOpen(false)} className="text-stone-400 hover:text-espresso cursor-pointer">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <div className="p-5 space-y-4">
+              <p className="text-xs text-stone-500 mb-2">Connect <span className="font-bold text-espresso">{activeRecipe.title}</span> to your social channels.</p>
+              
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-stone-500">Pinterest Pin URL</label>
+                <input 
+                  type="url" 
+                  placeholder="https://pinterest.com/pin/..." 
+                  value={pinterestUrl}
+                  onChange={(e) => setPinterestUrl(e.target.value)}
+                  className="w-full bg-[#FAF9F5] border border-cream-dark focus:border-terracotta text-stone-850 text-xs rounded-lg px-3 py-2.5 focus:outline-none"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-stone-500">Instagram Reel/Post URL</label>
+                <input 
+                  type="url" 
+                  placeholder="https://instagram.com/p/..." 
+                  value={instagramUrl}
+                  onChange={(e) => setInstagramUrl(e.target.value)}
+                  className="w-full bg-[#FAF9F5] border border-cream-dark focus:border-terracotta text-stone-850 text-xs rounded-lg px-3 py-2.5 focus:outline-none"
+                />
+              </div>
+            </div>
+            <div className="px-5 py-4 border-t border-cream-dark bg-[#FAF9F6] flex justify-end gap-3">
+              <button 
+                onClick={() => setSocialModalOpen(false)}
+                className="px-4 py-2 text-xs font-mono font-bold text-stone-500 hover:text-espresso uppercase tracking-wider transition-colors cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleSaveSocials}
+                disabled={isSavingSocials}
+                className="px-4 py-2 bg-espresso hover:bg-terracotta text-cream hover:text-white rounded-lg text-xs font-mono font-bold uppercase tracking-wider transition-all shadow-3xs cursor-pointer disabled:opacity-50"
+              >
+                {isSavingSocials ? 'Saving...' : 'Save Links'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

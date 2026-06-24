@@ -119,3 +119,32 @@ export async function togglePublishRecipeAction(id: string, isPublished: boolean
   }
 }
 
+export async function updateRecipeSocialsAction(id: string, socials: { pinterest_url?: string, instagram_url?: string }) {
+  const admin = await requireAdminSession();
+  if (!admin) return { success: false, error: 'Unauthorized' };
+
+  if (!isSupabaseConfigured()) {
+    return { success: true, localOnly: true, data: socials };
+  }
+
+  try {
+    const supabase = await createClient();
+    const { error } = await supabase
+      .from('recipes')
+      .update({
+        pinterest_url: socials.pinterest_url,
+        instagram_url: socials.instagram_url
+      })
+      .eq('id', id);
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    revalidatePath('/admin/recipes');
+    return { success: true };
+  } catch (err: any) {
+    return { success: false, error: err.message || 'Error updating recipe socials.' };
+  }
+}
+

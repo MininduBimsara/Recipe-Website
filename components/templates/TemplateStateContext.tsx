@@ -186,12 +186,48 @@ export function TemplateStateProvider({
 
       if (isNaN(val)) return match;
       const scaledVal = val * ratio;
-      return Number(scaledVal.toFixed(1)).toString() + ' ';
+      return Number(scaledVal.toFixed(2)).toString() + ' ';
     });
 
-    if (unitSystem === 'imperial') return scaled;
+    if (unitSystem === 'imperial') {
+      let converted = scaled;
+      
+      // Convert metric to imperial
+      converted = converted.replace(/(\d+(\.\d+)?)\s*g\b/gi, (match, valStr) => {
+        const val = parseFloat(valStr);
+        if (isNaN(val)) return match;
+        const itemLower = item.toLowerCase();
+        
+        if (itemLower.includes('flour')) return `${Number((val / 125).toFixed(2))} cups`;
+        if (itemLower.includes('sugar')) return `${Number((val / 200).toFixed(2))} cups`;
+        if (itemLower.includes('butter') || itemLower.includes('margarine')) return `${Number((val / 227).toFixed(2))} cups`;
+        
+        return `${Number((val / 28.3495).toFixed(1))} oz`;
+      });
 
-    // Convert standard units dry/liquid to metric for refined kitchen precision
+      converted = converted.replace(/(\d+(\.\d+)?)\s*ml\b/gi, (match, valStr) => {
+        const val = parseFloat(valStr);
+        if (isNaN(val)) return match;
+        
+        if (val >= 60) {
+          return `${Number((val / 240).toFixed(2))} cups`;
+        } else if (val >= 15) {
+          return `${Number((val / 15).toFixed(1))} tbsp`;
+        } else {
+          return `${Number((val / 5).toFixed(1))} tsp`;
+        }
+      });
+      
+      converted = converted.replace(/(\d+(\.\d+)?)\s*kg\b/gi, (match, valStr) => {
+        const val = parseFloat(valStr);
+        if (isNaN(val)) return match;
+        return `${Number((val * 2.20462).toFixed(2))} lbs`;
+      });
+
+      return converted;
+    }
+
+    // Convert imperial to metric for refined kitchen precision
     let converted = scaled;
     converted = converted.replace(/(\d+(\.\d+)?)\s*cups?\b/gi, (match, valStr) => {
       const val = parseFloat(valStr);
@@ -204,17 +240,29 @@ export function TemplateStateProvider({
       return `${Math.round(val * 240)}ml`;
     });
 
-    converted = converted.replace(/(\d+(\.\d+)?)\s*oz\b/gi, (match, valStr) => {
+    converted = converted.replace(/(\d+(\.\d+)?)\s*(ounces?|oz)\b/gi, (match, valStr) => {
       const val = parseFloat(valStr);
       if (isNaN(val)) return match;
       return `${Math.round(val * 28.3)}g`;
     });
 
-    converted = converted.replace(/(\d+(\.\d+)?)\s*lbs?\b/gi, (match, valStr) => {
+    converted = converted.replace(/(\d+(\.\d+)?)\s*(pounds?|lbs?)\b/gi, (match, valStr) => {
       const val = parseFloat(valStr);
       if (isNaN(val)) return match;
       const calculatedG = Math.round(val * 453.6);
       return calculatedG >= 1000 ? `${(calculatedG / 1000).toFixed(1)}kg` : `${calculatedG}g`;
+    });
+    
+    converted = converted.replace(/(\d+(\.\d+)?)\s*(tbsp|tablespoons?)\b/gi, (match, valStr) => {
+      const val = parseFloat(valStr);
+      if (isNaN(val)) return match;
+      return `${Math.round(val * 15)}ml`;
+    });
+
+    converted = converted.replace(/(\d+(\.\d+)?)\s*(tsp|teaspoons?)\b/gi, (match, valStr) => {
+      const val = parseFloat(valStr);
+      if (isNaN(val)) return match;
+      return `${Math.round(val * 5)}ml`;
     });
 
     return converted;
