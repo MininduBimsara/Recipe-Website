@@ -222,20 +222,20 @@ export default function RecipesClient() {
   const handlePrevPage = () => {
     if (page > 1) {
       setPage(prev => prev - 1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo(0, 0);
     }
   };
 
   const handleNextPage = () => {
     if (page < totalPages) {
       setPage(prev => prev + 1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo(0, 0);
     }
   };
 
   const handlePageClick = (p: number) => {
     setPage(p);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo(0, 0);
   };
 
   return (
