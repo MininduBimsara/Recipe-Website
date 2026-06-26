@@ -2,10 +2,10 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Star, Clock, ChefHat, Heart } from 'lucide-react';
+import { Star, Clock, ChefHat } from 'lucide-react';
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { Recipe } from '@/types/pinterestBlogSchema';
-import { useFavorites } from '@/hooks/useFavorites';
+// import { useFavorites } from '@/hooks/useFavorites';
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -13,8 +13,8 @@ interface RecipeCardProps {
 }
 
 export default function RecipeCard({ recipe, onOpenDetail }: RecipeCardProps) {
-  const { isFavorite, toggleFavorite } = useFavorites();
-  const favorited = isFavorite(recipe.id);
+  // const { isFavorite, toggleFavorite } = useFavorites();
+  // const favorited = isFavorite(recipe.id);
 
   // 3D Tilt spring effect using motion/react
   const x = useMotionValue(0);
@@ -71,8 +71,8 @@ export default function RecipeCard({ recipe, onOpenDetail }: RecipeCardProps) {
           </span>
         </div>
 
-        {/* Bookmark Overlay Top Right */}
-        <button
+        {/* Bookmark Overlay Top Right — disabled for now */}
+        {/* <button
           onClick={(e) => {
             e.stopPropagation();
             toggleFavorite(recipe.id);
@@ -85,7 +85,7 @@ export default function RecipeCard({ recipe, onOpenDetail }: RecipeCardProps) {
               favorited ? "fill-terracotta text-terracotta" : "text-stone-500 hover:text-stone-800"
             }`}
           />
-        </button>
+        </button> */}
 
         {/* Category Pill Bottom Left */}
         <div className="absolute bottom-4 left-4">

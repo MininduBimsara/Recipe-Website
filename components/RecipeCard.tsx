@@ -3,11 +3,11 @@
 import React from 'react';
 import Image from 'next/image';
 import { getBlurDataURL } from '@/lib/placeholder';
-import { Heart, Clock, Flame, Award } from 'lucide-react';
+import { Clock, Flame, Award } from 'lucide-react';
 import { Recipe } from '@/data/recipes';
 import { useTilt } from '@/hooks/useTilt';
-import { useFavorites } from '@/hooks/useFavorites';
-import { toast } from 'react-hot-toast';
+// import { useFavorites } from '@/hooks/useFavorites';
+// import { toast } from 'react-hot-toast';
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -16,25 +16,25 @@ interface RecipeCardProps {
 
 export default function RecipeCard({ recipe, onSelect }: RecipeCardProps) {
   const { ref, style, handleMouseMove, handleMouseLeave } = useTilt(10);
-  const { isFavorite, toggleFavorite } = useFavorites();
-  const saved = isFavorite(recipe.id);
+  // const { isFavorite, toggleFavorite } = useFavorites();
+  // const saved = isFavorite(recipe.id);
 
-  const handleFavoriteClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    toggleFavorite(recipe.id);
-    if (!saved) {
-      toast.success('Saved to your collection ♥', {
-        style: {
-          background: '#FFEBEA',
-          color: '#D4704A',
-          border: '1px solid #E59A7E',
-        },
-        icon: '❤️',
-      });
-    } else {
-      toast(`Removed "${recipe.title}" from collection`);
-    }
-  };
+  // const handleFavoriteClick = (e: React.MouseEvent) => {
+  //   e.stopPropagation();
+  //   toggleFavorite(recipe.id);
+  //   if (!saved) {
+  //     toast.success('Saved to your collection ♥', {
+  //       style: {
+  //         background: '#FFEBEA',
+  //         color: '#D4704A',
+  //         border: '1px solid #E59A7E',
+  //       },
+  //       icon: '❤️',
+  //     });
+  //   } else {
+  //     toast(`Removed "${recipe.title}" from collection`);
+  //   }
+  // };
 
   // Map arbitrary size into visual classes for Masonry
   const sizeClasses = {
@@ -114,7 +114,8 @@ export default function RecipeCard({ recipe, onSelect }: RecipeCardProps) {
           </svg>
         </button>
 
-        {/* Dynamic Save Heart Icon Link (fades in on hover) */}
+        {/* Dynamic Save Heart Icon Link (fades in on hover) - Commented out for now as requested */}
+        {/* 
         <button
           onClick={handleFavoriteClick}
           className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/80 dark:bg-[#1A1A1A]/80 backdrop-blur-md flex items-center justify-center border border-[#FAF7F2]/20 dark:border-stone-800 text-stone-500 dark:text-stone-400 hover:text-terracotta dark:hover:text-terracotta md:opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer shadow-xs focus:opacity-100 z-10"
@@ -122,6 +123,7 @@ export default function RecipeCard({ recipe, onSelect }: RecipeCardProps) {
         >
           <Heart className={`w-4 h-4 transition-transform ${saved ? 'fill-terracotta text-terracotta scale-110' : 'group-hover:scale-105'}`} />
         </button>
+        */}
 
         {/* Ambient overlay curtain at base */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />

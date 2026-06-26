@@ -6,13 +6,13 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { usePathname, useRouter } from 'next/navigation';
 import { 
-  Sun, 
-  Moon, 
-  Search, 
-  Menu, 
-  X, 
+  Sun,
+  Moon,
+  Search,
+  Menu,
+  X,
   ChevronRight,
-  Heart,
+  // Heart,
   Clock,
   Award,
   Sparkles,
@@ -21,7 +21,7 @@ import {
   UtensilsCrossed
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { useFavorites } from '@/hooks/useFavorites';
+// import { useFavorites } from '@/hooks/useFavorites';
 import { RECIPES_DB, Recipe } from '@/data/recipes';
 import { BLOG_POSTS_DB, BlogPost } from '@/data/blogs';
 import { useDebounce } from '@/hooks/useDebounce';
@@ -159,22 +159,22 @@ function SearchModal({ onClose }: { onClose: () => void }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.18 }}
-      className="fixed inset-0 z-[200] flex flex-col"
+      className="fixed inset-0 z-[200] flex items-start justify-center pt-16 sm:pt-20 px-4"
       id="search-modal-overlay"
     >
       {/* Blurred backdrop */}
       <div
-        className="absolute inset-0 bg-espresso/60 dark:bg-black/70 backdrop-blur-md"
+        className="absolute inset-0 bg-espresso/50 dark:bg-black/60 backdrop-blur-sm"
         onClick={onClose}
       />
 
-      {/* Modal panel — slides down from top */}
+      {/* Modal panel — centered floating card */}
       <motion.div
-        initial={{ y: -30, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: -20, opacity: 0 }}
+        initial={{ y: -16, opacity: 0, scale: 0.98 }}
+        animate={{ y: 0, opacity: 1, scale: 1 }}
+        exit={{ y: -10, opacity: 0, scale: 0.98 }}
         transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-        className="relative z-10 bg-white dark:bg-[#1A1A1A] w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden"
+        className="relative z-10 bg-white dark:bg-[#1A1A1A] w-full max-w-2xl max-h-[70vh] flex flex-col shadow-2xl overflow-hidden rounded-2xl border border-cream-dark dark:border-stone-800"
       >
         {/* Search bar header */}
         <div className="flex items-center gap-4 px-6 py-4 border-b border-cream-dark dark:border-stone-800">
@@ -380,7 +380,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const { favorites } = useFavorites();
+  // const { favorites } = useFavorites();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 80);
@@ -510,8 +510,8 @@ export default function Header() {
               </kbd>
             </button>
 
-            {/* Favorites heart */}
-            <Link 
+            {/* Favorites heart — disabled for now */}
+            {/* <Link
               href="/favorites"
               className="relative p-2 text-stone-600 dark:text-stone-300 hover:text-terracotta dark:hover:text-terracotta group cursor-pointer"
               title="Saved Recipes"
@@ -522,7 +522,7 @@ export default function Header() {
                   {favorites.length}
                 </span>
               )}
-            </Link>
+            </Link> */}
 
             {/* Pinterest follow button */}
             <a

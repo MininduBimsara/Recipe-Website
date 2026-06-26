@@ -2,33 +2,34 @@
 
 import React from 'react';
 import { useTemplateState } from '@/components/templates/TemplateStateContext';
-import { Heart, Copy } from 'lucide-react';
-import { useFavorites } from '@/hooks/useFavorites';
-import { toast } from 'react-hot-toast';
+import { Copy } from 'lucide-react';
+// import { Heart } from 'lucide-react';
+// import { useFavorites } from '@/hooks/useFavorites';
+// import { toast } from 'react-hot-toast';
 
 export default function StickyMobileShareBar() {
   const { post, type, handleCopyLink } = useTemplateState();
-  const { isFavorite, toggleFavorite } = useFavorites();
+  // const { isFavorite, toggleFavorite } = useFavorites();
 
   if (type !== 'recipe') return null;
 
-  const saved = isFavorite(post.id);
+  // const saved = isFavorite(post.id);
 
-  const handleFavoriteClick = () => {
-    toggleFavorite(post.id);
-    if (!saved) {
-      toast.success('Saved to your collection ♥', {
-        style: {
-          background: '#FFEBEA',
-          color: '#D4704A',
-          border: '1px solid #E59A7E',
-        },
-        icon: '❤️',
-      });
-    } else {
-      toast(`Removed from collection`);
-    }
-  };
+  // const handleFavoriteClick = () => {
+  //   toggleFavorite(post.id);
+  //   if (!saved) {
+  //     toast.success('Saved to your collection ♥', {
+  //       style: {
+  //         background: '#FFEBEA',
+  //         color: '#D4704A',
+  //         border: '1px solid #E59A7E',
+  //       },
+  //       icon: '❤️',
+  //     });
+  //   } else {
+  //     toast(`Removed from collection`);
+  //   }
+  // };
 
   const handlePin = () => {
     if (typeof window === 'undefined') return;
@@ -76,8 +77,8 @@ export default function StickyMobileShareBar() {
         <span>Pin It</span>
       </button>
 
-      {/* Save to Collection */}
-      <button
+      {/* Save to Collection — disabled for now */}
+      {/* <button
         onClick={handleFavoriteClick}
         className={`flex-1 py-3 rounded-xl font-mono text-[11px] font-black uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer transition-colors border active:scale-98 ${
           saved
@@ -87,7 +88,7 @@ export default function StickyMobileShareBar() {
       >
         <Heart className={`w-4 h-4 ${saved ? 'fill-terracotta text-terracotta' : 'text-stone-500'}`} />
         <span>{saved ? 'Saved' : 'Save'}</span>
-      </button>
+      </button> */}
 
       {/* Copy Path / Link */}
       <button

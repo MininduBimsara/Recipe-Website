@@ -6,12 +6,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { getBlurDataURL } from '@/lib/placeholder';
 import { 
-  ArrowRight, 
-  Sparkles, 
-  Clock, 
-  Flame, 
-  Award, 
-  Heart,
+  ArrowRight,
+  Sparkles,
+  Clock,
+  Flame,
+  Award,
+  // Heart,
   RefreshCw,
   BookOpen,
   ArrowUpRight,
@@ -22,8 +22,8 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { RECIPES_DB } from '@/data/recipes';
 import { BLOG_POSTS_DB } from '@/data/blogs';
-import { useFavorites } from '@/hooks/useFavorites';
-import { toast } from 'react-hot-toast';
+// import { useFavorites } from '@/hooks/useFavorites';
+// import { toast } from 'react-hot-toast';
 import { HeaderBannerAd, BelowRecipeAd } from '@/components/ads';
 
 // Custom lightweight SVG illustrations wrapped in circular badges for visual balance
@@ -43,7 +43,7 @@ const BakerIllustration = () => (
 
 export default function HomeClient() {
   const router = useRouter();
-  const { isFavorite, toggleFavorite } = useFavorites();
+  // const { isFavorite, toggleFavorite } = useFavorites();
   
   const [searchPhrase, setSearchPhrase] = useState('');
 
