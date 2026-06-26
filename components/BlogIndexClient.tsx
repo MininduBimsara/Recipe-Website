@@ -6,9 +6,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
 import { BookOpen, Clock, ArrowRight, Layers } from 'lucide-react';
-import { BLOG_POSTS_DB } from '@/data/blogs';
 import { getSavedBlogs, ExtendedBlogPost } from '@/lib/preseededPool';
 import { InFeedAd } from '@/components/ads';
+import { isSupabaseConfigured } from '@/lib/supabase/client';
+import { fetchPostsAction } from '@/app/actions/postActions';
 
 const BLOG_CATEGORIES = [
   'All',
@@ -21,12 +22,12 @@ const BLOG_CATEGORIES = [
 export default function BlogIndexClient() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [customBlogs, setCustomBlogs] = useState<ExtendedBlogPost[]>([]);
+  const [blogs, setBlogs] = useState<ExtendedBlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [totalCount, setTotalCount] = useState(0);
+  const [hasMore, setHasMore] = useState(false);
   const [page, setPage] = useState(Number(searchParams?.get('page')) || 1);
-
-  useEffect(() => {
-    setCustomBlogs(getSavedBlogs());
-  }, []);
+  const limit = 6;
 
   // Retrieve current active category from query params
   const activeCategory = searchParams?.get('category') || 'All';
@@ -51,44 +52,86 @@ export default function BlogIndexClient() {
     router.replace(`/blog?${params.toString()}`, { scroll: false });
   }, [activeCategory, page, router]);
 
-  // Combine static DB posts with dynamic custom posts, prioritizing local storage modifications
-  const allBlogs = (() => {
-    const combined = [...customBlogs, ...BLOG_POSTS_DB];
-    const seen = new Set<string>();
-    return combined.filter(b => {
-      if (seen.has(b.id) || seen.has(b.slug)) return false;
-      seen.add(b.id);
-      seen.add(b.slug);
-      return true;
-    });
-  })();
+  // Load data from server action when category or page changes
+  useEffect(() => {
+    let active = true;
 
-  // Filter posts based on active query params and check scheduling date
-  const filteredPosts = allBlogs.filter((post) => {
-    // Check if scheduled in future or is draft/unpublished
-    const isCustom = 'status' in post || 'is_published' in post;
-    if (isCustom) {
-      const ext = post as ExtendedBlogPost;
-      if (ext.is_published === false || ext.status === 'draft') {
-        return false;
-      }
-      if (ext.status === 'scheduled') {
-        const schedTime = ext.scheduledAt ? new Date(ext.scheduledAt).getTime() : 0;
-        const now = Date.now();
-        if (schedTime > now) {
-          return false; // hide future scheduled items
+    async function loadData() {
+      setLoading(true);
+      const offset = (page - 1) * limit;
+      try {
+        const res = await fetchPostsAction(
+          offset,
+          limit,
+          activeCategory
+        );
+        if (active) {
+          if (!isSupabaseConfigured()) {
+            // Merge local fallback from server action with client-side localStorage blogs
+            const customBlogsList = getSavedBlogs();
+
+            // Combine both lists, putting local/custom storage ones first so they override
+            const combined = [...customBlogsList, ...res.posts];
+            
+            // Remove duplicates
+            const seen = new Set();
+            const uniqueCombined = combined.filter(b => {
+              if (seen.has(b.id) || seen.has(b.slug)) return false;
+              seen.add(b.id);
+              seen.add(b.slug);
+              return true;
+            });
+
+            // Filter client-side
+            const filteredBlogs = uniqueCombined.filter(post => {
+              const isCustom = 'status' in post || 'is_published' in post;
+              if (isCustom) {
+                const ext = post as ExtendedBlogPost;
+                if (ext.is_published === false || ext.status === 'draft') {
+                  return false;
+                }
+                if (ext.status === 'scheduled') {
+                  const schedTime = ext.scheduledAt ? new Date(ext.scheduledAt).getTime() : 0;
+                  const now = Date.now();
+                  if (schedTime > now) {
+                    return false;
+                  }
+                }
+              }
+
+              if (activeCategory !== 'All' && post.category.toLowerCase() !== activeCategory.toLowerCase()) return false;
+              return true;
+            });
+
+            // Sliced combined for page
+            const paginatedCombined = filteredBlogs.slice(offset, offset + limit);
+            
+            setBlogs(paginatedCombined);
+            setTotalCount(filteredBlogs.length);
+            setHasMore(offset + limit < filteredBlogs.length);
+          } else {
+            setBlogs(res.posts);
+            setHasMore(res.hasMore);
+            setTotalCount(res.totalCount);
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching blog posts:', err);
+      } finally {
+        if (active) {
+          setLoading(false);
         }
       }
     }
 
-    if (activeCategory === 'All') return true;
-    return post.category.toLowerCase() === activeCategory.toLowerCase();
-  });
+    loadData();
 
-  const limit = 6;
-  const totalCount = filteredPosts.length;
+    return () => {
+      active = false;
+    };
+  }, [page, activeCategory]);
+
   const totalPages = Math.ceil(totalCount / limit);
-  const paginatedPosts = filteredPosts.slice((page - 1) * limit, page * limit);
 
   return (
     <div className="w-full min-h-screen py-10 px-6 max-w-7xl mx-auto flex flex-col space-y-12" id="blog-index-container">
@@ -131,13 +174,18 @@ export default function BlogIndexClient() {
         {/* Info indicators */}
         <div className="hidden lg:flex items-center gap-2 text-[10px] font-mono text-stone-400 dark:text-stone-400 font-bold" id="grid-meta-indicator">
           <Layers className="w-3.5 h-3.5 text-sage" />
-          <span>DISPLAYING {filteredPosts.length} ARTICLES</span>
+          <span>DISPLAYING {totalCount} ARTICLES</span>
         </div>
       </section>
 
       {/* Grid view of Blog posts - 2 column desktop, 1 column mobile */}
       <main className="w-full" id="blog-grid-main">
-        {filteredPosts.length === 0 ? (
+        {loading ? (
+          <div className="w-full flex flex-col items-center justify-center py-20 space-y-4">
+            <div className="w-10 h-10 border-4 border-terracotta border-t-transparent rounded-full animate-spin" />
+            <span className="font-mono text-xs text-stone-400">Loading articles...</span>
+          </div>
+        ) : blogs.length === 0 ? (
           <div className="py-16 text-center border border-dashed border-cream-dark dark:border-stone-850 rounded-3xl bg-white/50 dark:bg-stone-900/30 space-y-4" id="empty-blog-state">
             <h3 className="font-serif font-bold text-lg text-espresso dark:text-cream">No Articles Found</h3>
             <p className="text-stone-400 dark:text-stone-500 text-xs font-sans">
@@ -154,7 +202,7 @@ export default function BlogIndexClient() {
           <div className="space-y-12">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10" id="blog-posts-grid">
               <AnimatePresence mode="popLayout">
-                {paginatedPosts.flatMap((post, idx) => {
+                {blogs.flatMap((post, idx) => {
                   const elements = [
                   <motion.article
                     key={post.id}
