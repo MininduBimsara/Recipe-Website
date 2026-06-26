@@ -87,7 +87,7 @@ export default async function BlogPostPage({ params }: Props) {
       {post && <BlogPostSchema post={post as any} />}
 
       {/* Main interactive visualization block with layout templates */}
-      <TemplateRenderer post={post} type="blog" />
+      <TemplateRenderer post={post} type="blog" slug={slug} />
     </>
   );
 }

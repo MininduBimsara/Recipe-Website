@@ -22,6 +22,7 @@ export default function BlogIndexClient() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [customBlogs, setCustomBlogs] = useState<ExtendedBlogPost[]>([]);
+  const [page, setPage] = useState(Number(searchParams?.get('page')) || 1);
 
   useEffect(() => {
     setCustomBlogs(getSavedBlogs());
@@ -38,12 +39,21 @@ export default function BlogIndexClient() {
     } else {
       params.set('category', category);
     }
+    params.delete('page');
     router.push(`/blog?${params.toString()}`);
+    setPage(1);
   };
 
-  // Combine static DB posts with dynamic custom posts
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (activeCategory !== 'All') params.set('category', activeCategory);
+    if (page > 1) params.set('page', page.toString());
+    router.replace(`/blog?${params.toString()}`, { scroll: false });
+  }, [activeCategory, page, router]);
+
+  // Combine static DB posts with dynamic custom posts, prioritizing local storage modifications
   const allBlogs = (() => {
-    const combined = [...BLOG_POSTS_DB, ...customBlogs];
+    const combined = [...customBlogs, ...BLOG_POSTS_DB];
     const seen = new Set<string>();
     return combined.filter(b => {
       if (seen.has(b.id) || seen.has(b.slug)) return false;
@@ -55,11 +65,11 @@ export default function BlogIndexClient() {
 
   // Filter posts based on active query params and check scheduling date
   const filteredPosts = allBlogs.filter((post) => {
-    // Check if scheduled in future
+    // Check if scheduled in future or is draft/unpublished
     const isCustom = 'status' in post || 'is_published' in post;
     if (isCustom) {
       const ext = post as ExtendedBlogPost;
-      if (ext.is_published === false) {
+      if (ext.is_published === false || ext.status === 'draft') {
         return false;
       }
       if (ext.status === 'scheduled') {
@@ -74,6 +84,11 @@ export default function BlogIndexClient() {
     if (activeCategory === 'All') return true;
     return post.category.toLowerCase() === activeCategory.toLowerCase();
   });
+
+  const limit = 6;
+  const totalCount = filteredPosts.length;
+  const totalPages = Math.ceil(totalCount / limit);
+  const paginatedPosts = filteredPosts.slice((page - 1) * limit, page * limit);
 
   return (
     <div className="w-full min-h-screen py-10 px-6 max-w-7xl mx-auto flex flex-col space-y-12" id="blog-index-container">
@@ -136,10 +151,11 @@ export default function BlogIndexClient() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10" id="blog-posts-grid">
-            <AnimatePresence mode="popLayout">
-              {filteredPosts.flatMap((post, idx) => {
-                const elements = [
+          <div className="space-y-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10" id="blog-posts-grid">
+              <AnimatePresence mode="popLayout">
+                {paginatedPosts.flatMap((post, idx) => {
+                  const elements = [
                   <motion.article
                     key={post.id}
                     id={`article-card-${post.slug}`}
@@ -214,7 +230,7 @@ export default function BlogIndexClient() {
 
                   </motion.article>
                 ];
-                if (idx % 3 === 2) {
+                if (idx % 4 === 3) {
                   elements.push(
                     <motion.div
                       key={`ad-${post.id}`}
@@ -231,6 +247,36 @@ export default function BlogIndexClient() {
                 return elements;
               })}
             </AnimatePresence>
+            </div>
+            
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-4 pt-4 pb-4">
+                <button
+                  onClick={() => {
+                    setPage(prev => Math.max(1, prev - 1));
+                    window.scrollTo(0, 0);
+                  }}
+                  disabled={page === 1}
+                  className="px-5 py-2.5 bg-white dark:bg-stone-850 border border-cream-dark dark:border-stone-800 text-espresso dark:text-cream rounded-xl text-xs font-mono font-bold uppercase tracking-wider hover:border-terracotta disabled:opacity-50 disabled:cursor-not-allowed transition cursor-pointer"
+                >
+                  Previous
+                </button>
+                <span className="font-mono text-xs text-stone-500 font-bold">
+                  Page {page} of {totalPages}
+                </span>
+                <button
+                  onClick={() => {
+                    setPage(prev => Math.min(totalPages, prev + 1));
+                    window.scrollTo(0, 0);
+                  }}
+                  disabled={page === totalPages}
+                  className="px-5 py-2.5 bg-white dark:bg-stone-850 border border-cream-dark dark:border-stone-800 text-espresso dark:text-cream rounded-xl text-xs font-mono font-bold uppercase tracking-wider hover:border-terracotta disabled:opacity-50 disabled:cursor-not-allowed transition cursor-pointer"
+                >
+                  Next
+                </button>
+              </div>
+            )}
           </div>
         )}
       </main>

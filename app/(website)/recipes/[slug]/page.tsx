@@ -81,9 +81,8 @@ export default async function RecipeDetailPage({ params }: Props) {
       {/* Dynamic JSON-LD embedded Server-side if recipe exists */}
       {recipe && <RecipeSchema recipe={recipe as any} />}
       
-      {/* Interactive visual detail page elements with multi-layout dispatcher */}
-      <TemplateRenderer post={recipe} type="recipe" />
+      {/* Unified Template Renderer that handles both standard layout and specific formatting requests */}
+      <TemplateRenderer post={recipe} type="recipe" slug={slug} />
     </>
   );
 }
-

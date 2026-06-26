@@ -124,8 +124,37 @@ export default function RecipesClient() {
           if (!isSupabaseConfigured()) {
             // Merge local fallback from server action with client-side localStorage recipes
             const customRecipes = getSavedRecipes();
-            // Filter custom recipes client-side using the same filters
-            const filteredCustom = customRecipes.filter(recipe => {
+
+            // Combine both lists, putting local/custom storage ones first so they override
+            const combined = [...customRecipes, ...res.recipes];
+            
+            // Remove duplicates first
+            const seen = new Set();
+            const uniqueCombined = combined.filter(r => {
+              if (seen.has(r.id) || seen.has(r.slug)) return false;
+              seen.add(r.id);
+              seen.add(r.slug);
+              return true;
+            });
+
+            // Filter client-side using the same filters and checking is_published status
+            const filteredRecipes = uniqueCombined.filter(recipe => {
+              // Hide unpublished or draft recipes
+              const isCustom = 'status' in recipe || 'is_published' in recipe;
+              if (isCustom) {
+                const ext = recipe as any;
+                if (ext.is_published === false || ext.status === 'draft') {
+                  return false;
+                }
+                if (ext.status === 'scheduled') {
+                  const schedTime = ext.scheduledAt ? new Date(ext.scheduledAt).getTime() : 0;
+                  const now = Date.now();
+                  if (schedTime > now) {
+                    return false;
+                  }
+                }
+              }
+
               if (activeCategory !== 'All' && recipe.category.toLowerCase() !== activeCategory.toLowerCase()) return false;
               if (activeCuisine !== 'All' && !(recipe.recipeCuisine || '').toLowerCase().includes(activeCuisine.toLowerCase())) return false;
               if (activeDiet !== 'All') {
@@ -158,24 +187,12 @@ export default function RecipesClient() {
               return true;
             });
 
-            // Combine both lists
-            const combined = [...res.recipes, ...filteredCustom];
-            
-            // Remove duplicates
-            const seen = new Set();
-            const uniqueCombined = combined.filter(r => {
-              if (seen.has(r.id) || seen.has(r.slug)) return false;
-              seen.add(r.id);
-              seen.add(r.slug);
-              return true;
-            });
-
             // Sliced combined for page
-            const paginatedCombined = uniqueCombined.slice(offset, offset + limit);
+            const paginatedCombined = filteredRecipes.slice(offset, offset + limit);
             
             setRecipes(paginatedCombined);
-            setTotalCount(uniqueCombined.length);
-            setHasMore(offset + limit < uniqueCombined.length);
+            setTotalCount(filteredRecipes.length);
+            setHasMore(offset + limit < filteredRecipes.length);
           } else {
             setRecipes(res.recipes);
             setHasMore(res.hasMore);

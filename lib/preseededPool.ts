@@ -1,5 +1,5 @@
-import { Recipe } from '@/data/recipes';
-import { BlogPost } from '@/data/blogs';
+import { RECIPES_DB, Recipe } from '@/data/recipes';
+import { BLOG_POSTS_DB, BlogPost } from '@/data/blogs';
 
 // Custom interface extending BlogPost to support our 5 distinct editorial styles
 export type EditorialStyle = 'classic' | 'chemistry' | 'spotlight' | 'bento' | 'showcase';
@@ -8,6 +8,7 @@ export interface ExtendedBlogPost extends BlogPost {
   style?: EditorialStyle;
   scheduledAt?: string; // Date string for scheduling queue
   status?: 'published' | 'scheduled' | 'draft';
+  is_published?: boolean;
   layout_template?: string;
   template_images?: any[];
 }
@@ -15,6 +16,7 @@ export interface ExtendedBlogPost extends BlogPost {
 export interface ExtendedRecipe extends Recipe {
   scheduledAt?: string;
   status?: 'published' | 'scheduled' | 'draft';
+  is_published?: boolean;
   layout_template?: string;
   template_images?: any[];
 }
@@ -603,17 +605,27 @@ export const PRESEEDED_SCHEDULED_BLOGS: ExtendedBlogPost[] = [
   }
 ];
 
+const INITIAL_RECIPES: ExtendedRecipe[] = [
+  ...RECIPES_DB.map(r => ({ ...r, is_published: true, status: 'published' as const })),
+  ...PRESEEDED_SCHEDULED_RECIPES
+];
+
+const INITIAL_BLOGS: ExtendedBlogPost[] = [
+  ...BLOG_POSTS_DB.map(b => ({ ...b, is_published: true, status: 'published' as const })),
+  ...PRESEEDED_SCHEDULED_BLOGS
+];
+
 export function getSavedRecipes(): ExtendedRecipe[] {
   if (typeof window === 'undefined') return [];
   const stored = localStorage.getItem('savory_custom_recipes');
   if (!stored) {
-    localStorage.setItem('savory_custom_recipes', JSON.stringify(PRESEEDED_SCHEDULED_RECIPES));
-    return PRESEEDED_SCHEDULED_RECIPES;
+    localStorage.setItem('savory_custom_recipes', JSON.stringify(INITIAL_RECIPES));
+    return INITIAL_RECIPES;
   }
   try {
     return JSON.parse(stored);
   } catch (e) {
-    return PRESEEDED_SCHEDULED_RECIPES;
+    return INITIAL_RECIPES;
   }
 }
 
@@ -626,13 +638,13 @@ export function getSavedBlogs(): ExtendedBlogPost[] {
   if (typeof window === 'undefined') return [];
   const stored = localStorage.getItem('savory_custom_blogs');
   if (!stored) {
-    localStorage.setItem('savory_custom_blogs', JSON.stringify(PRESEEDED_SCHEDULED_BLOGS));
-    return PRESEEDED_SCHEDULED_BLOGS;
+    localStorage.setItem('savory_custom_blogs', JSON.stringify(INITIAL_BLOGS));
+    return INITIAL_BLOGS;
   }
   try {
     return JSON.parse(stored);
   } catch (e) {
-    return PRESEEDED_SCHEDULED_BLOGS;
+    return INITIAL_BLOGS;
   }
 }
 

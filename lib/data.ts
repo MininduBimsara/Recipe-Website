@@ -3,6 +3,8 @@ import newRecipesData from '@/data/new-recipes.json';
 import postsData from '@/data/posts.json';
 import { Recipe, BlogPost } from '@/types/pinterestBlogSchema';
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/server';
+import { RECIPES_DB } from '@/data/recipes';
+import { BLOG_POSTS_DB } from '@/data/blogs';
 
 // Coerce raw JSON structures to fully compliant TypeScript models
 const typedRecipes = [...recipesData, ...newRecipesData] as unknown as Recipe[];
@@ -57,6 +59,9 @@ export async function getRecipeBySlug(slug: string): Promise<Recipe | undefined>
       console.error('getRecipeBySlug fallback active:', e);
     }
   }
+
+  const dbRecipe = RECIPES_DB.find((recipe) => recipe.slug === slug);
+  if (dbRecipe) return dbRecipe as unknown as Recipe;
 
   return typedRecipes.find((recipe) => recipe.slug === slug);
 }
@@ -160,6 +165,9 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | undefined>
       console.error('getPostBySlug fallback active:', e);
     }
   }
+
+  const dbPost = BLOG_POSTS_DB.find((post) => post.slug === slug);
+  if (dbPost) return dbPost as unknown as BlogPost;
 
   return typedPosts.find((post) => post.slug === slug);
 }
