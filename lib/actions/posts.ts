@@ -103,7 +103,9 @@ export async function togglePublishPostAction(id: string, isPublished: boolean) 
       .from('blog_posts')
       .update({
         is_published: isPublished,
-        published_at: isPublished ? new Date().toISOString() : null
+        status: isPublished ? 'published' : 'draft',
+        published_at: isPublished ? new Date().toISOString() : null,
+        scheduled_for: null
       })
       .eq('id', id);
 
@@ -133,7 +135,9 @@ export async function bulkTogglePublishPostsAction(ids: string[], isPublished: b
       .from('blog_posts')
       .update({
         is_published: isPublished,
-        published_at: isPublished ? new Date().toISOString() : null
+        status: isPublished ? 'published' : 'draft',
+        published_at: isPublished ? new Date().toISOString() : null,
+        scheduled_for: null
       })
       .in('id', ids);
 

@@ -103,7 +103,9 @@ export async function togglePublishRecipeAction(id: string, isPublished: boolean
       .from('recipes')
       .update({
         is_published: isPublished,
-        published_at: isPublished ? new Date().toISOString() : null
+        status: isPublished ? 'published' : 'draft',
+        published_at: isPublished ? new Date().toISOString() : null,
+        scheduled_for: null
       })
       .eq('id', id);
 
@@ -162,7 +164,9 @@ export async function bulkTogglePublishRecipesAction(ids: string[], isPublished:
       .from('recipes')
       .update({
         is_published: isPublished,
-        published_at: isPublished ? new Date().toISOString() : null
+        status: isPublished ? 'published' : 'draft',
+        published_at: isPublished ? new Date().toISOString() : null,
+        scheduled_for: null
       })
       .in('id', ids);
 
