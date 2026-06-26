@@ -56,9 +56,12 @@ export default function BlogIndexClient() {
   // Filter posts based on active query params and check scheduling date
   const filteredPosts = allBlogs.filter((post) => {
     // Check if scheduled in future
-    const isCustom = 'status' in post;
+    const isCustom = 'status' in post || 'is_published' in post;
     if (isCustom) {
       const ext = post as ExtendedBlogPost;
+      if (ext.is_published === false) {
+        return false;
+      }
       if (ext.status === 'scheduled') {
         const schedTime = ext.scheduledAt ? new Date(ext.scheduledAt).getTime() : 0;
         const now = Date.now();
@@ -89,7 +92,7 @@ export default function BlogIndexClient() {
       </header>
 
       {/* Filter Bar Row */}
-      <section className="w-full flex flex-col md:flex-row md:items-center justify-between gap-4 py-2 border-b border-cream-dark/30 dark:border-stone-850/30 sticky top-[69px] md:top-[85px] bg-cream-light/85 dark:bg-[#1A1A1A]/85 backdrop-blur-md z-20" id="filter-bar-section">
+      <section className="w-full flex flex-col md:flex-row md:items-center justify-between gap-4 py-2 border-b border-cream-dark/30 dark:border-stone-850/30 sticky top-[69px] md:top-[85px] bg-white/90 dark:bg-[#1A1A1A]/90 backdrop-blur-md z-20" id="filter-bar-section">
         <div className="flex overflow-x-auto no-scrollbar items-center gap-2.5 py-1">
           {BLOG_CATEGORIES.map((cat) => {
             const isActive = activeCategory.toLowerCase() === cat.toLowerCase();
