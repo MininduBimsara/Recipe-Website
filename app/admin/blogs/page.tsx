@@ -13,7 +13,7 @@ import {
   RefreshCw
 } from 'lucide-react';
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/client';
-import { deletePostAction, togglePublishPostAction } from '@/lib/actions/posts';
+import { deletePostAction, togglePublishPostAction, bulkTogglePublishPostsAction } from '@/lib/actions/posts';
 import { getSavedBlogs, saveBlogs } from '@/lib/preseededPool';
 import { toast } from 'react-hot-toast';
 
@@ -21,6 +21,7 @@ export default function AdminBlogsPage() {
   const [blogs, setBlogs] = useState<any[]>([]);
   const [isSupabase, setIsSupabase] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   // Search & Filter state
   const [search, setSearch] = useState('');
@@ -86,6 +87,27 @@ export default function AdminBlogsPage() {
       saveBlogs(updated);
       toast.success(targetState ? 'Journal published locally.' : 'Reverted to local draft.');
     }
+  };
+
+  const handleBulkTogglePublish = async (targetState: boolean) => {
+    if (selectedIds.length === 0) return;
+    
+    if (isSupabase) {
+      toast.loading('Applying bulk publication state...', { id: 'bulk-pub' });
+      const res = await bulkTogglePublishPostsAction(selectedIds, targetState);
+      if (res.success) {
+        toast.success(`Successfully ${targetState ? 'published' : 'unpublished'} ${selectedIds.length} journals.`, { id: 'bulk-pub' });
+        setBlogs(prev => prev.map(b => selectedIds.includes(b.id) ? { ...b, is_published: targetState, status: targetState ? 'published' : 'draft' } : b));
+      } else {
+        toast.error(res.error || 'Bulk state toggle failed.', { id: 'bulk-pub' });
+      }
+    } else {
+      const updated = blogs.map(b => selectedIds.includes(b.id) ? { ...b, is_published: targetState, status: targetState ? 'published' : 'draft' } : b);
+      setBlogs(updated);
+      saveBlogs(updated);
+      toast.success(`Bulk updated ${selectedIds.length} journals locally.`);
+    }
+    setSelectedIds([]);
   };
 
   const handleDelete = async (id: string, title: string) => {
@@ -187,6 +209,29 @@ export default function AdminBlogsPage() {
         </div>
       </div>
 
+      {/* Bulk Actions Bar */}
+      {selectedIds.length > 0 && (
+        <div className="bg-white border border-terracotta/30 p-3 rounded-xl flex items-center justify-between shadow-sm animate-fade-slide-up">
+          <span className="text-xs font-mono font-bold text-stone-600">
+            {selectedIds.length} journal{selectedIds.length > 1 ? 's' : ''} selected
+          </span>
+          <div className="flex gap-2">
+            <button 
+              onClick={() => handleBulkTogglePublish(true)}
+              className="px-4 py-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 text-[10px] uppercase tracking-wider font-bold rounded-xl transition cursor-pointer"
+            >
+              Publish Selected
+            </button>
+            <button 
+              onClick={() => handleBulkTogglePublish(false)}
+              className="px-4 py-2 bg-stone-200 hover:bg-stone-300 text-stone-800 text-[10px] uppercase tracking-wider font-bold rounded-xl transition cursor-pointer"
+            >
+              Unpublish Selected
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Main List Table */}
       <div className="bg-white border border-cream-dark rounded-2xl shadow-3xs overflow-hidden">
         {loading ? (
@@ -200,6 +245,20 @@ export default function AdminBlogsPage() {
             <table className="w-full text-left border-collapse text-xs">
               <thead>
                 <tr className="bg-[#FAF9F5] border-b border-cream-dark font-mono text-stone-500 uppercase text-[10px]">
+                  <th className="p-4 w-12 text-center">
+                    <input 
+                      type="checkbox" 
+                      className="rounded border-stone-300 text-terracotta focus:ring-terracotta cursor-pointer"
+                      checked={filteredBlogs.length > 0 && selectedIds.length === filteredBlogs.length}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setSelectedIds(filteredBlogs.map(b => b.id));
+                        } else {
+                          setSelectedIds([]);
+                        }
+                      }}
+                    />
+                  </th>
                   <th className="p-4 font-bold">Journal</th>
                   <th className="p-4 font-bold">Category</th>
                   <th className="p-4 font-bold">Read Time</th>
@@ -210,6 +269,20 @@ export default function AdminBlogsPage() {
               <tbody className="divide-y divide-cream-dark/60">
                 {filteredBlogs.map((b) => (
                   <tr key={b.id} className="hover:bg-[#FAF9F6]/30 transition-colors">
+                    <td className="p-4 text-center">
+                      <input 
+                        type="checkbox"
+                        className="rounded border-stone-300 text-terracotta focus:ring-terracotta cursor-pointer"
+                        checked={selectedIds.includes(b.id)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setSelectedIds(prev => [...prev, b.id]);
+                          } else {
+                            setSelectedIds(prev => prev.filter(id => id !== b.id));
+                          }
+                        }}
+                      />
+                    </td>
                     <td className="p-4">
                       <div className="flex items-center gap-3">
                         <div className="relative w-10 h-10 rounded-lg overflow-hidden border bg-stone-50 shrink-0">

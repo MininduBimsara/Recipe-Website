@@ -96,6 +96,10 @@ export default function RecipesClient() {
     if (searchParams) {
       setActiveCategory(searchParams.get('category') || 'All');
       setSearchPhrase(searchParams.get('q') || '');
+      const p = parseInt(searchParams.get('page') || '1', 10);
+      if (!isNaN(p) && p > 0) {
+        setPage(p);
+      }
     }
   }, [searchParams]);
 
@@ -199,8 +203,9 @@ export default function RecipesClient() {
     const params = new URLSearchParams();
     if (activeCategory !== 'All') params.set('category', activeCategory);
     if (debouncedSearch) params.set('q', debouncedSearch);
+    if (page > 1) params.set('page', page.toString());
     router.replace(`/recipes?${params.toString()}`, { scroll: false });
-  }, [activeCategory, debouncedSearch]);
+  }, [activeCategory, debouncedSearch, page]);
 
   const handleCategoryChange = (categoryName: string) => {
     setActiveCategory(categoryName);

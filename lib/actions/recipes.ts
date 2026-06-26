@@ -148,3 +148,32 @@ export async function updateRecipeSocialsAction(id: string, socials: { pinterest
   }
 }
 
+export async function bulkTogglePublishRecipesAction(ids: string[], isPublished: boolean) {
+  const admin = await requireAdminSession();
+  if (!admin) return { success: false, error: 'Unauthorized' };
+
+  if (!isSupabaseConfigured()) {
+    return { success: true, localOnly: true };
+  }
+
+  try {
+    const supabase = await createClient();
+    const { error } = await supabase
+      .from('recipes')
+      .update({
+        is_published: isPublished,
+        published_at: isPublished ? new Date().toISOString() : null
+      })
+      .in('id', ids);
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    revalidatePath('/recipes');
+    revalidatePath('/');
+    return { success: true };
+  } catch (err: any) {
+    return { success: false, error: err.message || 'Error updating recipes state.' };
+  }
+}
