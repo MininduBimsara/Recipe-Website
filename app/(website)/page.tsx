@@ -1,6 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
 import HomeClient from './HomeClient';
+import { fetchRecipesAction } from '@/app/actions/recipeActions';
+import { fetchPostsAction } from '@/app/actions/postActions';
 
 export const metadata: Metadata = {
   title: 'PebblePlate - Easy Home Recipes & Cooking Guides',
@@ -32,6 +34,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HomePage() {
-  return <HomeClient />;
+export default async function HomePage() {
+  const { recipes } = await fetchRecipesAction(0, 100);
+  const { posts } = await fetchPostsAction(0, 10);
+
+  return <HomeClient initialRecipes={recipes} initialPosts={posts} />;
 }

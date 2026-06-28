@@ -5,7 +5,7 @@ import { useTemplateState } from '@/components/templates/TemplateStateContext';
 import { Copy } from 'lucide-react';
 // import { Heart } from 'lucide-react';
 // import { useFavorites } from '@/hooks/useFavorites';
-// import { toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 
 export default function StickyMobileShareBar() {
   const { post, type, handleCopyLink } = useTemplateState();

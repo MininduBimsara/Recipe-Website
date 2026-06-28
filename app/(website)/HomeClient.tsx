@@ -20,8 +20,8 @@ import {
   ChefHat
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { RECIPES_DB } from '@/data/recipes';
-import { BLOG_POSTS_DB } from '@/data/blogs';
+import { RECIPES_DB, Recipe } from '@/data/recipes';
+import { BLOG_POSTS_DB, BlogPost } from '@/data/blogs';
 // import { useFavorites } from '@/hooks/useFavorites';
 // import { toast } from 'react-hot-toast';
 import { HeaderBannerAd, BelowRecipeAd } from '@/components/ads';
@@ -41,15 +41,34 @@ const BakerIllustration = () => (
 
 
 
-export default function HomeClient() {
+interface HomeClientProps {
+  initialRecipes?: Recipe[];
+  initialPosts?: BlogPost[];
+}
+
+export default function HomeClient({
+  initialRecipes = [],
+  initialPosts = []
+}: HomeClientProps) {
   const router = useRouter();
   // const { isFavorite, toggleFavorite } = useFavorites();
   
   const [searchPhrase, setSearchPhrase] = useState('');
 
+  // Use dynamic data if available, otherwise fall back to local database
+  const recipes = initialRecipes.length > 0 ? initialRecipes : RECIPES_DB;
+  const posts = initialPosts.length > 0 ? initialPosts : BLOG_POSTS_DB;
+
   // Curated items from DB
-  const mainFeature = RECIPES_DB.find(r => r.slug === 'artisanal-sourdough-levain') || RECIPES_DB[0];
-  const secondaryFeature = RECIPES_DB.find(r => r.slug === 'pistachio-matcha-mille-crepe') || RECIPES_DB[3];
+  const mainFeature = recipes.find(r => r.slug === 'artisanal-sourdough-levain') || recipes[0];
+  const secondaryFeature = recipes.find(r => r.slug === 'pistachio-matcha-mille-crepe') || recipes[3] || recipes[0];
+
+  // Bento grid items
+  const bentoItem2 = recipes.find(r => r.slug === 'roasted-butternut-sage-buddha') || recipes.find(r => r.category === 'Vegetarian') || recipes[2] || recipes[0];
+  const bentoItem3 = recipes.find(r => r.slug.includes('ramen') || r.title.toLowerCase().includes('ramen')) || recipes.find(r => r.category === 'Dinner') || recipes[3] || recipes[0];
+  const bentoItem4 = recipes.find(r => r.slug === 'pistachio-matcha-mille-crepe') || recipes.find(r => r.category === 'Desserts') || recipes[4] || recipes[0];
+  const bentoItem5 = recipes.find(r => r.slug === 'smoked-rosemary-grapefruit-paloma') || recipes.find(r => r.category === 'Drinks') || recipes[5] || recipes[0];
+  const bentoItem6 = recipes.find(r => r.slug === 'heirloom-tomato-burrata-galette') || recipes.find(r => r.category === 'Lunch') || recipes[1] || recipes[0];
 
 
 
@@ -99,7 +118,7 @@ export default function HomeClient() {
         <div className="bg-[#FAF6F0] dark:bg-stone-900/40 w-full flex flex-col justify-center px-8 py-14 sm:px-12 md:px-16 lg:px-20 text-left space-y-6 md:space-y-8">
           <div className="space-y-4">
             <span className="font-mono text-[10px] sm:text-xs tracking-[0.2em] text-terracotta dark:text-terracotta-light font-bold uppercase block leading-none">
-              OVER 50+ SIMPLE HOME-COOKED RECIPES
+              OVER {recipes.length > 0 ? recipes.length : 50}+ SIMPLE HOME-COOKED RECIPES
             </span>
             <h1 className="font-serif font-bold text-4xl sm:text-5xl lg:text-6xl text-espresso dark:text-cream leading-[1.08] tracking-tight">
               What are you cooking tonight?
@@ -194,12 +213,12 @@ export default function HomeClient() {
 
             {/* Bento Item 2: Salad Bowl (Horizontal row 1) */}
             <Link
-              href="/recipes/roasted-butternut-sage-buddha"
+              href={`/recipes/${bentoItem2.slug}`}
               className="col-span-1 md:col-span-3 md:row-span-1 relative rounded-[2rem] overflow-hidden group cursor-pointer shadow-xs border border-cream-dark/40 dark:border-stone-850 aspect-[4/3] md:aspect-auto min-h-[160px] md:min-h-0"
             >
               <Image
-                src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800"
-                alt="Colorful fresh organic garden salad bowl"
+                src={bentoItem2.image}
+                alt={bentoItem2.title}
                 fill
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 referrerPolicy="no-referrer"
@@ -207,19 +226,19 @@ export default function HomeClient() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
               <div className="absolute bottom-4 left-5 text-white text-left">
-                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2] font-semibold block">Vegetarian</span>
-                <span className="font-serif font-bold text-sm tracking-tight line-clamp-1">Butternut Buddha Bowl</span>
+                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2] font-semibold block">{bentoItem2.category}</span>
+                <span className="font-serif font-bold text-sm tracking-tight line-clamp-1">{bentoItem2.title}</span>
               </div>
             </Link>
 
             {/* Bento Item 3: Tall Vertical Ramen Bowl (covers height of 2 rows on the right) */}
             <Link
-              href="/recipes?q=ramen"
+              href={`/recipes/${bentoItem3.slug}`}
               className="col-span-1 md:col-span-3 md:row-span-2 relative rounded-[2rem] overflow-hidden group cursor-pointer shadow-md border border-cream-dark/40 dark:border-stone-850 aspect-[3/4] md:aspect-auto min-h-[280px] md:min-h-0"
             >
               <Image
-                src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&q=80&w=800"
-                alt="Slow simmered Japanese ramen bowl with egg"
+                src={bentoItem3.image}
+                alt={bentoItem3.title}
                 fill
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 referrerPolicy="no-referrer"
@@ -227,22 +246,22 @@ export default function HomeClient() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent" />
               <div className="absolute bottom-6 left-5 right-5 text-white text-left">
-                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2] font-semibold block mb-1">Dinner Classic</span>
-                <h4 className="font-serif font-bold text-lg leading-tight tracking-tight mb-2">Comfort Shoyu Ramen Bowl</h4>
+                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2] font-semibold block mb-1">{bentoItem3.category}</span>
+                <h4 className="font-serif font-bold text-lg leading-tight tracking-tight mb-2">{bentoItem3.title}</h4>
                 <span className="font-sans text-[10px] text-white flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5 text-sage" /> 30 mins
+                  <Clock className="w-3.5 h-3.5 text-sage" /> {bentoItem3.prepTime}
                 </span>
               </div>
             </Link>
 
             {/* Bento Item 4: Strawberry Whipped Creams (Horizontal row 2) */}
             <Link
-              href="/recipes/pistachio-matcha-mille-crepe"
+              href={`/recipes/${bentoItem4.slug}`}
               className="col-span-1 md:col-span-3 md:row-span-1 relative rounded-[2rem] overflow-hidden group cursor-pointer shadow-xs border border-cream-dark/40 dark:border-stone-850 aspect-[4/3] md:aspect-auto min-h-[160px] md:min-h-0"
             >
               <Image
-                src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&q=80&w=800"
-                alt="Beautiful sweet strawberry whipped crèmes in glass pots"
+                src={bentoItem4.image}
+                alt={bentoItem4.title}
                 fill
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 referrerPolicy="no-referrer"
@@ -250,19 +269,19 @@ export default function HomeClient() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
               <div className="absolute bottom-4 left-5 text-white text-left">
-                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2] font-semibold block">Desserts</span>
-                <span className="font-serif font-bold text-sm tracking-tight line-clamp-1">Mille-Crêpe Strawberry Parfait</span>
+                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2] font-semibold block">{bentoItem4.category}</span>
+                <span className="font-serif font-bold text-sm tracking-tight line-clamp-1">{bentoItem4.title}</span>
               </div>
             </Link>
 
             {/* Bento Item 5: Cocktails List (Row 3, Left side wide card) */}
             <Link
-              href="/recipes/smoked-rosemary-grapefruit-paloma"
+              href={`/recipes/${bentoItem5.slug}`}
               className="col-span-1 md:col-span-6 md:row-span-1 relative rounded-[2rem] overflow-hidden group cursor-pointer shadow-xs border border-cream-dark/40 dark:border-stone-850 aspect-[16/9] md:aspect-auto min-h-[160px] md:min-h-0"
             >
               <Image
-                src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=1200"
-                alt="Fresh citrus cocktails with rosemary dynamic details"
+                src={bentoItem5.image}
+                alt={bentoItem5.title}
                 fill
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-103"
                 referrerPolicy="no-referrer"
@@ -270,19 +289,19 @@ export default function HomeClient() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/15 to-transparent" />
               <div className="absolute bottom-5 left-6 text-white text-left">
-                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2] font-semibold block mb-0.5">Drinks</span>
-                <h4 className="font-serif font-bold text-md sm:text-lg tracking-tight leading-none">Smoked Rosemary Grapefruit Paloma</h4>
+                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2] font-semibold block mb-0.5">{bentoItem5.category}</span>
+                <h4 className="font-serif font-bold text-md sm:text-lg tracking-tight leading-none">{bentoItem5.title}</h4>
               </div>
             </Link>
 
             {/* Bento Item 6: Wood Fired Pizza (Row 3, Right side horizontal card) */}
             <Link
-              href="/recipes/heirloom-tomato-burrata-galette"
+              href={`/recipes/${bentoItem6.slug}`}
               className="col-span-1 md:col-span-6 md:row-span-1 relative rounded-[2rem] overflow-hidden group cursor-pointer shadow-xs border border-cream-dark/40 dark:border-stone-850 aspect-[16/9] md:aspect-auto min-h-[160px] md:min-h-0"
             >
               <Image
-                src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&q=80&w=1200"
-                alt="Crisp wood fired stone baked pizza flatbread"
+                src={bentoItem6.image}
+                alt={bentoItem6.title}
                 fill
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-103"
                 referrerPolicy="no-referrer"
@@ -290,8 +309,8 @@ export default function HomeClient() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/15 to-transparent" />
               <div className="absolute bottom-5 left-6 text-white text-left">
-                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2] font-semibold block mb-0.5">Baking</span>
-                <h4 className="font-serif font-bold text-md sm:text-lg tracking-tight leading-none">Heirloom Tomato & Burrata Galette</h4>
+                <span className="font-mono text-[8px] uppercase tracking-widest text-[#FAF7F2] font-semibold block mb-0.5">{bentoItem6.category}</span>
+                <h4 className="font-serif font-bold text-md sm:text-lg tracking-tight leading-none">{bentoItem6.title}</h4>
               </div>
             </Link>
 
@@ -495,7 +514,7 @@ export default function HomeClient() {
 
           {/* Grid stack */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {BLOG_POSTS_DB.slice(0, 3).map((post) => (
+            {posts.slice(0, 3).map((post) => (
               <Link
                 key={post.id}
                 href={`/blog/${post.slug}`}
