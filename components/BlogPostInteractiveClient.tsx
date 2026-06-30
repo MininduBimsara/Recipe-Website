@@ -18,6 +18,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { BlogPost, BlogSection } from '@/data/blogs';
+import MarkdownContent, { parseInlineMarkdown } from './templates/MarkdownContent';
 import { getSavedBlogs } from '@/lib/preseededPool';
 import { Recipe } from '@/data/recipes';
 import { useTableOfContents } from '@/hooks/useTableOfContents';
@@ -54,9 +55,10 @@ function ScrollySection({ section, onPin, blogTitle }: ScrollySectionProps) {
         </h3>
       )}
 
-      <p className="font-sans text-stone-705 dark:text-stone-300 text-sm sm:text-base leading-relaxed text-justify">
-        {section.text}
-      </p>
+      <MarkdownContent
+        content={section.text}
+        className="font-sans text-stone-705 dark:text-stone-300 text-sm sm:text-base leading-relaxed text-justify"
+      />
 
       {section.pullquote && (
         <blockquote className="my-6 p-5 sm:p-6 bg-cream/40 dark:bg-stone-850/40 rounded-r-3xl border-l-4 border-terracotta italic font-serif text-espresso/85 dark:text-[#EAE3D9] text-base sm:text-lg leading-relaxed shadow-xs">
@@ -358,9 +360,10 @@ export default function BlogPostInteractiveClient({ post: initialPost, relatedRe
                         <span className="font-mono text-xs text-sage font-extrabold bg-[#7C9A7E]/10 px-2 py-0.5 rounded">FORMULA SECTION</span>
                         <h2 className="font-serif font-bold text-lg text-espresso dark:text-cream">{section.title}</h2>
                       </div>
-                      <p className="font-mono text-xs text-stone-700 dark:text-stone-300 leading-relaxed bg-[#FAFAF9] dark:bg-stone-900/60 p-4 rounded-2xl border border-cream-dark/60 dark:border-stone-800">
-                        {section.text}
-                      </p>
+                      <MarkdownContent
+                        content={section.text}
+                        className="font-mono text-xs text-stone-700 dark:text-stone-300 leading-relaxed bg-[#FAFAF9] dark:bg-stone-900/60 p-4 rounded-2xl border border-cream-dark/60 dark:border-stone-800"
+                      />
                       {section.pullquote && (
                         <div className="bg-sage/5 border-l-3 border-sage p-4 font-mono text-[11px] italic text-[#4A634D] dark:text-[#A8C7AA]">
                           {`// CALCULATED METRIC: `}&ldquo;{section.pullquote}&rdquo;
@@ -401,7 +404,7 @@ export default function BlogPostInteractiveClient({ post: initialPost, relatedRe
                                 : 'font-sans text-stone-605'
                             }`}
                           >
-                            {paragraph}
+                            {parseInlineMarkdown(paragraph)}
                           </p>
                         );
                       })}
@@ -435,7 +438,7 @@ export default function BlogPostInteractiveClient({ post: initialPost, relatedRe
                     <div className="space-y-3">
                       <span className="font-mono text-[9px] text-sage font-bold uppercase tracking-widest block">📊 INDEX FRAME 0{sidx + 1}</span>
                       <h4 className="font-serif font-bold text-base sm:text-lg text-espresso dark:text-cream">{section.title}</h4>
-                      <p className="font-sans text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed text-justify">{section.text}</p>
+                      <MarkdownContent content={section.text} className="font-sans text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed text-justify" />
                     </div>
 
                     {section.pullquote && (
@@ -470,9 +473,10 @@ export default function BlogPostInteractiveClient({ post: initialPost, relatedRe
                     )}
                     <div className="max-w-3xl mx-auto space-y-4 px-4">
                       {!section.image && <h4 className="font-serif font-bold text-lg sm:text-xl text-espresso dark:text-cream">{section.title}</h4>}
-                      <p className="font-sans text-sm sm:text-base text-stone-701 dark:text-stone-300 leading-relaxed text-justify">
-                        {section.text}
-                      </p>
+                      <MarkdownContent
+                        content={section.text}
+                        className="font-sans text-sm sm:text-base text-stone-701 dark:text-stone-300 leading-relaxed text-justify"
+                      />
                       {section.pullquote && (
                         <blockquote className="my-4 border-l-4 border-terracotta pl-4 italic font-serif text-stone-600 dark:text-stone-400 text-base leading-relaxed">
                           &ldquo;{section.pullquote}&rdquo;
@@ -490,9 +494,11 @@ export default function BlogPostInteractiveClient({ post: initialPost, relatedRe
                 {!post.sections || post.sections.length === 0 ? (
                   <div className="space-y-6 pt-3 pr-4 text-justify font-sans text-stone-650 dark:text-stone-300 text-sm leading-relaxed" id="backwards-fallback-content">
                     {post.content.map((paragraph, index) => (
-                      <p key={index} className="pt-2">
-                        {paragraph}
-                      </p>
+                      <MarkdownContent
+                        key={index}
+                        content={paragraph}
+                        className="pt-2 font-sans text-stone-650 dark:text-stone-300 text-sm leading-relaxed text-justify"
+                      />
                     ))}
                   </div>
                 ) : (

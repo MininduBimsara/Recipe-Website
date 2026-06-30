@@ -10,6 +10,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import RecipeCard from '@/components/RecipeCard';
 import { InArticleAd } from '@/components/ads';
+import MarkdownContent from './MarkdownContent';
 
 export function BlogHeader() {
   const { post } = useTemplateState();
@@ -146,9 +147,10 @@ export function BlogSectionItem({ section }: { section: any }) {
         </h3>
       )}
 
-      <p className="font-sans text-stone-700 text-xs sm:text-sm leading-relaxed text-justify">
-        {section.text}
-      </p>
+      <MarkdownContent
+        content={section.text}
+        className="font-sans text-stone-700 text-xs sm:text-sm leading-relaxed text-justify"
+      />
 
       {section.pullquote && (
         <blockquote className="my-3 p-3 bg-cream/15 rounded-r-xl border-l-2 border-terracotta italic font-serif text-stone-750 text-xs sm:text-sm leading-relaxed">
@@ -200,9 +202,10 @@ export function BlogSections() {
       <div className="space-y-4">
         {paragraphs.map((para: string, idx: number) => (
           <React.Fragment key={idx}>
-            <p className="font-sans text-stone-700 text-xs sm:text-sm leading-relaxed text-justify">
-              {para}
-            </p>
+            <MarkdownContent
+              content={para}
+              className="font-sans text-stone-700 text-xs sm:text-sm leading-relaxed text-justify"
+            />
             {idx === 2 && <InArticleAd />}
           </React.Fragment>
         ))}

@@ -15,6 +15,7 @@ import NutritionCard from '@/components/recipe/NutritionCard';
 import PinGraphicCard from '@/components/recipe/PinGraphicCard';
 import PinterestImageOverlay from '@/components/recipe/PinterestImageOverlay';
 import { InArticleAd, SidebarAd, BelowRecipeAd } from '@/components/ads';
+import MarkdownContent from './MarkdownContent';
 
 export default function SideBySide() {
   const { type, post, getSlotImage, getBlurUrl } = useTemplateState();
@@ -169,9 +170,10 @@ export default function SideBySide() {
                         <h3 className="font-serif font-black text-base text-espresso leading-tight mb-2">
                           {sec.title}
                         </h3>
-                        <p className="text-stone-701 font-sans text-xs leading-relaxed text-left text-justify">
-                          {sec.text}
-                        </p>
+                        <MarkdownContent
+                          content={sec.text}
+                          className="text-stone-701 font-sans text-xs leading-relaxed text-left text-justify"
+                        />
                         {sec.pullquote && (
                           <blockquote className="my-2 p-2 bg-cream/20 rounded border-l-2 border-terracotta italic font-serif text-[11px] leading-relaxed">
                             &ldquo;{sec.pullquote}&rdquo;
