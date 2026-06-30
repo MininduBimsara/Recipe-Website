@@ -1,14 +1,38 @@
-import recipesData from '@/data/recipes.json';
-import newRecipesData from '@/data/new-recipes.json';
-import postsData from '@/data/posts.json';
 import { Recipe, BlogPost } from '@/types/pinterestBlogSchema';
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/server';
-import { RECIPES_DB } from '@/data/recipes';
-import { BLOG_POSTS_DB } from '@/data/blogs';
 
-// Coerce raw JSON structures to fully compliant TypeScript models
-const typedRecipes = [...recipesData, ...newRecipesData] as unknown as Recipe[];
-const typedPosts = postsData as unknown as BlogPost[];
+function normalizeDbRecipe(recipe: any): Recipe {
+  if (!recipe) return recipe;
+  return {
+    ...recipe,
+    coverImage: recipe.coverImage || recipe.cover_image || '',
+    prepTime: recipe.prepTime || (recipe.prep_time ? `${recipe.prep_time} mins` : '15 mins'),
+    cookTime: recipe.cookTime || (recipe.cook_time !== undefined ? `${recipe.cook_time} mins` : '0 mins'),
+    pinterestDescription: recipe.pinterestDescription || recipe.pinterest_description || '',
+    isFeatured: recipe.isFeatured !== undefined ? recipe.isFeatured : (recipe.is_featured || false),
+  } as unknown as Recipe;
+}
+
+function normalizeDbBlogPost(post: any): BlogPost {
+  if (!post) return post;
+  
+  let content = post.content || [];
+  if (content.length === 0 && typeof post.body === 'string' && post.body.trim()) {
+    content = post.body
+      .split(/\r?\n/)
+      .map((p: string) => p.trim())
+      .filter((p: string) => p.length > 0);
+  }
+
+  return {
+    ...post,
+    coverImage: post.coverImage || post.cover_image || '',
+    summary: post.summary || post.subtitle || '',
+    readTime: post.readTime || (post.reading_time_minutes ? `${post.reading_time_minutes} mins read` : '5 mins read'),
+    layoutTemplate: post.layoutTemplate || post.layout_template || 'classic-single',
+    content,
+  } as unknown as BlogPost;
+}
 
 /**
  * Returns all active, structured recipes in chronological order of publish date.
@@ -24,17 +48,14 @@ export async function getRecipes(): Promise<Recipe[]> {
         .order('published_at', { ascending: false });
 
       if (!error && data) {
-        return data as unknown as Recipe[];
+        return data.map(normalizeDbRecipe);
       }
-      console.warn('Supabase getRecipes error, falling back to local dataset:', error?.message);
+      if (error) console.error('Supabase getRecipes error:', error.message);
     } catch (e) {
-      console.error('getRecipes connection fallback active:', e);
+      console.error('getRecipes error:', e);
     }
   }
-
-  return [...typedRecipes].sort(
-    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-  );
+  return [];
 }
 
 /**
@@ -52,18 +73,14 @@ export async function getRecipeBySlug(slug: string): Promise<Recipe | undefined>
         .maybeSingle();
 
       if (!error && data) {
-        return data as unknown as Recipe;
+        return normalizeDbRecipe(data);
       }
-      console.warn('Supabase getRecipeBySlug failed or empty, using local lookup:', error?.message);
+      if (error) console.error('Supabase getRecipeBySlug error:', error.message);
     } catch (e) {
-      console.error('getRecipeBySlug fallback active:', e);
+      console.error('getRecipeBySlug error:', e);
     }
   }
-
-  const dbRecipe = RECIPES_DB.find((recipe) => recipe.slug === slug);
-  if (dbRecipe) return dbRecipe as unknown as Recipe;
-
-  return typedRecipes.find((recipe) => recipe.slug === slug);
+  return undefined;
 }
 
 /**
@@ -80,14 +97,14 @@ export async function getFeaturedRecipes(): Promise<Recipe[]> {
         .eq('is_featured', true);
 
       if (!error && data) {
-        return data as unknown as Recipe[];
+        return data.map(normalizeDbRecipe);
       }
+      if (error) console.error('Supabase getFeaturedRecipes error:', error.message);
     } catch (e) {
-      console.error('getFeaturedRecipes fallback active:', e);
+      console.error('getFeaturedRecipes error:', e);
     }
   }
-
-  return typedRecipes.filter((recipe) => recipe.isFeatured);
+  return [];
 }
 
 /**
@@ -106,14 +123,14 @@ export async function getRelatedRecipes(slugs: string[] | undefined): Promise<Re
         .in('slug', slugs);
 
       if (!error && data) {
-        return data as unknown as Recipe[];
+        return data.map(normalizeDbRecipe);
       }
+      if (error) console.error('Supabase getRelatedRecipes error:', error.message);
     } catch (e) {
-      console.error('getRelatedRecipes fallback active:', e);
+      console.error('getRelatedRecipes error:', e);
     }
   }
-
-  return typedRecipes.filter((recipe) => slugs.includes(recipe.slug));
+  return [];
 }
 
 /**
@@ -130,17 +147,14 @@ export async function getPosts(): Promise<BlogPost[]> {
         .order('published_at', { ascending: false });
 
       if (!error && data) {
-        return data as unknown as BlogPost[];
+        return data.map(normalizeDbBlogPost);
       }
-      console.warn('Supabase getPosts error, falling back to local dataset:', error?.message);
+      if (error) console.error('Supabase getPosts error:', error.message);
     } catch (e) {
-      console.error('getPosts connection fallback active:', e);
+      console.error('getPosts error:', e);
     }
   }
-
-  return [...typedPosts].sort(
-    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-  );
+  return [];
 }
 
 /**
@@ -158,18 +172,14 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | undefined>
         .maybeSingle();
 
       if (!error && data) {
-        return data as unknown as BlogPost;
+        return normalizeDbBlogPost(data);
       }
-      console.warn('Supabase getPostBySlug failed or empty, using local lookup:', error?.message);
+      if (error) console.error('Supabase getPostBySlug error:', error.message);
     } catch (e) {
-      console.error('getPostBySlug fallback active:', e);
+      console.error('getPostBySlug error:', e);
     }
   }
-
-  const dbPost = BLOG_POSTS_DB.find((post) => post.slug === slug);
-  if (dbPost) return dbPost as unknown as BlogPost;
-
-  return typedPosts.find((post) => post.slug === slug);
+  return undefined;
 }
 
 /**
@@ -188,14 +198,14 @@ export async function getRelatedPosts(slugs: string[] | undefined): Promise<Blog
         .in('slug', slugs);
 
       if (!error && data) {
-        return data as unknown as BlogPost[];
+        return data.map(normalizeDbBlogPost);
       }
+      if (error) console.error('Supabase getRelatedPosts error:', error.message);
     } catch (e) {
-      console.error('getRelatedPosts fallback active:', e);
+      console.error('getRelatedPosts error:', e);
     }
   }
-
-  return typedPosts.filter((post) => slugs.includes(post.slug));
+  return [];
 }
 
 export interface PaginatedResult<T> {
@@ -211,8 +221,6 @@ export async function getPaginatedRecipes(
   limit = 6,
   category?: string
 ): Promise<PaginatedResult<Recipe>> {
-  let allRecipes: Recipe[] = [];
-
   if (isSupabaseConfigured()) {
     try {
       const supabase = await createClient();
@@ -236,37 +244,25 @@ export async function getPaginatedRecipes(
         const total = count || data.length;
         const totalPages = Math.ceil(total / limit);
         return {
-          items: data as unknown as Recipe[],
+          items: data.map(normalizeDbRecipe),
           total,
           currentPage: page,
           totalPages,
           hasNextPage: page < totalPages,
         };
       }
+      if (error) console.error('Supabase getPaginatedRecipes error:', error.message);
     } catch (e) {
-      console.error('getPaginatedRecipes Supabase fallback active:', e);
+      console.error('getPaginatedRecipes error:', e);
     }
   }
 
-  // Fallback local pagination
-  let filtered = [...typedRecipes];
-  if (category && category !== 'All') {
-    filtered = filtered.filter(
-      (r) => r.category.toLowerCase() === category.toLowerCase()
-    );
-  }
-
-  const offset = (page - 1) * limit;
-  const items = filtered.slice(offset, offset + limit);
-  const total = filtered.length;
-  const totalPages = Math.ceil(total / limit);
-
   return {
-    items,
-    total,
+    items: [],
+    total: 0,
     currentPage: page,
-    totalPages,
-    hasNextPage: page < totalPages,
+    totalPages: 0,
+    hasNextPage: false,
   };
 }
 
@@ -284,8 +280,8 @@ export async function searchContent(query: string): Promise<SearchResults> {
     return { recipes: [], posts: [] };
   }
 
-  let recipesList = typedRecipes;
-  let articlesList = typedPosts;
+  let recipesList: Recipe[] = [];
+  let articlesList: BlogPost[] = [];
 
   if (isSupabaseConfigured()) {
     try {
@@ -297,13 +293,13 @@ export async function searchContent(query: string): Promise<SearchResults> {
       ]);
 
       if (!recipesRes.error && recipesRes.data) {
-        recipesList = recipesRes.data as unknown as Recipe[];
+        recipesList = recipesRes.data.map(normalizeDbRecipe);
       }
       if (!postsRes.error && postsRes.data) {
-        articlesList = postsRes.data as unknown as BlogPost[];
+        articlesList = postsRes.data.map(normalizeDbBlogPost);
       }
     } catch (e) {
-      console.error('searchContent Supabase fallback active:', e);
+      console.error('searchContent error:', e);
     }
   }
 
@@ -321,12 +317,6 @@ export async function searchContent(query: string): Promise<SearchResults> {
       const nameStr = typeof ing === 'string' ? ing : (ing.name || '');
       return nameStr.toLowerCase().includes(normQuery);
     }) || false;
-
-    // Dietary tag shortcuts (e.g., matching "vegan", "gluten free", "vegetarian")
-    let dietaryMatch = false;
-    if (tagMatch) {
-      dietaryMatch = true;
-    }
 
     return titleMatch || descMatch || categoryMatch || cuisineMatch || tagMatch || ingredientMatch;
   });

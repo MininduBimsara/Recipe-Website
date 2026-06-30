@@ -89,11 +89,41 @@ export function TemplateStateProvider({
     // Normalize coverImage vs image
     const image = post.image || post.coverImage || post.cover_image || '';
 
+    // Normalize summary vs subtitle
+    const summary = post.summary || post.subtitle || '';
+
+    // Normalize readTime vs reading_time_minutes
+    const readTime = post.readTime || (post.reading_time_minutes ? `${post.reading_time_minutes} mins read` : '5 mins read');
+
+    // Normalize prepTime vs prep_time
+    const prepTime = post.prepTime || (post.prep_time ? `${post.prep_time} mins` : '15 mins');
+
+    // Normalize cookTime vs cook_time
+    const cookTime = post.cookTime || (post.cook_time !== undefined ? `${post.cook_time} mins` : '0 mins');
+
+    // Normalize pinterestDescription vs pinterest_description
+    const pinterestDescription = post.pinterestDescription || post.pinterest_description || '';
+
+    // Normalize content from body if content is empty/undefined and body is a string
+    let content = post.content || [];
+    if (content.length === 0 && typeof post.body === 'string' && post.body.trim()) {
+      content = post.body
+        .split(/\r?\n/)
+        .map((p: string) => p.trim())
+        .filter((p: string) => p.length > 0);
+    }
+
     return {
       ...post,
       ingredients: normalizedIngredients,
       instructions: normalizedInstructions,
       image,
+      summary,
+      readTime,
+      prepTime,
+      cookTime,
+      pinterestDescription,
+      content,
     };
   }, [post]);
 
